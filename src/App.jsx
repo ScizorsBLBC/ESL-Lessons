@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Outlet, useNavigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import {
   CssBaseline, IconButton, Tooltip as MuiTooltip, Box,
@@ -13,18 +13,19 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import TonalityIcon from '@mui/icons-material/Tonality';
 import InvertColorsOffIcon from '@mui/icons-material/InvertColorsOff';
 import PaletteIcon from '@mui/icons-material/Palette';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import { darkTheme, vaporwaveTheme, lightTheme, monochromeDarkTheme, monochromeLightTheme } from './theme.js';
 
-// Import the lesson component here to make it accessible to all parts of the file
+// Import all components needed for the app
 import GlobalBusinessCultures from './lessons/GlobalBusinessCultures';
+import Leaderboard from './components/Leaderboard';
 
 // --- A more organized way to manage themes ---
 const themes = [
   {
     key: 'light',
     label: 'Light',
-    // Final icon color: A unique purple from its palette to avoid visual conflict.
     icon: <Brightness7Icon fontSize="small" sx={{ color: lightTheme.palette.primary.main }} />,
     theme: lightTheme,
     preview: ['#E91E63', '#9C27B0', '#F8F7FA']
@@ -32,7 +33,6 @@ const themes = [
   {
     key: 'monochromeLight',
     label: 'Monochrome Light',
-    // A light gray to contrast with the black text and look "light"
     icon: <InvertColorsOffIcon fontSize="small" sx={{ color: monochromeLightTheme.palette.background.default }} />,
     theme: monochromeLightTheme,
     preview: ['#C5C5C5', '#757575', '#000000']
@@ -47,7 +47,6 @@ const themes = [
   {
     key: 'monochromeDark',
     label: 'Monochrome Dark',
-    // A dark gray to contrast with the white text and look "dark"
     icon: <TonalityIcon fontSize="small" sx={{ color: monochromeDarkTheme.palette.background.paper }} />,
     theme: monochromeDarkTheme,
     preview: ['#5E5E5E', '#1E1E1E', '#121212']
@@ -65,19 +64,77 @@ function MainLayout() {
   const [themeName, setThemeName] = useState('light');
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const open = Boolean(anchorEl);
+
+  // State to track the last theme selected for analytics
+  const [lastSelectedTheme, setLastSelectedTheme] = useState(null);
 
   const handleOpenMenu = (event) => setAnchorEl(event.currentTarget);
   const handleCloseMenu = () => setAnchorEl(null);
 
   const handleThemeChange = (newThemeName) => {
     setThemeName(newThemeName);
+    setLastSelectedTheme(newThemeName);
     handleCloseMenu();
+  };
+  
+  const handleGoToLeaderboard = () => {
+    navigate('/leaderboard');
   };
 
   const theme = useMemo(() => {
     return themes.find(t => t.key === themeName)?.theme || lightTheme;
   }, [themeName]);
+
+  // The combined and corrected useEffect hook
+  useEffect(() => {
+    // Analytics logging with 30-second debounce
+    if (lastSelectedTheme) {
+        const timerId = setTimeout(async () => {
+            try {
+                await fetch('/api/themes/log', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ theme: lastSelectedTheme }),
+                });
+                console.log(`Success: Sent analytics event for theme '${lastSelectedTheme}'.`);
+            } catch (error) {
+                console.error("Failed to send analytics event:", error);
+            }
+        }, 30000); // Wait for 30 seconds
+
+        return () => clearTimeout(timerId);
+    }
+  }, [lastSelectedTheme]);
+
+  // NEW: A separate useEffect to log the initial default theme after a delay.
+  useEffect(() => {
+    // Check for the initial theme, which is 'light'
+    const initialTheme = themes[0].key;
+
+    // Set a timer to log the initial theme after a delay
+    const initialThemeTimer = setTimeout(async () => {
+      // Only log if the theme hasn't been changed by the user
+      if (themeName === initialTheme) {
+        try {
+          await fetch('/api/themes/log', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ theme: initialTheme }),
+          });
+          console.log(`Success: Sent analytics event for initial default theme '${initialTheme}'.`);
+        } catch (error) {
+          console.error("Failed to send analytics event for default theme:", error);
+        }
+      }
+    }, 30000); // Wait for 30 seconds
+
+    // Cleanup function to cancel the timer if the component unmounts
+    // or if the theme changes before the timer finishes
+    return () => clearTimeout(initialThemeTimer);
+
+  }, [themeName]); // Depend on themeName to clear the timer on change
 
   useEffect(() => {
     const redirectPath = sessionStorage.getItem('redirect');
@@ -90,57 +147,65 @@ function MainLayout() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <MuiTooltip title="Change Theme" arrow>
-        <IconButton
-          onClick={handleOpenMenu}
-          color="inherit"
-          sx={{
-              position: 'fixed', top: 16, right: 16, zIndex: 1300,
-              transition: 'transform 0.2s ease-in-out, filter 0.2s ease-in-out',
-              '&:hover': { transform: 'scale(1.15)', filter: 'brightness(1.2)' }
-          }}
-        >
-          <PaletteIcon />
-        </IconButton>
-      </MuiTooltip>
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseMenu}
-        MenuListProps={{ 'aria-labelledby': 'theme-button' }}
-      >
-        {themes.map((themeOption) => (
-          <MenuItem
-            key={themeOption.key}
-            onClick={() => handleThemeChange(themeOption.key)}
+      <Box sx={{ position: 'fixed', top: 16, right: 16, zIndex: 1300 }}>
+        {/* Only show the leaderboard icon on the main and leaderboard pages */}
+        {(location.pathname === '/' || location.pathname === '/leaderboard') && (
+          <MuiTooltip title="View Leaderboard" arrow>
+            <IconButton onClick={handleGoToLeaderboard} color="inherit" sx={{ mr: 1, '&:hover': { transform: 'scale(1.15)', filter: 'brightness(1.2)' } }}>
+              <EmojiEventsIcon />
+            </IconButton>
+          </MuiTooltip>
+        )}
+        
+        <MuiTooltip title="Change Theme" arrow>
+          <IconButton
+            onClick={handleOpenMenu}
+            color="inherit"
             sx={{
-              // Conditionally apply a different gradient direction for light themes
-              background: `linear-gradient(${
-                themeOption.key === 'light' || themeOption.key === 'monochromeLight' ? '270deg' : '90deg'
-              }, ${themeOption.preview[0]}40, ${themeOption.preview[1]}10, ${themeOption.preview[2]}00)`,
-              '&:hover': {
-                background: `linear-gradient(${
-                  themeOption.key === 'light' || themeOption.key === 'monochromeLight' ? '270deg' : '90deg'
-                }, ${themeOption.preview[0]}80, ${themeOption.preview[1]}20, ${themeOption.preview[2]}00)`,
-              },
+                transition: 'transform 0.2s ease-in-out, filter 0.2s ease-in-out',
+                '&:hover': { transform: 'scale(1.15)', filter: 'brightness(1.2)' }
             }}
           >
-            <ListItemIcon sx={{ '& .MuiSvgIcon-root': { color: themeOption.icon.props.sx.color } }}>
-              {themeOption.icon}
-            </ListItemIcon>
-            <ListItemText sx={{ color: themeOption.theme.palette.text.primary }}>
-              {themeOption.label}
-            </ListItemText>
-          </MenuItem>
-        ))}
-      </Menu>
+            <PaletteIcon />
+          </IconButton>
+        </MuiTooltip>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleCloseMenu}
+          MenuListProps={{ 'aria-labelledby': 'theme-button' }}
+        >
+          {themes.map((themeOption) => (
+            <MenuItem
+              key={themeOption.key}
+              onClick={() => handleThemeChange(themeOption.key)}
+              sx={{
+                background: `linear-gradient(${
+                  themeOption.key === 'light' || themeOption.key === 'monochromeLight' ? '270deg' : '90deg'
+                }, ${themeOption.preview[0]}40, ${themeOption.preview[1]}10, ${themeOption.preview[2]}00)`,
+                '&:hover': {
+                  background: `linear-gradient(${
+                    themeOption.key === 'light' || themeOption.key === 'monochromeLight' ? '270deg' : '90deg'
+                  }, ${themeOption.preview[0]}80, ${themeOption.preview[1]}20, ${themeOption.preview[2]}00)`,
+                },
+              }}
+            >
+              <ListItemIcon sx={{ '& .MuiSvgIcon-root': { color: themeOption.icon.props.sx.color } }}>
+                {themeOption.icon}
+              </ListItemIcon>
+              <ListItemText sx={{ color: themeOption.theme.palette.text.primary }}>
+                {themeOption.label}
+              </ListItemText>
+            </MenuItem>
+          ))}
+        </Menu>
+      </Box>
 
       <Outlet />
     </ThemeProvider>
   );
 }
 
-// ... (The rest of the App.jsx file remains the same)
 function SiteRoot() {
   useEffect(() => {
     document.title = 'ESL Lesson Portal';
@@ -167,13 +232,14 @@ function SiteRoot() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<SiteRoot />} />
           <Route path="/global-business-cultures" element={<GlobalBusinessCultures />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
