@@ -30,6 +30,12 @@ Welcome to the ESL Lessons Hub, a modern, schema-driven platform designed to fun
 - **Optimized Builds**: Vite provides a highly optimized and small production bundle for fast loading.
 - **Secure Headers**: Deployed with security headers like X-Frame-Options and Referrer-Policy for user protection.
 
+### 🚀 Deployment Configuration
+- **Vite Base Path**: Configured with absolute paths (`base: '/'`) for correct asset loading on all routes.
+- **Netlify SPA Deployment**: Uses a single catch-all redirect rule (`/*` → `/index.html`) for optimal single-page application routing.
+- **Dynamic Route Support**: Properly handles nested routes like `/vocabulary/1` and `/idioms/12` without asset loading issues.
+- **Serverless Functions**: API routes are handled by Netlify Functions located in the `server/` directory.
+
 ## Core Architectural Principles
 
 This project follows a strict set of principles to ensure it remains scalable, maintainable, and easy to contribute to.
