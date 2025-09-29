@@ -108,3 +108,68 @@ The enhancements implemented in the Phrasal Verbs lesson demonstrate several pat
 - **Component Reusability**: Leverage existing `TwoPaneLayout`, `Quiz`, `Flashcard` components
 - **Content Filtering**: Extend `getFilteredContent()` pattern for new lesson types
 - **Responsive Design**: Apply TwoPaneLayout pattern for mobile-first layouts
+
+#### Vocabulary-Driven Exercise Generation
+The Phrasal Verbs lesson demonstrates a powerful pattern for automatically generating interactive exercises from vocabulary data:
+
+1. **Vocabulary Parsing Engine**:
+   - **Pattern Matching**: Extracts phrasal verb-definition pairs using regex patterns like `<strong>Verb</strong> – Definition`
+   - **HTML Processing**: Strips formatting tags while preserving semantic content
+   - **Data Normalization**: Converts extracted data into consistent flashcard/quiz formats
+
+2. **Automated Flashcard Generation**:
+   - **Source**: Any content block with vocabulary definitions
+   - **Format**: `{front: "Phrasal Verb", back: "Definition\n\nExample: 'Example sentence.'"}`
+   - **Benefits**: Instant flashcard collection without manual creation
+
+3. **Dynamic Quiz Generation**:
+   - **Question Types**: Multiple choice with randomized distractors
+   - **Source Material**: Vocabulary definitions as answer options
+   - **Randomization**: Ensures unique question sets per session
+   - **Scalability**: Works with any size vocabulary database
+
+4. **Gap Fill Exercise Creation**:
+   - **Source**: Sentence templates with vocabulary integration
+   - **Random Selection**: 20 questions from available exercises
+   - **Progressive Difficulty**: Can be extended with complexity tiers
+
+#### Abstraction Opportunities for Future Lessons
+This vocabulary-driven approach can be abstracted into reusable services:
+
+```javascript
+// Potential service architecture
+const VocabularyExerciseService = {
+  parseVocabulary(contentBlocks) {
+    // Extract verb-definition pairs from any content
+    return extractedVocabulary;
+  },
+
+  generateFlashcards(vocabularyData) {
+    // Convert vocabulary to flashcard format
+    return flashcardArray;
+  },
+
+  generateQuiz(vocabularyData, questionCount = 20) {
+    // Create randomized quiz questions
+    return quizQuestions;
+  },
+
+  generateGapFill(sentences, vocabularyData) {
+    // Create gap fill exercises
+    return exerciseArray;
+  }
+};
+```
+
+**Benefits for Future Lessons**:
+- **Automatic Exercise Generation**: Any lesson with vocabulary data gets flashcards, quizzes, and gap fill exercises
+- **Consistent Quality**: Standardized question formats and difficulty levels
+- **Maintenance Efficiency**: Single data source drives multiple exercise types
+- **Scalability**: Works with vocabulary databases of any size
+- **Localization Ready**: Can be extended for multiple languages
+
+**Implementation Strategy**:
+1. **Data Schema**: Ensure vocabulary content follows consistent `<strong>Term</strong> – Definition` pattern
+2. **Service Layer**: Abstract parsing and generation logic into reusable utilities
+3. **Component Integration**: Update existing components to accept generated exercise data
+4. **Configuration**: Allow lessons to specify exercise parameters (question count, difficulty, etc.)
