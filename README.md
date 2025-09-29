@@ -54,3 +54,122 @@ The lesson schema is designed for maximum flexibility while maintaining the stri
     // Content-specific structure varies by type
   }
 }
+```
+
+## Recent Fixes & Updates
+
+### Phrasal Verbs Content Filtering Fix
+- **Issue**: Phrasal Verbs lesson content was not displaying properly due to missing tab-based filtering logic
+- **Fix**: Added `getFilteredContent()` function to properly filter content blocks based on active tab selection
+- **Tabs**:
+  - **Introduction**: Shows intro-* content blocks (phrasal verb definitions and examples)
+  - **Workplace Verbs**: Shows workplace-* content blocks (professional communication verbs)
+  - **Full Vocabulary**: Shows all vocabulary category blocks (communication, socializing, business, travel, etc.)
+  - **Practice & Assess**: Shows assessment-* and practice blocks (quizzes, flashcards, homework)
+- **Impact**: Users can now properly navigate through different sections of the Phrasal Verbs lesson with tab-based content filtering
+
+## Recent Enhancements
+
+### Comprehensive Phrasal Verbs Lesson Overhaul
+- **Added 100+ Phrasal Verbs**: Organized into 10 topic categories (Communication, Socializing, Work & Business, Travel, Starting/Stopping, Thinking, Problems, Daily Life, Finance, Progress & General)
+- **Enhanced Flashcard System**: Now supports 100+ phrasal verbs with proper HTML tag stripping and clean text formatting
+- **Responsive Introduction Layout**: Implemented TwoPaneLayout for mobile-first responsive design (side-by-side on desktop, stacked on mobile)
+- **Gap Fill Exercise System**: 21 randomly selected questions with proper navigation and scoring
+- **Fixed Section Mapping**: Corrected homework assignment and contextual practice section content loading
+- **Improved Text-to-Speech**: Enhanced formatting with proper line breaks and example sentence separation
+
+### Modular Component Opportunities
+
+#### Reusable Components for Future Lessons
+The enhancements implemented in the Phrasal Verbs lesson demonstrate several patterns that can be abstracted into reusable components:
+
+1. **Responsive Content Layout (`TwoPaneLayout`)**:
+   - **Current Use**: Introduction section with definition and examples
+   - **Future Applications**: Any lesson needing side-by-side content (theory + examples, vocabulary + usage, etc.)
+   - **Benefits**: Mobile-first responsive design, consistent spacing, accessibility-friendly
+
+2. **Dynamic Quiz Generation**:
+   - **Current Use**: Gap fill exercises with random question selection
+   - **Future Applications**: Any lesson requiring randomized question sets
+   - **Benefits**: Reduces repetition, increases engagement, maintains consistent question structure
+
+3. **Enhanced Text-to-Speech Integration**:
+   - **Current Use**: Clean text formatting with proper line breaks
+   - **Future Applications**: All lessons with audio content
+   - **Benefits**: Better accessibility, improved learning experience, consistent audio quality
+
+4. **Vocabulary Organization System**:
+   - **Current Use**: 10 topic-based phrasal verb categories
+   - **Future Applications**: Any lesson with categorized vocabulary (verbs, idioms, business terms, etc.)
+   - **Benefits**: Scalable organization, easy content management, improved user navigation
+
+#### Implementation Patterns for Future Lessons
+- **Data Structure**: Topic-based organization with consistent schema compliance
+- **Component Reusability**: Leverage existing `TwoPaneLayout`, `Quiz`, `Flashcard` components
+- **Content Filtering**: Extend `getFilteredContent()` pattern for new lesson types
+- **Responsive Design**: Apply TwoPaneLayout pattern for mobile-first layouts
+
+#### Vocabulary-Driven Exercise Generation
+The Phrasal Verbs lesson demonstrates a powerful pattern for automatically generating interactive exercises from vocabulary data:
+
+1. **Vocabulary Parsing Engine**:
+   - **Pattern Matching**: Extracts phrasal verb-definition pairs using regex patterns like `<strong>Verb</strong> – Definition`
+   - **HTML Processing**: Strips formatting tags while preserving semantic content
+   - **Data Normalization**: Converts extracted data into consistent flashcard/quiz formats
+
+2. **Automated Flashcard Generation**:
+   - **Source**: Any content block with vocabulary definitions
+   - **Format**: `{front: "Phrasal Verb", back: "Definition\n\nExample: 'Example sentence.'"}`
+   - **Benefits**: Instant flashcard collection without manual creation
+
+3. **Dynamic Quiz Generation**:
+   - **Question Types**: Multiple choice with randomized distractors
+   - **Source Material**: Vocabulary definitions as answer options
+   - **Randomization**: Ensures unique question sets per session
+   - **Scalability**: Works with any size vocabulary database
+
+4. **Gap Fill Exercise Creation**:
+   - **Source**: Sentence templates with vocabulary integration
+   - **Random Selection**: 20 questions from available exercises
+   - **Progressive Difficulty**: Can be extended with complexity tiers
+
+#### Abstraction Opportunities for Future Lessons
+This vocabulary-driven approach can be abstracted into reusable services:
+
+```javascript
+// Potential service architecture
+const VocabularyExerciseService = {
+  parseVocabulary(contentBlocks) {
+    // Extract verb-definition pairs from any content
+    return extractedVocabulary;
+  },
+
+  generateFlashcards(vocabularyData) {
+    // Convert vocabulary to flashcard format
+    return flashcardArray;
+  },
+
+  generateQuiz(vocabularyData, questionCount = 20) {
+    // Create randomized quiz questions
+    return quizQuestions;
+  },
+
+  generateGapFill(sentences, vocabularyData) {
+    // Create gap fill exercises
+    return exerciseArray;
+  }
+};
+```
+
+**Benefits for Future Lessons**:
+- **Automatic Exercise Generation**: Any lesson with vocabulary data gets flashcards, quizzes, and gap fill exercises
+- **Consistent Quality**: Standardized question formats and difficulty levels
+- **Maintenance Efficiency**: Single data source drives multiple exercise types
+- **Scalability**: Works with vocabulary databases of any size
+- **Localization Ready**: Can be extended for multiple languages
+
+**Implementation Strategy**:
+1. **Data Schema**: Ensure vocabulary content follows consistent `<strong>Term</strong> – Definition` pattern
+2. **Service Layer**: Abstract parsing and generation logic into reusable utilities
+3. **Component Integration**: Update existing components to accept generated exercise data
+4. **Configuration**: Allow lessons to specify exercise parameters (question count, difficulty, etc.)

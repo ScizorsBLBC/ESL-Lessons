@@ -15,7 +15,7 @@ import {
 // import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import ErrorIcon from '@mui/icons-material/Error';
 
-const QuizComponent = ({ quizData }) => {
+const QuizComponent = ({ quizData, onQuestionComplete, disableAutoAdvance = false }) => {
   const { quizTitle, questions } = quizData;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -42,9 +42,19 @@ const QuizComponent = ({ quizData }) => {
 
     setResults([...results, result]);
     setShowResult(true);
+
+    // Call external handler if provided
+    if (onQuestionComplete) {
+      onQuestionComplete(result);
+    }
   };
 
   const handleNextQuestion = () => {
+    if (disableAutoAdvance) {
+      // Don't auto-advance, let the parent handle navigation
+      return;
+    }
+
     if (isLastQuestion) {
       // Quiz completed - move to completion state
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -233,7 +243,7 @@ const QuizComponent = ({ quizData }) => {
             Submit Answer
           </Button>
 
-          {showResult && (
+          {showResult && !disableAutoAdvance && (
             <Button
               variant="contained"
               onClick={handleNextQuestion}

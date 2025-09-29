@@ -1,8 +1,24 @@
 import React, { useState } from 'react';
 import { Paper, Box, Typography } from '@mui/material';
 
-const Flashcard = ({ frontContent, backContent }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onFlip }) => {
+  // Use external control if provided, otherwise use internal state
+  const [internalFlipped, setInternalFlipped] = useState(false);
+
+  // When using external control, always use the showBack prop
+  // When not using external control, reset to front when content changes
+  React.useEffect(() => {
+    if (onFlip) {
+      // When using external control, we don't need to do anything special
+      // The showBack prop will control the state
+    } else {
+      // When using internal control, reset to front when content changes
+      setInternalFlipped(false);
+    }
+  }, [frontContent, onFlip, showBack]);
+
+  const isFlipped = onFlip ? showBack : internalFlipped;
+  const handleFlip = onFlip ? onFlip : () => setInternalFlipped(!internalFlipped);
 
   return (
     <Box
@@ -12,7 +28,7 @@ const Flashcard = ({ frontContent, backContent }) => {
         height: '200px',
         cursor: 'pointer',
       }}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={handleFlip}
     >
       <Paper
         elevation={0}
@@ -77,7 +93,14 @@ const Flashcard = ({ frontContent, backContent }) => {
               {React.isValidElement(backContent) ? (
                 backContent
               ) : (
-                <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    textAlign: 'center',
+                    whiteSpace: 'pre-line',
+                    lineHeight: 1.6
+                  }}
+                >
                   {backContent}
                 </Typography>
               )}
@@ -87,6 +110,8 @@ const Flashcard = ({ frontContent, backContent }) => {
       </Paper>
     </Box>
   );
-};
+});
+
+Flashcard.displayName = 'Flashcard';
 
 export default Flashcard;
