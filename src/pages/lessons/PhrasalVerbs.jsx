@@ -9,7 +9,10 @@ import ContentBlockRenderer from '../../components/ContentBlockRenderer';
 import { phrasalVerbData } from '../../data/phrasalVerbData.js';
 
 export default function PhrasalVerbs() {
+  console.log('PhrasalVerbs component rendered');
+
   useEffect(() => {
+    console.log('Setting document title');
     document.title = 'Phrasal Verbs | ESL Lessons';
   }, []);
 
@@ -17,6 +20,7 @@ export default function PhrasalVerbs() {
   const handleTabChange = (event, newValue) => setActiveTab(newValue);
 
   const { title, subtitle, content } = phrasalVerbData;
+  console.log('PhrasalVerbs data loaded:', { title, subtitle, contentLength: content?.length });
 
   // Filter content based on active tab
   const getFilteredContent = () => {
@@ -35,8 +39,16 @@ export default function PhrasalVerbs() {
     };
 
     const currentFilters = tabFilters[activeTab] || [];
-    return content.filter(block => currentFilters.includes(block.blockId));
+    const filtered = content.filter(block => currentFilters.includes(block.blockId));
+
+    console.log('Tab', activeTab, 'filters:', currentFilters);
+    console.log('Filtered content length:', filtered.length);
+    console.log('First few filtered blocks:', filtered.slice(0, 2));
+
+    return filtered;
   };
+
+  const filteredContent = getFilteredContent();
 
   return (
     <Layout>
@@ -49,11 +61,30 @@ export default function PhrasalVerbs() {
       />
 
       <Box sx={{ mt: 4 }}>
-        {getFilteredContent().map(block => (
-          <Box key={block.blockId} sx={{ mb: 4 }}>
-            <ContentBlockRenderer contentBlocks={[block]} />
+        {/* Debug info */}
+        <Box sx={{ mb: 4, p: 2, backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: 1 }}>
+          <p>Debug: Active tab: {activeTab}</p>
+          <p>Debug: Filtered content length: {filteredContent.length}</p>
+          <p>Debug: Total content length: {content?.length}</p>
+        </Box>
+
+        {/* Simple test content */}
+        <Box sx={{ p: 4, backgroundColor: 'background.paper', borderRadius: 2, mb: 4 }}>
+          <h2>Test Content</h2>
+          <p>This is a simple test to see if content renders at all.</p>
+        </Box>
+
+        {filteredContent.length > 0 ? (
+          filteredContent.map(block => (
+            <Box key={block.blockId} sx={{ mb: 4 }}>
+              <ContentBlockRenderer contentBlocks={[block]} />
+            </Box>
+          ))
+        ) : (
+          <Box sx={{ p: 4, textAlign: 'center', color: 'text.secondary' }}>
+            <p>No content found for this tab. Check console for debugging info.</p>
           </Box>
-        ))}
+        )}
       </Box>
     </Layout>
   );

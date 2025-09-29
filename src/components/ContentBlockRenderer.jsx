@@ -18,8 +18,10 @@ const ContentBlockRenderer = ({ contentBlocks }) => {
 };
 
 const BlockRenderer = ({ block }) => {
+  console.log('BlockRenderer called with:', block);
   switch (block.type) {
     case 'text':
+      console.log('Rendering text block:', block.data.htmlContent);
       return <DetailCard content={block.data.htmlContent} />;
     case 'quiz':
       return <QuizComponent quizData={block.data} />;
