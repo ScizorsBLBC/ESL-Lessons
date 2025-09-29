@@ -1,8 +1,8 @@
 {
-  "name": "test-esl-lessons",
+  "name": "esl-lessons-hub",
   "private": true,
-  "version": "1.0.0-test",
-  "homepage": "https://test-esl-lessons.scizors.wtf",
+  "version": "2.0.0",
+  "homepage": "https://esl-lessons.scizors.wtf",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

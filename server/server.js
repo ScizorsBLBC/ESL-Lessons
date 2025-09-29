@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 
 // Configure CORS for Netlify deployment
 app.use(cors({
-  origin: ['https://test-esl-lessons.scizors.wtf', 'http://localhost:5173'],
+  origin: ['https://esl-lessons.scizors.wtf', 'http://localhost:5173'],
   credentials: true
 }));
 
