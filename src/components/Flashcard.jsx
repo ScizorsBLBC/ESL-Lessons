@@ -15,7 +15,7 @@ const Flashcard = ({ frontContent, backContent }) => {
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <Paper
-        elevation={3}
+        elevation={0}
         sx={{
           position: 'relative',
           width: '100%',
@@ -27,9 +27,10 @@ const Flashcard = ({ frontContent, backContent }) => {
           alignItems: 'center',
           justifyContent: 'center',
           p: 3,
+          borderRadius: 3,
           '&:hover': {
             transform: isFlipped ? 'rotateY(180deg) scale(1.02)' : 'rotateY(0deg) scale(1.02)',
-            boxShadow: 6,
+            boxShadow: 8,
           },
         }}
       >

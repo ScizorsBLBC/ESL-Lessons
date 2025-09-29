@@ -50,8 +50,8 @@ const baseOverrides = (theme) => {
           h6: { textAlign: 'center' },
         }
       },
-      MuiPaper: { styleOverrides: { root: liquidGlassStyle } },
-      MuiCard: { styleOverrides: { root: liquidGlassStyle } },
+      MuiPaper: { styleOverrides: { root: { ...liquidGlassStyle, borderRadius: 12 } } },
+      MuiCard: { styleOverrides: { root: { ...liquidGlassStyle, borderRadius: 12 } } },
       MuiMenu: { styleOverrides: { paper: liquidGlassStyle } },
       MuiAccordion: { styleOverrides: { root: { ...liquidGlassStyle, '&:before': { display: 'none' } } } },
       MuiButton: {
