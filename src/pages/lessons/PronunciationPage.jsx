@@ -28,66 +28,199 @@ const PronunciationPage = () => {
 
   // --- Core Helper Functions ---
   const renderPracticeWords = (practiceWords, theme) => {
-    if (!practiceWords) return '';
-    let content = `<h4 style="margin-top: 1.5em; margin-bottom: 0.5em; color: ${theme.palette.text.primary};">Practice Words:</h4>`;
+    if (!practiceWords) return null;
+
     if (practiceWords.pairs) {
-      const pairsHtml = practiceWords.pairs.map(p => `
-        <div style="display: flex; justify-content: center; align-items: center; margin: 0.25em 0;">
-          <span style="min-width: 80px; text-align: right; padding-right: 0.5em; color: ${theme.palette.text.primary};">${p.word1}</span>
-          <em style="color: ${theme.palette.secondary.main}; font-weight: bold; padding: 0 0.5em;">vs.</em>
-          <span style="min-width: 80px; text-align: left; padding-left: 0.5em; color: ${theme.palette.text.primary};">${p.word2}</span>
-        </div>`).join('');
-      return content + `<div style="text-align: center;">${pairsHtml}</div>`;
+      return (
+        <Box>
+          <Typography variant="h6" sx={{ mt: 2, mb: 1, color: 'text.primary' }}>
+            Practice Words:
+          </Typography>
+          <Box sx={{ textAlign: 'center' }}>
+            {practiceWords.pairs.map((pair, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  my: 0.5
+                }}
+              >
+                <Typography sx={{ minWidth: 80, textAlign: 'right', pr: 1, color: 'text.primary' }}>
+                  {pair.word1}
+                </Typography>
+                <Typography
+                  component="em"
+                  sx={{
+                    color: 'secondary.main',
+                    fontWeight: 'bold',
+                    px: 1
+                  }}
+                >
+                  vs.
+                </Typography>
+                <Typography sx={{ minWidth: 80, textAlign: 'left', pl: 1, color: 'text.primary' }}>
+                  {pair.word2}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+      );
     }
+
     if (practiceWords.voiceless || practiceWords.voiced) {
-      if (practiceWords.voiceless) content += `<p style="color: ${theme.palette.text.secondary};"><strong>Voiceless ${practiceWords.voiceless.sound}:</strong> ${practiceWords.voiceless.words}</p>`;
-      if (practiceWords.voiced) content += `<p style="color: ${theme.palette.text.secondary};"><strong>Voiced ${practiceWords.voiced.sound}:</strong> ${practiceWords.voiced.words}</p>`;
-      return content;
+      return (
+        <Box sx={{ mt: 2 }}>
+          {practiceWords.voiceless && (
+            <Typography sx={{ color: 'text.secondary' }}>
+              <strong>Voiceless {practiceWords.voiceless.sound}:</strong> {practiceWords.voiceless.words}
+            </Typography>
+          )}
+          {practiceWords.voiced && (
+            <Typography sx={{ color: 'text.secondary' }}>
+              <strong>Voiced {practiceWords.voiced.sound}:</strong> {practiceWords.voiced.words}
+            </Typography>
+          )}
+        </Box>
+      );
     }
-    return content + `<p style="color: ${theme.palette.text.secondary};">${Array.isArray(practiceWords) ? practiceWords.join(', ') : practiceWords}</p>`;
+
+    return (
+      <Typography sx={{ mt: 2, color: 'text.secondary' }}>
+        {Array.isArray(practiceWords) ? practiceWords.join(', ') : practiceWords}
+      </Typography>
+    );
   };
 
   // --- Renderer for Vowels/Consonants (Main Tabs) ---
   const pronunciationDetailRenderer = (item, theme) => {
-    if (!item) return '';
+    if (!item) return null;
     const { sounds, importance, howTo, practiceWords, videos } = item;
-    const howToHtml = Array.isArray(howTo) ? howTo.map(step => `<p style="color: ${theme.palette.text.secondary};">${step}</p>`).join('') : `<p style="color: ${theme.palette.text.secondary};">${howTo || ''}</p>`;
 
-    const textContent = `
-      <h4 style="margin-top: 1.5em; margin-bottom: 0.5em; color: ${theme.palette.text.primary};">Why it's important:</h4>
-      <p style="margin-top:0; color: ${theme.palette.text.secondary};">${importance || ''}</p>
-      ${howTo ? `<h4 style="margin-top: 1.5em; margin-bottom: 0.5em; color: ${theme.palette.text.primary};">How to Make the Sound:</h4>${howToHtml}` : ''}
-      ${renderPracticeWords(practiceWords, theme)}
-    `;
+    const howToElements = Array.isArray(howTo)
+      ? howTo.map((step, index) => (
+          <Typography key={index} sx={{ color: 'text.secondary', mb: 1 }}>
+            {step}
+          </Typography>
+        ))
+      : howTo ? (
+          <Typography sx={{ color: 'text.secondary', mb: 1 }}>
+            {howTo}
+          </Typography>
+        ) : null;
 
-    const videoLinkContent = (videos && videos.length > 0) ? `
-      <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid ${theme.palette.divider};">
-        <p style="font-size: 0.9em; font-style: italic; opacity: 0.8; margin-top: 0; margin-bottom: 1rem; color: ${theme.palette.text.secondary};">Note: Each lesson is followed by a short practice video.</p>
-        ${videos.map(video => `
-          <div style="margin-bottom: 1rem;">
-            <h4 style="margin: 0 0 0.5rem 0; color: ${theme.palette.text.primary};">${video.title}</h4>
-            <a href="${video.url}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; padding: 8px 22px; background-color: ${theme.palette.primary.main}; color: ${theme.palette.primary.contrastText}; text-decoration: none; border-radius: 8px; font-weight: 500; font-family: Roboto, sans-serif; transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-              <svg fill="currentColor" style="margin-right: 8px;" focusable="false" aria-hidden="true" viewBox="0 0 24 24" height="24" width="24"><path d="M10 16.5v-9l6 4.5z"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+    const practiceWordsElement = renderPracticeWords(practiceWords, theme);
+
+    const videoElements = videos && videos.length > 0 ? (
+      <Box sx={{
+        textAlign: 'center',
+        mt: 4,
+        pt: 2,
+        borderTop: `1px solid ${theme.palette.divider}`
+      }}>
+        <Typography sx={{
+          fontSize: '0.9em',
+          fontStyle: 'italic',
+          opacity: 0.8,
+          mb: 2,
+          color: 'text.secondary'
+        }}>
+          Note: Each lesson is followed by a short practice video.
+        </Typography>
+        {videos.map((video, index) => (
+          <Box key={index} sx={{ mb: 2 }}>
+            <Typography variant="h6" sx={{ mb: 1, color: 'text.primary' }}>
+              {video.title}
+            </Typography>
+            <Box
+              component="a"
+              href={video.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                px: 3,
+                py: 1,
+                backgroundColor: 'primary.main',
+                color: 'primary.contrastText',
+                textDecoration: 'none',
+                borderRadius: 2,
+                fontWeight: 500,
+                fontFamily: 'Roboto, sans-serif',
+                transition: 'transform 0.2s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.05)'
+                }
+              }}
+            >
+              <svg
+                fill="currentColor"
+                style={{ marginRight: 8 }}
+                focusable="false"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                height="24"
+                width="24"
+              >
+                <path d="M10 16.5v-9l6 4.5z" />
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+              </svg>
               Watch on YouTube
-            </a>
-          </div>
-        `).join('')}
-      </div>
-    ` : '';
+            </Box>
+          </Box>
+        ))}
+      </Box>
+    ) : null;
 
-    return `<div>${textContent}${videoLinkContent}</div>`;
+    return (
+      <Box>
+        <Typography variant="h6" sx={{ mt: 2, mb: 1, color: 'text.primary' }}>
+          Why it's important:
+        </Typography>
+        <Typography sx={{ color: 'text.secondary', mb: 2 }}>
+          {importance || ''}
+        </Typography>
+
+        {howTo && (
+          <>
+            <Typography variant="h6" sx={{ mt: 2, mb: 1, color: 'text.primary' }}>
+              How to Make the Sound:
+            </Typography>
+            {howToElements}
+          </>
+        )}
+
+        {practiceWordsElement}
+
+        {videoElements}
+      </Box>
+    );
   };
   
   // --- NEW Renderer for Practice Techniques (Tab 3) ---
-  const techniquesDetailRenderer = (item) => {
+  const techniquesDetailRenderer = (item, theme) => {
       // The 'importance' property in the data file is actually a list of <li> strings.
-      // We wrap it in a <ul> tag and join the elements without using a comma separator.
-      const listItems = item.importance.join('');
-      
-      return `
-        <h4 style="font-weight: bold; margin-bottom: 1em;">${item.title}:</h4>
-        <ul style="list-style-type: none; padding: 0;">${listItems}</ul>
-      `;
+      // We render them as individual Typography components without bullet points.
+      const listItems = item.importance.map((liItem, index) => (
+        <Typography key={index} sx={{ mb: 1, color: 'text.secondary' }}>
+          {liItem}
+        </Typography>
+      ));
+
+      return (
+        <Box>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: 'text.primary' }}>
+            {item.title}:
+          </Typography>
+          <Box sx={{ listStyleType: 'none', pl: 0 }}>
+            {listItems}
+          </Box>
+        </Box>
+      );
   }
   // --- End of helper function definitions ---
 
@@ -110,11 +243,11 @@ const PronunciationPage = () => {
 
       <Box sx={{ mt: 4 }}>
         <ContentSelector
-          key={sections[activeTab]} 
+          key={sections[activeTab]}
           sectionData={dataMap[activeTab].data}
           title={dataMap[activeTab].name}
           description=""
-          detailRenderer={dataMap[activeTab].renderer} // Dynamically select the renderer
+          detailRenderer={(item) => dataMap[activeTab].renderer(item, theme)} // Dynamically select the renderer and pass theme
           preserveOrder={true}
         />
       </Box>
