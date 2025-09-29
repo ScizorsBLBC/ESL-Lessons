@@ -54,3 +54,16 @@ The lesson schema is designed for maximum flexibility while maintaining the stri
     // Content-specific structure varies by type
   }
 }
+```
+
+## Recent Fixes & Updates
+
+### Phrasal Verbs Content Filtering Fix
+- **Issue**: Phrasal Verbs lesson content was not displaying properly due to missing tab-based filtering logic
+- **Fix**: Added `getFilteredContent()` function to properly filter content blocks based on active tab selection
+- **Tabs**:
+  - **Introduction**: Shows intro-* content blocks (phrasal verb definitions and examples)
+  - **Workplace Verbs**: Shows workplace-* content blocks (professional communication verbs)
+  - **Full Vocabulary**: Shows all vocabulary category blocks (communication, socializing, business, travel, etc.)
+  - **Practice & Assess**: Shows assessment-* and practice blocks (quizzes, flashcards, homework)
+- **Impact**: Users can now properly navigate through different sections of the Phrasal Verbs lesson with tab-based content filtering
