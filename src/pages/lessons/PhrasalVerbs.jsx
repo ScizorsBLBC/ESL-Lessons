@@ -69,9 +69,18 @@ export default function PhrasalVerbs() {
         </Box>
 
         {/* Simple test content */}
-        <Box sx={{ p: 4, backgroundColor: 'background.paper', borderRadius: 2, mb: 4 }}>
-          <h2>Test Content</h2>
-          <p>This is a simple test to see if content renders at all.</p>
+        <Box sx={{
+          p: 4,
+          backgroundColor: 'primary.main',
+          color: 'primary.contrastText',
+          borderRadius: 2,
+          mb: 4,
+          border: '2px solid red'
+        }}>
+          <h2>Test Content - THIS SHOULD BE VISIBLE</h2>
+          <p>If you can see this bright colored box, basic rendering works.</p>
+          <p>Active tab: {activeTab}</p>
+          <p>Filtered content: {filteredContent.length} blocks</p>
         </Box>
 
         {filteredContent.length > 0 ? (

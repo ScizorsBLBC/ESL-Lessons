@@ -6,6 +6,8 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { useSpeak } from 'react-text-to-speech';
 
 const DetailCard = React.forwardRef(({ content }, ref) => {
+    console.log('DetailCard rendering with content:', content?.substring(0, 100) + '...');
+
     // Strip HTML tags for text-to-speech
     const strippedContent = content.replace(/<[^>]*>?/gm, '');
 
@@ -20,7 +22,17 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
     });
 
     return (
-        <Paper ref={ref} sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative' }}>
+        <Paper
+            ref={ref}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                flexGrow: 1,
+                position: 'relative',
+                border: '3px solid orange',
+                backgroundColor: 'rgba(255, 165, 0, 0.1)'
+            }}
+        >
             {/* Text-to-Speech Button */}
             <Box sx={{ position: 'absolute', top: 8, right: 8, zIndex: 1 }}>
                 <IconButton
@@ -40,7 +52,7 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
                 </IconButton>
             </Box>
 
-            <Card sx={{ flexGrow: 1, overflowY: 'auto', pt: 4 }}>
+            <Card sx={{ flexGrow: 1, overflowY: 'auto', pt: 4, border: '2px solid purple' }}>
                 <CardContent>
                     <Typography
                         variant="body1"
