@@ -6,8 +6,6 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { useSpeak } from 'react-text-to-speech';
 
 const DetailCard = React.forwardRef(({ content }, ref) => {
-    console.log('DetailCard rendering with content:', content?.substring(0, 100) + '...');
-
     // Strip HTML tags for text-to-speech
     const strippedContent = content.replace(/<[^>]*>?/gm, '');
 
@@ -29,8 +27,9 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
                 flexDirection: 'column',
                 flexGrow: 1,
                 position: 'relative',
-                border: '3px solid orange',
-                backgroundColor: 'rgba(255, 165, 0, 0.1)'
+                opacity: 1,
+                visibility: 'visible',
+                backgroundColor: (theme) => theme.palette.background.paper
             }}
         >
             {/* Text-to-Speech Button */}
@@ -52,13 +51,22 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
                 </IconButton>
             </Box>
 
-            <Card sx={{ flexGrow: 1, overflowY: 'auto', pt: 4, border: '2px solid purple' }}>
-                <CardContent>
+            <Card sx={{
+                flexGrow: 1,
+                overflowY: 'auto',
+                pt: 4,
+                opacity: 1,
+                visibility: 'visible'
+            }}>
+                <CardContent sx={{ opacity: 1, visibility: 'visible' }}>
                     <Typography
                         variant="body1"
                         component="div"
                         dangerouslySetInnerHTML={{ __html: content }}
                         sx={{
+                            opacity: 1,
+                            visibility: 'visible',
+                            color: (theme) => theme.palette.text.primary,
                             '& .homework-email': {
                                 backgroundColor: (theme) => theme.palette.action.hover,
                                 borderLeft: (theme) => `4px solid ${theme.palette.secondary.main}`,

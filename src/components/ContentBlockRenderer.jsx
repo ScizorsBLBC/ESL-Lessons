@@ -6,17 +6,20 @@ import Flashcard from './Flashcard';
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 
 const ContentBlockRenderer = ({ contentBlocks }) => {
-  console.log('ContentBlockRenderer called with:', contentBlocks?.length, 'blocks');
   return (
     <Box sx={{
       width: '100%',
-      border: '2px solid blue',
-      backgroundColor: 'rgba(0, 0, 255, 0.1)',
-      p: 2,
-      borderRadius: 1
+      opacity: 1,
+      visibility: 'visible',
+      position: 'relative',
+      zIndex: 1
     }}>
       {contentBlocks.map((block) => (
-        <Box key={block.blockId} sx={{ mb: 4, border: '1px solid green' }}>
+        <Box key={block.blockId} sx={{
+          mb: 4,
+          opacity: 1,
+          visibility: 'visible'
+        }}>
           <BlockRenderer block={block} />
         </Box>
       ))}
@@ -25,15 +28,9 @@ const ContentBlockRenderer = ({ contentBlocks }) => {
 };
 
 const BlockRenderer = ({ block }) => {
-  console.log('BlockRenderer called with:', block);
   switch (block.type) {
     case 'text':
-      console.log('Rendering text block:', block.data.htmlContent);
-      return (
-        <Box sx={{ border: '3px solid red', p: 2 }}>
-          <DetailCard content={block.data.htmlContent} />
-        </Box>
-      );
+      return <DetailCard content={block.data.htmlContent} />;
     case 'quiz':
       return <QuizComponent quizData={block.data} />;
     case 'fillInTheBlanks':
