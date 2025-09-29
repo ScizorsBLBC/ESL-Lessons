@@ -162,15 +162,15 @@ export default function EnglishVerbTenses() {
         sections={sections}
       />
 
-      {/* Timeline visualization */}
-      {timelineData.length > 0 && (
+      {/* Timeline visualization - temporarily hidden */}
+      {/* {timelineData.length > 0 && (
         <TimelineVisualization
           title={`${sections[activeTab]} Timeline`}
           items={timelineData}
           currentIndex={currentTimelineIndex}
           showProgress={true}
         />
-      )}
+      )} */}
 
       {/* Tense selection buttons */}
       {tenses.length > 0 && (
@@ -183,7 +183,12 @@ export default function EnglishVerbTenses() {
             spacing={2}
             justifyContent="center"
             flexWrap="wrap"
-            sx={{ maxWidth: '800px', mx: 'auto' }}
+            useFlexGap
+            sx={{
+              maxWidth: '800px',
+              mx: 'auto',
+              rowGap: 2, // Ensure vertical spacing matches horizontal spacing
+            }}
           >
             {tenses.map((tense) => (
               <GlassButtonWrapper key={tense.blockId} isActive={selectedTense === tense}>

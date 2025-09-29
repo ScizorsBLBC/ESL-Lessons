@@ -18,6 +18,7 @@ export default function PhrasalVerbs() {
 
   const { title, subtitle, content } = phrasalVerbData;
 
+  // For now, show all content. We can add tab filtering later if needed
   return (
     <Layout>
       <LessonHeader title={title} subtitle={subtitle} />
@@ -28,12 +29,14 @@ export default function PhrasalVerbs() {
         sections={["Introduction", "Workplace Verbs", "Full Vocabulary", "Practice & Assess"]}
       />
 
-      <Box sx={{ mt: 4 }}>
-        {content.map(block => (
-          <Box key={block.blockId} sx={{ mb: 4 }}>
-            <ContentBlockRenderer block={block} />
-          </Box>
-        ))}
+      <Box sx={{
+        mt: 4,
+        p: 2,
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        borderRadius: 2,
+        minHeight: '200px'
+      }}>
+        <ContentBlockRenderer contentBlocks={content} />
       </Box>
     </Layout>
   );

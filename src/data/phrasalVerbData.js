@@ -123,8 +123,15 @@ export const phrasalVerbData = {
       blockId: "assessment-gap-fill",
       type: "fillInTheBlanks",
       data: {
-        sentence: "If we don't have all the information, we should ________ the meeting until next week.",
-        answers: ["put off", "postpone", "delay"]
+        title: "Phrasal Verbs Gap Fill",
+        instructions: "Fill in the blank with the correct phrasal verb from the options.",
+        sentences: [
+          {
+            text: "If we don't have all the information, we should ________ the meeting until next week.",
+            options: ["put off", "postpone", "delay"],
+            correctAnswer: "put off"
+          }
+        ]
       }
     },
     {

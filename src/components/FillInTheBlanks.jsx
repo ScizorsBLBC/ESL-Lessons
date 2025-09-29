@@ -34,7 +34,7 @@ const FillInTheBlanks = ({ data }) => {
   const isLastSentence = currentSentenceIndex === sentences.length - 1;
 
   return (
-    <Paper sx={{ p: 3, maxWidth: '800px', mx: 'auto' }}>
+    <Paper sx={{ p: 3, maxWidth: '800px', mx: 'auto', borderRadius: 2 }}>
       <Typography variant="h5" gutterBottom>{title}</Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
         {instructions}

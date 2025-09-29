@@ -68,12 +68,7 @@ const QuizComponent = ({ quizData }) => {
         width: '100%',
         maxWidth: { xs: '100%', sm: 600, md: 800 },
         mx: 'auto',
-        mb: 3,
-        backgroundColor: 'background.paper',
-        backdropFilter: 'blur(12px) saturate(180%)',
-        border: theme => `1px solid ${theme.palette.divider}`,
-        boxShadow: theme => theme.shadows[4],
-        borderRadius: 2
+        mb: 3
       }}>
         <CardContent sx={{
           p: { xs: 3, sm: 4 },
@@ -135,12 +130,7 @@ const QuizComponent = ({ quizData }) => {
       width: '100%',
       maxWidth: { xs: '100%', sm: 600, md: 800 },
       mx: 'auto',
-      mb: 3,
-      backgroundColor: 'background.paper',
-      backdropFilter: 'blur(12px) saturate(180%)',
-      border: theme => `1px solid ${theme.palette.divider}`,
-      boxShadow: theme => theme.shadows[4],
-      borderRadius: 2
+      mb: 3
     }}>
       <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
         <Typography
