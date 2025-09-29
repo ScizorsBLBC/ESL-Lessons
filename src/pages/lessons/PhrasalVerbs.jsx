@@ -18,7 +18,50 @@ export default function PhrasalVerbs() {
 
   const { title, subtitle, content } = phrasalVerbData;
 
-  // For now, show all content. We can add tab filtering later if needed
+  // Filter content based on active tab
+  const getFilteredContent = () => {
+    switch (activeTab) {
+      case 0: // Introduction
+        return content.filter(block => {
+          const blockId = block.blockId.toLowerCase();
+          return blockId.includes('intro');
+        });
+      case 1: // Workplace Verbs
+        return content.filter(block => {
+          const blockId = block.blockId.toLowerCase();
+          return blockId.includes('workplace');
+        });
+      case 2: // Full Vocabulary
+        return content.filter(block => {
+          const blockId = block.blockId.toLowerCase();
+          return blockId.includes('communication') ||
+          blockId.includes('socializing') ||
+          blockId.includes('business') ||
+          blockId.includes('travel') ||
+          blockId.includes('action') ||
+          blockId.includes('thinking') ||
+          blockId.includes('problems') ||
+          blockId.includes('daily') ||
+          blockId.includes('finance') ||
+          blockId.includes('general');
+        });
+      case 3: // Practice & Assess
+        return content.filter(block => {
+          const blockId = block.blockId.toLowerCase();
+          return blockId.includes('assessment') ||
+                 blockId.includes('gap-fill') ||
+                 blockId.includes('quiz') ||
+                 blockId.includes('flashcard') ||
+                 blockId.includes('practice') ||
+                 blockId.includes('homework');
+        });
+      default:
+        return content;
+    }
+  };
+
+  const filteredContent = getFilteredContent();
+
   return (
     <Layout>
       <LessonHeader title={title} subtitle={subtitle} />
@@ -36,7 +79,7 @@ export default function PhrasalVerbs() {
         borderRadius: 2,
         minHeight: '200px'
       }}>
-        <ContentBlockRenderer contentBlocks={content} />
+        <ContentBlockRenderer contentBlocks={filteredContent} />
       </Box>
     </Layout>
   );
