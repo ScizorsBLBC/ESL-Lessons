@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography, Paper, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
@@ -6,6 +6,10 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 
 const AboutPage = () => {
+  useEffect(() => {
+    document.title = 'About | ESL Lessons Hub';
+  }, []);
+
   return (
     <Box sx={{ maxWidth: '800px', mx: 'auto', py: 4, px: { xs: 2, sm: 0 } }}>
       <Typography 

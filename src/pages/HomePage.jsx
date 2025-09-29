@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Avatar, Button, TextField } from '@mui/material';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import SendIcon from '@mui/icons-material/Send';
@@ -124,8 +124,12 @@ const ContactForm = ({ onCancel }) => {
 // --- Main HomePage Component ---
 const HomePage = () => {
   const preplyLink = "https://preply.com/en/tutor/5822457";
-  
+
   const [showContactForm, setShowContactForm] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Ryan C. | ESL Lessons Hub';
+  }, []);
 
   const sharedButtonStyle = {
     minWidth: 220, 

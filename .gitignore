@@ -30,3 +30,6 @@ dist-ssr
 
 ## Netlify local state
 .netlify
+
+# Server Configuration (should be in .env.example, not .gitignore)
+# Copy .env.example to .env and fill in your actual values

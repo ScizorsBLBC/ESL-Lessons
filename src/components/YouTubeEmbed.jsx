@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 
 /**
  * A responsive YouTube video embed component.
@@ -9,6 +10,7 @@ import Box from '@mui/material/Box';
  * @param {string} props.videoId - The ID of the YouTube video to embed.
  */
 const YouTubeEmbed = ({ videoId }) => {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -17,9 +19,10 @@ const YouTubeEmbed = ({ videoId }) => {
         height: 0,
         overflow: 'hidden',
         maxWidth: '100%',
-        background: '#000',
+        background: theme.palette.background.default,
         my: 2, // Margin top and bottom
         borderRadius: 1,
+        border: `1px solid ${theme.palette.divider}`,
       }}
     >
       <iframe

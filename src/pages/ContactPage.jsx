@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, TextField, Link } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import GlassButtonWrapper from '../components/GlassButtonWrapper';
@@ -112,6 +112,10 @@ const ContactFormContent = () => {
 
 // --- Main Exported ContactPage Component ---
 const ContactPage = () => {
+  useEffect(() => {
+    document.title = 'Contact | ESL Lessons Hub';
+  }, []);
+
   return (
     <Box sx={{ maxWidth: '800px', mx: 'auto', py: 4, px: { xs: 2, sm: 0 } }}>
       {/* Main Heading remains text.secondary (Orange) */}

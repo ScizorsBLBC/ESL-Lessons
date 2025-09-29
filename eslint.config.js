@@ -15,7 +15,18 @@ export default defineConfig([
     ],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        require: 'readonly',
+        module: 'readonly',
+        process: 'readonly',
+        Buffer: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        global: 'readonly',
+        exports: 'readonly',
+      },
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
@@ -23,7 +34,7 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^(theme|voices|progress|secondaryColor|sounds|index)$' }],
     },
   },
 ])

@@ -1,0 +1,38 @@
+# Netlify configuration for ESL Lessons Hub Test Environment
+# This file configures the build settings for both the frontend React app
+# and the backend serverless function for Netlify.
+
+# Base build settings for the frontend application
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "server" # Tells Netlify that your serverless functions are in the 'server' directory
+
+# Redirects and Rewrites
+# This is the most important part. It tells Netlify that any request
+# starting with /api/ should be sent to your serverless function,
+# not treated as a page on your React site.
+
+# API routes - handle serverless functions (must come first)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/server/:splat" # The :splat is a wildcard
+  status = 200 # This makes it a rewrite, not a redirect
+
+# SPA fallback - redirect all non-API routes to index.html for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and CORS
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Environment variables (set in Netlify dashboard)
+# DEEPL_API_KEY = "your_deepl_api_key_here"

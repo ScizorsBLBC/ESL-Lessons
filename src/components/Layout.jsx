@@ -93,7 +93,17 @@ export default function Layout() {
         alignItems: 'center', 
         minHeight: '100vh',   
       }}>
-        <Container component="main" sx={{ pt: { xs: 8, sm: 6 }, pb: 4, width: '100%', flexGrow: 1 }}>
+        <Container
+          component="main"
+          maxWidth="lg"
+          sx={{
+            pt: { xs: 8, sm: 6 },
+            pb: 4,
+            width: '100%',
+            flexGrow: 1,
+            px: { xs: 2, sm: 3 } // Add horizontal padding on mobile
+          }}
+        >
           <Outlet />
         </Container>
         

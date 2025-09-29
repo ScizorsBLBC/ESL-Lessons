@@ -1,7 +1,7 @@
 // src/pages/lessons/NewsArticlePage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Typography, CircularProgress } from '@mui/material';
+import { Box, Typography, CircularProgress, useTheme } from '@mui/material';
 import { getNewsArticle } from '../../services/api.js'; // UPDATED IMPORT
 import TwoPaneLayout from '../../components/TwoPaneLayout';
 import DetailCard from '../../components/DetailCard';
@@ -22,26 +22,26 @@ const ArticlePane = ({ text, imageUrl }) => {
     return <DetailCard content={content} />;
 };
 
-const HomeworkPane = ({ questions, writingPrompt }) => {
+const HomeworkPane = ({ questions, writingPrompt, theme }) => {
     const formatList = (text) => {
         if (!text) return '';
         return text.split('\n').filter(line => line.trim()).map(line => `<li>${line}</li>`).join('');
     };
 
     const questionsHtml = questions ? `
-        <h4 style="font-weight: bold; margin-bottom: 1em;">Comprehension Questions:</h4>
+        <h4 style="font-weight: bold; margin-bottom: 1em; color: ${theme.palette.text.primary};">Comprehension Questions:</h4>
         <ol style="list-style-position: inside; padding-left: 0; margin: 0; display: grid; gap: 1em;">
             ${formatList(questions)}
         </ol>
     ` : '';
 
     const writingPromptHtml = writingPrompt ? `
-        <div style="margin-top: ${questions ? '2em' : '0'}; padding-top: ${questions ? '1.5em' : '0'}; border-top: ${questions ? '1px solid rgba(255, 255, 255, 0.12)' : 'none'};">
-            <h4 style="font-weight: bold; margin-bottom: 1em;">Writing Practice:</h4>
-            <p>${writingPrompt}</p>
+        <div style="margin-top: ${questions ? '2em' : '0'}; padding-top: ${questions ? '1.5em' : '0'}; border-top: ${questions ? `1px solid ${theme.palette.divider}` : 'none'};">
+            <h4 style="font-weight: bold; margin-bottom: 1em; color: ${theme.palette.text.primary};">Writing Practice:</h4>
+            <p style="color: ${theme.palette.text.secondary};">${writingPrompt}</p>
         </div>
     ` : '';
-    
+
     return <DetailCard content={`${questionsHtml}${writingPromptHtml}`} />;
 };
 
@@ -49,6 +49,7 @@ export default function NewsArticlePage() {
     const { slug, level } = useParams();
     const [article, setArticle] = useState(null);
     const [loading, setLoading] = useState(true);
+    const theme = useTheme();
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -97,7 +98,7 @@ export default function NewsArticlePage() {
             <Header title={article.Headline} />
             <TwoPaneLayout
                 pane1={<ArticlePane text={articleText} imageUrl={imageUrl} />}
-                pane2={<HomeworkPane questions={questions} writingPrompt={writingPrompt} />}
+                pane2={<HomeworkPane questions={questions} writingPrompt={writingPrompt} theme={theme} />}
             />
         </Box>
     );

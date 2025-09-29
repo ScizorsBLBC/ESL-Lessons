@@ -73,6 +73,9 @@ const LessonNavigation = () => {
 // --- Main Page Component ---
 export default function DashboardPage() {
     // --- State Management ---
+    useEffect(() => {
+        document.title = 'Dashboard | ESL Lessons Hub';
+    }, []);
     const [rssFeed, setRssFeed] = useState([]);
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
