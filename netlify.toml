@@ -19,75 +19,11 @@
   to = "/.netlify/functions/server/:splat" # The :splat is a wildcard
   status = 200 # This makes it a rewrite, not a redirect
 
-# SPA fallback - redirect specific routes to index.html for client-side routing
-# Only redirect actual page routes, not static assets (files with extensions)
-
-# Main pages
+# --- Replace all other page redirects with this single SPA fallback rule. ---
+# This rule correctly serves your app for any client-side route
+# without interfering with asset requests.
 [[redirects]]
-  from = "/about"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/contact"
-  to = "/index.html"
-  status = 200
-
-# Lesson pages
-[[redirects]]
-  from = "/pronunciation"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/global-business-cultures"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/english-verb-tenses"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/english-prepositions"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/phrasal-verbs"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/cat-culture"
-  to = "/index.html"
-  status = 200
-
-# Dynamic routes with parameters
-[[redirects]]
-  from = "/vocabulary/*"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/idioms/*"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/news/*"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/teacher-portal-231340"
-  to = "/index.html"
-  status = 200
-
-# Root path (if needed for direct access)
-[[redirects]]
-  from = "/"
+  from = "/*"
   to = "/index.html"
   status = 200
 
