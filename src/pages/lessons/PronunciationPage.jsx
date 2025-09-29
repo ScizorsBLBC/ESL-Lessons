@@ -1,7 +1,7 @@
 // src/pages/lessons/PronunciationPage.jsx
 
 import React, { useState, useEffect } from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, Card, CardContent, Paper } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { pronunciationData } from '../../data/pronunciationData.js';
 import ContentSelector from '../../components/ContentSelector';
@@ -177,27 +177,31 @@ const PronunciationPage = () => {
     ) : null;
 
     return (
-      <Box>
-        <Typography variant="h6" sx={{ mt: 2, mb: 1, color: 'text.primary' }}>
-          Why it's important:
-        </Typography>
-        <Typography sx={{ color: 'text.secondary', mb: 2 }}>
-          {importance || ''}
-        </Typography>
-
-        {howTo && (
-          <>
+      <Card sx={{ flexGrow: 1, overflow: 'visible' }}>
+        <CardContent sx={{ p: 3 }}>
+          <Box>
             <Typography variant="h6" sx={{ mt: 2, mb: 1, color: 'text.primary' }}>
-              How to Make the Sound:
+              Why it's important:
             </Typography>
-            {howToElements}
-          </>
-        )}
+            <Typography sx={{ color: 'text.secondary', mb: 2 }}>
+              {importance || ''}
+            </Typography>
 
-        {practiceWordsElement}
+            {howTo && (
+              <>
+                <Typography variant="h6" sx={{ mt: 2, mb: 1, color: 'text.primary' }}>
+                  How to Make the Sound:
+                </Typography>
+                {howToElements}
+              </>
+            )}
 
-        {videoElements}
-      </Box>
+            {practiceWordsElement}
+
+            {videoElements}
+          </Box>
+        </CardContent>
+      </Card>
     );
   };
   
@@ -212,14 +216,18 @@ const PronunciationPage = () => {
       ));
 
       return (
-        <Box>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: 'text.primary' }}>
-            {item.title}:
-          </Typography>
-          <Box sx={{ listStyleType: 'none', pl: 0 }}>
-            {listItems}
-          </Box>
-        </Box>
+        <Card sx={{ flexGrow: 1, overflow: 'visible' }}>
+          <CardContent sx={{ p: 3 }}>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: 'text.primary' }}>
+                {item.title}:
+              </Typography>
+              <Box sx={{ listStyleType: 'none', pl: 0 }}>
+                {listItems}
+              </Box>
+            </Box>
+          </CardContent>
+        </Card>
       );
   }
   // --- End of helper function definitions ---
