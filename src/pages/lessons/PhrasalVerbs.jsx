@@ -51,7 +51,7 @@ export default function PhrasalVerbs() {
       <Box sx={{ mt: 4 }}>
         {getFilteredContent().map(block => (
           <Box key={block.blockId} sx={{ mb: 4 }}>
-            <ContentBlockRenderer block={block} />
+            <ContentBlockRenderer contentBlocks={[block]} />
           </Box>
         ))}
       </Box>
