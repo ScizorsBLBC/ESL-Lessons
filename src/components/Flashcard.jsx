@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Paper, Box, Typography } from '@mui/material';
 
+// Helper function to detect if content contains HTML tags
+const isHtmlContent = (content) => {
+  if (typeof content !== 'string') return false;
+  return /<[^>]*>/.test(content);
+};
+
 const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onFlip }) => {
   // Use external control if provided, otherwise use internal state
   const [internalFlipped, setInternalFlipped] = useState(false);
@@ -66,6 +72,12 @@ const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onF
             <Box sx={{ width: '100%', textAlign: 'center', maxWidth: '280px' }}>
               {React.isValidElement(frontContent) ? (
                 frontContent
+              ) : isHtmlContent(frontContent) ? (
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: 'center' }}
+                  dangerouslySetInnerHTML={{ __html: frontContent }}
+                />
               ) : (
                 <Typography variant="h6" sx={{ textAlign: 'center' }}>
                   {frontContent}
@@ -92,6 +104,16 @@ const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onF
             <Box sx={{ width: '100%', textAlign: 'center', maxWidth: '280px' }}>
               {React.isValidElement(backContent) ? (
                 backContent
+              ) : isHtmlContent(backContent) ? (
+                <Typography
+                  variant="body1"
+                  sx={{
+                    textAlign: 'center',
+                    whiteSpace: 'pre-line',
+                    lineHeight: 1.6
+                  }}
+                  dangerouslySetInnerHTML={{ __html: backContent }}
+                />
               ) : (
                 <Typography
                   variant="body1"

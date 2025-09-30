@@ -6,7 +6,6 @@ import { verbTenseData } from '../../data/verbTenseData.js';
 import ContentBlockRenderer from '../../components/ContentBlockRenderer';
 import LessonTabs from '../../components/LessonTabs';
 import GlassButtonWrapper from '../../components/GlassButtonWrapper';
-import TimelineVisualization from '../../components/TimelineVisualization';
 
 // Header component for consistent styling
 const Header = () => (
@@ -23,27 +22,33 @@ const Header = () => (
   // Group content blocks by category for tabbed organization
   const groupContentByCategory = (contentBlocks) => {
     const categories = {
+      intro: [],
       present: [],
       past: [],
       future: [],
+      practice: [],
       homework: []
     };
 
     contentBlocks.forEach(block => {
       const blockId = block.blockId.toLowerCase();
 
-      if (blockId.includes('present-') && !blockId.includes('summary')) {
+      if (blockId.includes('intro-what-are-tenses') || blockId.includes('visualizing-time')) {
+        categories.intro.push(block);
+      } else if (blockId.includes('present-') || blockId === 'present-summary-chart-08') {
         categories.present.push(block);
-      } else if (blockId.includes('past-') && !blockId.includes('summary')) {
+      } else if (blockId.includes('past-') || blockId === 'past-summary-chart-15') {
         categories.past.push(block);
-    } else if (blockId.includes('future-') && !blockId.includes('summary')) {
-      categories.future.push(block);
+      } else if (blockId.includes('future-') || blockId === 'future-summary-chart-20') {
+        categories.future.push(block);
+      } else if (blockId.includes('comprehensive-verb-tenses-practice')) {
+        categories.practice.push(block);
       } else if (blockId.includes('practice') || blockId.includes('fill-blanks') ||
-                 blockId.includes('transformation') || blockId.includes('final-practice')) {
+                 blockId.includes('transformation')) {
         categories.homework.push(block);
       } else {
-        // Default to present if category unclear
-        categories.present.push(block);
+        // Default to intro if category unclear
+        categories.intro.push(block);
       }
     });
 
@@ -59,40 +64,7 @@ export default function EnglishVerbTenses() {
     setSelectedTense(null); // Reset tense selection when changing tabs
   };
 
-  // Create timeline data for each section
-  const timelineData = useMemo(() => {
-    const timelines = {
-      0: [ // Present Tenses
-        { label: "Simple Present", description: "Habits, facts, and schedules" },
-        { label: "Present Continuous", description: "Actions happening now or temporary situations" },
-        { label: "Present Perfect", description: "Past actions with present results" },
-        { label: "Present Perfect Continuous", description: "Duration of ongoing actions" }
-      ],
-      1: [ // Past Tenses
-        { label: "Simple Past", description: "Completed actions at specific past times" },
-        { label: "Past Continuous", description: "Actions in progress in the past" },
-        { label: "Past Perfect", description: "Actions completed before other past actions" },
-        { label: "Past Perfect Continuous", description: "Duration before other past actions" }
-      ],
-      2: [ // Future Tenses
-        { label: "Future with 'will'", description: "Spontaneous decisions and predictions" },
-        { label: "'Be going to'", description: "Prior plans and evidence-based predictions" },
-        { label: "Future Continuous", description: "Actions in progress at future times" },
-        { label: "Future Perfect", description: "Actions completed before future times" },
-        { label: "Future Perfect Continuous", description: "Duration leading up to future times" }
-      ]
-    };
 
-    return timelines[activeTab] || [];
-  }, [activeTab]);
-
-  // Calculate current timeline index based on selected tense
-  const currentTimelineIndex = useMemo(() => {
-    if (!selectedTense) return 0;
-    return timelineData.findIndex(item =>
-      selectedTense.data.htmlContent.includes(item.label.replace(/['"]|^\s*-\s*/, ''))
-    );
-  }, [selectedTense, timelineData]);
 
   useEffect(() => {
     document.title = `${verbTenseData.title} | ESL Lessons`;
@@ -100,16 +72,17 @@ export default function EnglishVerbTenses() {
 
   // Group content blocks by category
   const groupedContent = useMemo(() => groupContentByCategory(verbTenseData.content), []);
-  const sections = ['Present Time', 'Past Time', 'Future Time', 'Practice Exercises'];
+  const sections = ['Introduction', 'Present Time', 'Past Time', 'Future Time', 'Practice Exercises'];
 
   // Get content for current tab
   const getCurrentTabContent = () => {
     switch (activeTab) {
-      case 0: return groupedContent.present;
-      case 1: return groupedContent.past;
-      case 2: return groupedContent.future;
-      case 3: return groupedContent.homework;
-      default: return groupedContent.present;
+      case 0: return groupedContent.intro; // Introduction tab
+      case 1: return groupedContent.present; // Present Time
+      case 2: return groupedContent.past; // Past Time
+      case 3: return groupedContent.future; // Future Time
+      case 4: return groupedContent.practice; // Practice Exercises - comprehensive quiz
+      default: return groupedContent.intro;
     }
   };
 
@@ -124,7 +97,9 @@ export default function EnglishVerbTenses() {
           block.blockId.includes('summary') ||
           block.blockId.includes('practice') ||
           block.blockId.includes('fill-blanks') ||
-          block.type === 'chart') {
+          block.blockId.includes('comprehensive') ||
+          block.type === 'chart' ||
+          block.type === 'quiz') {
         return;
       }
 
@@ -139,15 +114,32 @@ export default function EnglishVerbTenses() {
 
   // Get content for selected tense (or intro if none selected)
   const getSelectedTenseContent = () => {
-    if (!selectedTense) {
-      // Show intro content and quizzes for the current tab
-      return getCurrentTabContent().filter(block =>
-        block.blockId.includes('intro') ||
-        block.blockId.includes('tenses-intro') ||
-        block.type === 'quiz'
-      );
+    // For Introduction tab, show all intro content
+    if (activeTab === 0) {
+      return getCurrentTabContent();
     }
-    return [selectedTense];
+
+    // For Practice Exercises tab, show the comprehensive quiz directly
+    if (activeTab === 4) {
+      return getCurrentTabContent();
+    }
+
+    // For tense tabs (1, 2, 3), show both tense content and summary chart
+    const currentTabContent = getCurrentTabContent();
+    const summaryChart = currentTabContent.find(block => block.type === 'chart');
+    const otherContent = currentTabContent.filter(block => block.type !== 'chart');
+
+    if (!selectedTense) {
+      // Show intro content plus the summary chart
+      const introContent = otherContent.filter(block =>
+        block.blockId.includes('intro') ||
+        block.blockId.includes('tenses-intro')
+      );
+      return [...introContent, summaryChart].filter(Boolean);
+    }
+
+    // Show selected tense plus the summary chart
+    return [selectedTense, summaryChart].filter(Boolean);
   };
 
   const tenses = getTensesForCurrentTab();
@@ -162,18 +154,9 @@ export default function EnglishVerbTenses() {
         sections={sections}
       />
 
-      {/* Timeline visualization - temporarily hidden */}
-      {/* {timelineData.length > 0 && (
-        <TimelineVisualization
-          title={`${sections[activeTab]} Timeline`}
-          items={timelineData}
-          currentIndex={currentTimelineIndex}
-          showProgress={true}
-        />
-      )} */}
 
-      {/* Tense selection buttons */}
-      {tenses.length > 0 && (
+      {/* Tense selection buttons - hide for intro and practice tabs */}
+      {tenses.length > 0 && activeTab > 0 && activeTab < 4 && (
         <Box sx={{ mb: 4, textAlign: 'center' }}>
           <Typography variant="h6" sx={{ mb: 3, color: 'text.secondary' }}>
             Select a tense to explore:

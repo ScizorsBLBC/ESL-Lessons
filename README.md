@@ -37,6 +37,79 @@ Welcome to the ESL Lessons Hub, a modern, schema-driven platform designed to fun
 - **Dynamic Route Support**: Properly handles nested routes like `/vocabulary/1` and `/idioms/12` without asset loading issues.
 - **Serverless Functions**: API routes are handled by Netlify Functions located in the `server/` directory.
 
+### 🔄 Continuous Deployment with Netlify
+
+This project is configured for **continuous deployment** via Netlify, enabling seamless updates through proper Git workflow practices.
+
+#### **Development Workflow**
+
+1. **Feature Branch Development**:
+   ```bash
+   # Create a new feature branch
+   git checkout -b feature/new-lesson-component
+
+   # Make your changes and test locally
+   npm run dev
+
+   # Stage and commit your changes
+   git add .
+   git commit -m "feat: add new lesson component with glassmorphism styling"
+   ```
+
+2. **Pull Request Creation**:
+   ```bash
+   # Push your feature branch to GitHub
+   git push origin feature/new-lesson-component
+
+   # Create a pull request on GitHub
+   # Navigate to your repository on GitHub
+   # Click "Compare & pull request"
+   # Add a descriptive title and description
+   # Request review from maintainers
+   ```
+
+3. **Automated Deployment**:
+   - **Netlify Integration**: Connected to the main branch for automatic deployments
+   - **Build Process**: Triggered automatically when pull requests are merged to `main`
+   - **Environment Variables**: Secure API keys and configuration managed through Netlify dashboard
+   - **Build Command**: `npm run build` - Creates optimized production bundle
+   - **Publish Directory**: `dist/` - Contains the built application
+
+#### **Deployment Best Practices**
+
+- **Semantic Commit Messages**: Use conventional commit format (`feat:`, `fix:`, `docs:`, etc.)
+- **Pull Request Reviews**: All changes require review before merging
+- **Branch Protection**: Main branch protected against direct pushes
+- **Automated Testing**: Consider adding tests for critical functionality
+- **Rollback Strategy**: Previous deployments can be quickly restored if issues arise
+
+#### **Netlify Configuration**
+
+- **Build Settings**:
+  - **Base directory**: `.` (root of repository)
+  - **Build command**: `npm run build`
+  - **Publish directory**: `dist`
+  - **Node version**: 18.x (or current LTS)
+
+- **Environment Variables**:
+  - **API Keys**: Stored securely in Netlify dashboard
+  - **Feature Flags**: Can be configured for different environments
+  - **Database URLs**: External services properly configured
+
+- **Custom Headers**:
+  - **Security Headers**: X-Frame-Options, Content-Security-Policy, etc.
+  - **Performance**: Cache headers for static assets
+  - **SPA Support**: Proper headers for single-page application routing
+
+#### **Monitoring and Maintenance**
+
+- **Netlify Analytics**: Built-in analytics for site performance and usage
+- **Build Logs**: Detailed logs available for troubleshooting deployment issues
+- **Form Handling**: Netlify Forms integration for contact forms
+- **Function Logs**: Serverless function execution logs and error tracking
+
+This setup ensures **zero-downtime deployments**, **automatic SSL certificates**, and **global CDN distribution** for optimal performance worldwide.
+
 ## Core Architectural Principles
 
 This project follows a strict set of principles to ensure it remains scalable, maintainable, and easy to contribute to.
@@ -96,18 +169,64 @@ The lesson schema is designed for maximum flexibility while maintaining the stri
   - **Introduction**: Shows intro-* content blocks (phrasal verb definitions and examples)
   - **Workplace Verbs**: Shows workplace-* content blocks (professional communication verbs)
   - **Full Vocabulary**: Shows all vocabulary category blocks (communication, socializing, business, travel, etc.)
-  - **Practice & Assess**: Shows assessment-* and practice blocks (quizzes, flashcards, homework)
-- **Impact**: Users can now properly navigate through different sections of the Phrasal Verbs lesson with tab-based content filtering
+  - **Practice**: Auto-generated flashcards and quiz using PracticeSuite component
+  - **Assessments**: Curated gap fill, flashcards, practice exercises, and homework assignments
+- **Impact**: Users can now properly navigate through different sections of the Phrasal Verbs lesson with organized content sections
+
+### Major Architecture Refactor: Standardized Component System
+- **Issue**: Phrasal Verbs lesson had 583 lines of complex, custom logic making it difficult to maintain and extend
+- **Solution**: Complete refactor to use standardized, reusable component architecture
+- **Key Changes**:
+  - **Reduced complexity**: From 583 lines to 66 lines of clean, template-style code
+  - **Component standardization**: Replaced custom logic with `PracticeSuite`, `ContentBlockRenderer`, and `LessonTabs`
+  - **Content organization**: Separated auto-generated content (Practice tab) from curated assessments (Assessments tab)
+  - **Glass button styling**: Applied consistent glassmorphism design to all interactive elements
+  - **Multiple choice conversion**: Transformed gap fill from text input to interactive multiple choice buttons
+- **Benefits**:
+  - **Maintainability**: Much easier to modify and extend
+  - **Consistency**: Uniform styling and behavior across all lessons
+  - **Reusability**: Components can be used for future lessons
+  - **Performance**: Reduced bundle size and improved loading times
+- **New Tab Structure**:
+  - **Practice**: Auto-generated flashcards and quiz (vocabularyService integration)
+  - **Assessments**: Curated exercises with glass-styled selection buttons
+- **Technical Implementation**: Leverages `vocabularyService.js` for automatic exercise generation from content data
 
 ## Recent Enhancements
 
-### Comprehensive Phrasal Verbs Lesson Overhaul
-- **Added 100+ Phrasal Verbs**: Organized into 10 topic categories (Communication, Socializing, Work & Business, Travel, Starting/Stopping, Thinking, Problems, Daily Life, Finance, Progress & General)
-- **Enhanced Flashcard System**: Now supports 100+ phrasal verbs with proper HTML tag stripping and clean text formatting
-- **Responsive Introduction Layout**: Implemented TwoPaneLayout for mobile-first responsive design (side-by-side on desktop, stacked on mobile)
-- **Gap Fill Exercise System**: 21 randomly selected questions with proper navigation and scoring
-- **Fixed Section Mapping**: Corrected homework assignment and contextual practice section content loading
-- **Improved Text-to-Speech**: Enhanced formatting with proper line breaks and example sentence separation
+### Comprehensive Phrasal Verbs Lesson Architecture Refactor
+- **Major Code Reduction**: Reduced from 583 lines of complex custom logic to 66 lines of clean, maintainable template code
+- **Standardized Component System**: Replaced custom implementations with reusable `PracticeSuite`, `ContentBlockRenderer`, and `LessonTabs` components
+- **Multiple Choice Gap Fill**: Converted text-input gap fill to interactive multiple choice buttons with glassmorphism styling
+- **Organized Assessment Structure**: Separated auto-generated content (Practice tab) from curated assessments (Assessments tab)
+- **Enhanced User Experience**: Added glass-styled selection buttons for different assessment types (Gap Fill, Practice Exercise, Homework)
+- **Consistent Glassmorphism Design**: Applied uniform styling across all interactive elements including flashcards, quizzes, and buttons
+- **Improved Content Organization**: Clear separation between learning activities (Practice) and assessment activities (Assessments)
+
+### Vocabulary-Driven Exercise Generation System
+- **Automatic Exercise Creation**: Leverages `vocabularyService.js` to automatically generate flashcards, quizzes, and gap fill exercises from content data
+- **Smart Content Parsing**: Extracts phrasal verb-definition pairs using consistent HTML patterns
+- **Dynamic Quiz Generation**: Creates randomized multiple choice questions with intelligent distractor selection
+- **Scalable Architecture**: Works with any vocabulary database size and can be extended to other lesson types
+- **Reduced Manual Work**: Single data source drives multiple exercise types automatically
+
+### English Verb Tenses Quiz Consolidation
+- **Issue**: Verb tenses lesson had 4 separate quizzes scattered throughout individual tense sections
+- **Solution**: Consolidated all quiz questions into a single comprehensive quiz on dedicated Practice Exercises tab
+- **Key Changes**:
+  - **Quiz consolidation**: Combined 6 questions from Present, Past, Future, and transformation quizzes
+  - **Tab restructuring**: Added Introduction tab, moved summary charts to respective tense tabs
+  - **Removed redundancy**: Eliminated scattered individual quizzes and Legacy Practice tab
+- **Final Structure**:
+  - **Introduction**: "What Are Verb Tenses?" concepts and timeline
+  - **Present Time**: Individual tenses + summary chart at bottom
+  - **Past Time**: Individual tenses + summary chart at bottom
+  - **Future Time**: Individual tenses + summary chart at bottom
+  - **Practice Exercises**: Comprehensive 6-question quiz
+- **Benefits**:
+  - **Better organization**: Practice separated from learning content
+  - **Consistent summaries**: Summary charts always visible on tense tabs
+  - **Streamlined experience**: Single location for comprehensive testing
 
 ### Modular Component Opportunities
 
