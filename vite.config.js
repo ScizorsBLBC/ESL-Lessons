@@ -6,15 +6,6 @@ export default defineConfig({
   plugins: [react()],
   // FIX: Change base path to relative ('./') for GitHub Pages compatibility.
   base: './',
-  // Proxy API requests to the development server
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true
-      }
-    }
-  },
   build: {
     // Optimize chunk size for better loading performance
     rollupOptions: {
