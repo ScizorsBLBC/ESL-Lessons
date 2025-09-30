@@ -53,6 +53,41 @@ app.post('/api/translate', async (req, res) => {
   }
 });
 
+// Text-to-Speech API Proxy
+app.post('/api/tts', async (req, res) => {
+  const { text } = req.body;
+  if (!text) {
+    return res.status(400).json({ error: 'Missing required field: text' });
+  }
+
+  try {
+    const googleApiKey = process.env.GOOGLE_TTS_API_KEY;
+    if (!googleApiKey) {
+      return res.status(500).json({ error: 'Google TTS API key not configured' });
+    }
+
+    const response = await axios.post(
+      `https://texttospeech.googleapis.com/v1/text:synthesize?key=${googleApiKey}`,
+      {
+        input: { text: text },
+        voice: {
+          languageCode: 'en-US',
+          name: 'en-US-Standard-J', // A clear, natural-sounding male voice
+        },
+        audioConfig: {
+          audioEncoding: 'MP3',
+          speakingRate: 0.85, // Slower for ESL learners
+        },
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error calling Google TTS API:', error.response?.data || error.message);
+    res.status(500).json({ error: 'Text-to-speech service temporarily unavailable.' });
+  }
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({

@@ -349,5 +349,141 @@ export const prepositionData = {
                 </ul>
             `
         }
+    ],
+
+    // --- Quiz Content Blocks ---
+    quizContent: [
+        {
+            blockId: "prepositions-place-quiz",
+            type: "quiz",
+            data: {
+                quizTitle: "Place Prepositions Quiz",
+                questions: [
+                    {
+                        question: "The apple is ______ the table.",
+                        answers: ["on", "in", "at"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Correct! We use 'on' when something is touching the surface of something else.",
+                        messageForIncorrectAnswer: "Not quite. 'On' is used when something is touching the surface of something else."
+                    },
+                    {
+                        question: "My phone is ______ my pocket.",
+                        answers: ["in", "on", "at"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Perfect! 'In' is used for something that is inside another thing.",
+                        messageForIncorrectAnswer: "Not quite. 'In' is used when something is inside another thing."
+                    },
+                    {
+                        question: "The cat sleeps ______ the bed.",
+                        answers: ["under", "on", "in"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Great! 'Under' means below or beneath something.",
+                        messageForIncorrectAnswer: "Not quite. 'Under' means below or beneath something."
+                    },
+                    {
+                        question: "We are waiting ______ the cinema entrance.",
+                        answers: ["at", "to", "in"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Excellent! 'At' is used for specific locations where you are already present.",
+                        messageForIncorrectAnswer: "Not quite. 'At' is used for specific locations where you are already present."
+                    },
+                    {
+                        question: "The park is ______ the school.",
+                        answers: ["near", "to", "at"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Correct! 'Near' means close to or not far from something.",
+                        messageForIncorrectAnswer: "Not quite. 'Near' means close to or not far from something."
+                    }
+                ]
+            }
+        },
+        {
+            blockId: "prepositions-time-quiz",
+            type: "quiz",
+            data: {
+                quizTitle: "Time Prepositions Quiz",
+                questions: [
+                    {
+                        question: "His birthday is ______ March.",
+                        answers: ["in", "on", "at"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Perfect! We use 'in' for months.",
+                        messageForIncorrectAnswer: "Not quite. 'In' is used for months like March."
+                    },
+                    {
+                        question: "The class starts ______ 9:00 AM.",
+                        answers: ["at", "on", "in"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Great! 'At' is used for specific times like 9:00 AM.",
+                        messageForIncorrectAnswer: "Not quite. 'At' is used for specific times like 9:00 AM."
+                    },
+                    {
+                        question: "I have an English lesson ______ Monday.",
+                        answers: ["on", "in", "at"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Excellent! 'On' is used for days of the week.",
+                        messageForIncorrectAnswer: "Not quite. 'On' is used for days of the week like Monday."
+                    },
+                    {
+                        question: "I usually watch TV ______ the evening.",
+                        answers: ["in", "on", "at"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Correct! 'In' is used for parts of the day like evening.",
+                        messageForIncorrectAnswer: "Not quite. 'In' is used for parts of the day like evening."
+                    },
+                    {
+                        question: "The shop closes ______ midnight.",
+                        answers: ["at", "in", "on"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Perfect! 'At' is used for specific times like midnight.",
+                        messageForIncorrectAnswer: "Not quite. 'At' is used for specific times like midnight."
+                    }
+                ]
+            }
+        },
+        {
+            blockId: "prepositions-movement-quiz",
+            type: "quiz",
+            data: {
+                quizTitle: "Movement vs Location Quiz",
+                questions: [
+                    {
+                        question: "Yesterday, I went ______ the library.",
+                        answers: ["to", "at", "in"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Perfect! 'To' shows movement towards a place.",
+                        messageForIncorrectAnswer: "Not quite. 'To' shows movement towards a place, while 'at' shows location."
+                    },
+                    {
+                        question: "My friends are ______ the beach now.",
+                        answers: ["at", "to", "in"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Great! 'At' shows that they are already at the location.",
+                        messageForIncorrectAnswer: "Not quite. 'At' shows location, while 'to' shows movement towards a place."
+                    },
+                    {
+                        question: "Are you going ______ the supermarket later?",
+                        answers: ["to", "at", "in"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Excellent! 'To' shows movement towards the supermarket.",
+                        messageForIncorrectAnswer: "Not quite. 'To' shows movement towards a place."
+                    },
+                    {
+                        question: "He is ______ home.",
+                        answers: ["at", "to", "in"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Correct! 'At' shows he is already at the location.",
+                        messageForIncorrectAnswer: "Not quite. 'At' shows location, while 'to' shows movement."
+                    },
+                    {
+                        question: "Let's walk ______ the new cafe.",
+                        answers: ["to", "at", "in"],
+                        correctAnswer: "1",
+                        messageForCorrectAnswer: "Perfect! 'To' shows movement towards the cafe.",
+                        messageForIncorrectAnswer: "Not quite. 'To' shows movement towards a place."
+                    }
+                ]
+            }
+        }
     ]
 };

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Box, Typography, Grid
+    Box, Typography, Grid, Button
 } from '@mui/material';
 // FIX: Changed import path
 import { prepositionData } from '../../data/prepositionData.js';
 // FIX: Changed import paths for components
 import ContentSelector from '../../components/ContentSelector';
 import LessonTabs from '../../components/LessonTabs';
+import ContentBlockRenderer from '../../components/ContentBlockRenderer';
+import DetailCard from '../../components/DetailCard';
 
 // --- Reusable Header Component ---
 const Header = () => (
@@ -26,7 +28,9 @@ const genericDetailRenderer = (item) => item.details;
 // --- Main Lesson Content ---
 const MainContent = () => {
     const [activeTab, setActiveTab] = useState(0);
+    const [selectedActivity, setSelectedActivity] = useState(null);
     const handleTabChange = (event, newValue) => setActiveTab(newValue);
+    const handleActivitySelect = (activity) => setSelectedActivity(activity);
     
     const sections = ["Introduction", "Place (Where?)", "Movement (Direction)", "Time (When?)", "Other Uses", "Practice"];
 
@@ -103,16 +107,76 @@ const MainContent = () => {
             {/* Tab 5: Practice */}
             {activeTab === 5 && (
                  <Grid container spacing={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                     <ContentSelector 
-                        sectionData={prepositionData.homework} 
-                        title="Let's Practice!" 
-                        description="It's your turn to try! Select an activity below." 
-                        detailRenderer={genericDetailRenderer} 
-                        preserveOrder 
-                    />
-                    {/* REMOVED DUPLICATION: The tips are already rendered via ContentSelector/prepositionData.homework */}
-                    {/* {renderComparisonSection(prepositionData.homework.find(item => item.topic === 'Tips'))} */}
-                </Grid>
+                     <Grid item xs={12} sx={{ width: '100%', maxWidth: '1100px', flexGrow: 1 }}>
+                         <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', mb: 3 }}>
+                             Interactive Preposition Practice
+                         </Typography>
+                         <Typography variant="body1" sx={{ textAlign: 'center', mb: 4, color: 'text.secondary' }}>
+                             Choose an activity below to practice your preposition skills.
+                         </Typography>
+
+                         {/* Always show the buttons */}
+                         <Box sx={{ mb: selectedActivity ? 4 : 0 }}>
+                             <ContentSelector
+                                 sectionData={[
+                                     {
+                                         topic: 'Place',
+                                         title: 'Place Prepositions Quiz',
+                                         details: '<p>Practice location prepositions like "in", "on", "at", "under", and "near".</p>'
+                                     },
+                                     {
+                                         topic: 'Time',
+                                         title: 'Time Prepositions Quiz',
+                                         details: '<p>Practice time prepositions like "in", "on", and "at" for different time contexts.</p>'
+                                     },
+                                     {
+                                         topic: 'Movement',
+                                         title: 'Movement vs Location Quiz',
+                                         details: '<p>Practice the difference between "to" (movement) and "at" (location).</p>'
+                                     },
+                                     {
+                                         topic: 'Tips',
+                                         title: 'Tips for Learning Prepositions',
+                                         details: '<p>Helpful strategies and advice for mastering English prepositions.</p>'
+                                     }
+                                 ]}
+                                 title=""
+                                 description=""
+                                 detailRenderer={(item) => item.details}
+                                 preserveOrder
+                                 hideDetailView={true}
+                                 selectedItem={selectedActivity}
+                                 onItemSelect={handleActivitySelect}
+                             />
+                         </Box>
+
+                         {/* Show content when an activity is selected */}
+                         {selectedActivity && (
+                             <Box>
+                                 <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold' }}>
+                                     {selectedActivity.title}
+                                 </Typography>
+
+                                 {selectedActivity.topic === 'Tips' ? (
+                                     <DetailCard content={prepositionData.homework.find(item => item.topic === 'Tips').details} />
+                                 ) : (
+                                     <ContentBlockRenderer
+                                         contentBlocks={[
+                                             prepositionData.quizContent.find(quiz => {
+                                                 const topicMap = {
+                                                     'Place': 'place',
+                                                     'Time': 'time',
+                                                     'Movement': 'movement'
+                                                 };
+                                                 return quiz.blockId === `prepositions-${topicMap[selectedActivity.topic]}-quiz`;
+                                             })
+                                         ].filter(Boolean)}
+                                     />
+                                 )}
+                             </Box>
+                         )}
+                     </Grid>
+                 </Grid>
             )}
         </Box>
     );

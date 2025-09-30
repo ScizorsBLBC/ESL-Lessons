@@ -14,6 +14,7 @@ Welcome to the ESL Lessons Hub, a modern, schema-driven platform designed to fun
 ### 🎓 Interactive Learning Experience
 - **Comprehensive Lessons**: Vocabulary, idioms, verb tenses, pronunciation, cultural studies, and more.
 - **Interactive Exercises**: Quizzes, fill-in-the-blanks, and flashcards for active learning.
+- **Smart Quiz System**: Context-aware multiple-choice quizzes with immediate feedback and progress tracking.
 - **Text-to-Speech**: Audio playback for all lesson content with accessibility support.
 - **Rich Media Integration**: YouTube videos, interactive charts, and visual learning aids.
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices.
@@ -45,6 +46,30 @@ This project follows a strict set of principles to ensure it remains scalable, m
 2.  **Modular & Reusable Components**: The application is built on a foundation of custom, reusable components located in `src/components/`. New features and lessons should leverage these existing components to maintain consistency and reduce code duplication.
 
 3.  **No Student-Facing Navigation**: The platform is designed as a collection of individual lessons accessed via direct links. There is no global navigation bar or central lesson index for students, ensuring a focused learning experience for each topic.
+
+## Available Lessons
+
+The ESL Lessons Hub includes comprehensive lessons covering essential English language topics:
+
+### 📚 Core Grammar Lessons
+- **English Verb Tenses**: Complete coverage of present, past, and future tenses with interactive quizzes
+- **English Prepositions**: Interactive quizzes for place, time, and movement prepositions with immediate feedback
+
+### 📖 Vocabulary & Communication
+- **Vocabulary Building**: Interactive vocabulary lessons with flashcards and context-aware quizzes
+- **Idioms & Expressions**: Common English idioms with usage examples and practice exercises
+- **Phrasal Verbs**: Essential phrasal verbs with interactive exercises and real-world contexts
+
+### 🌍 Cultural & Practical Studies
+- **Global Business Cultures**: Professional communication across cultures
+- **Cat Culture Studies**: Fun, engaging lessons about feline behavior and culture
+- **News Article Analysis**: Critical reading and vocabulary building through current events
+
+### 🔊 Pronunciation & Language Skills
+- **Pronunciation Guide**: Interactive pronunciation lessons with audio support
+- **Sound Recognition**: Practice distinguishing English sounds and intonation patterns
+
+Each lesson includes interactive exercises, quizzes, and multimedia content designed to maximize learning retention and engagement.
 
 ## Content Schema Guide
 
