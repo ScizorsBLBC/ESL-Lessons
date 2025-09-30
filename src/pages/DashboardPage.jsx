@@ -221,7 +221,7 @@ export default function DashboardPage() {
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <TextField fullWidth readOnly value={createShareLink('vocabulary', selectedVocabLesson)} variant="outlined" size="small" />
                              <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
-                                <Button variant="text" onClick={() => copyToClipboard('vocabulary', selectedVocabLesson)} startIcon={<ContentCopyIcon />} sx={{ color: 'secondary.main', backgroundColor: 'transparent', '&:hover': { backgroundColor: (theme) => theme.palette.action.hover }}}>Copy</Button>
+                                <Button variant="text" onClick={() => copyToClipboard('vocabulary', selectedVocabLesson)} startIcon={<ContentCopyIcon />}>Copy</Button>
                             </GlassButtonWrapper>
                         </Box>
                         {copySuccess && <Typography color="secondary.main" sx={{ textAlign: 'center' }}>{copySuccess}</Typography>}
@@ -242,7 +242,7 @@ export default function DashboardPage() {
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <TextField fullWidth readOnly value={createShareLink('idioms', selectedIdiomLesson)} variant="outlined" size="small" />
                             <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
-                                <Button variant="text" onClick={() => copyToClipboard('idioms', selectedIdiomLesson)} startIcon={<ContentCopyIcon />} sx={{ color: 'secondary.main', backgroundColor: 'transparent', '&:hover': { backgroundColor: (theme) => theme.palette.action.hover }}}>Copy</Button>
+                                <Button variant="text" onClick={() => copyToClipboard('idioms', selectedIdiomLesson)} startIcon={<ContentCopyIcon />}>Copy</Button>
                             </GlassButtonWrapper>
                         </Box>
                         {copySuccess && <Typography color="secondary.main" sx={{ textAlign: 'center' }}>{copySuccess}</Typography>}

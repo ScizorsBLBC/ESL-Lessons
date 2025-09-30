@@ -6,7 +6,7 @@
 export const prepositionData = {
     // --- NEW INTRODUCTION OBJECT ---
     introduction: {
-        title: 'English Prepositions: Location, Time, and Movement',
+        title: 'Prepositions: Location, Time, and Movement',
         description: `Prepositions are small words that help us connect words in a sentence. They often tell us WHERE something is (Location), WHEN something happens (Time), or HOW something is done or in what DIRECTION (Movement/Manner). Think of them as little helper words that give us more details!<br><br>
         Prepositions are very important because they make our sentences clear and help people understand where things are, when things happen, or how things are connected. Without them, sentences can be very confusing!
         <h3 style="font-size: 1.5em; font-weight: bold; margin-bottom: 1em;">Tips for Learning Prepositions</h3>

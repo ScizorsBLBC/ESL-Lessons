@@ -5,7 +5,7 @@ import FillInTheBlanks from './FillInTheBlanks';
 import Flashcard from './Flashcard';
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 
-const ContentBlockRenderer = ({ contentBlocks }) => {
+const ContentBlockRenderer = ({ contentBlocks, ...props }) => {
   return (
     <Box sx={{
       width: '100%',
@@ -14,20 +14,20 @@ const ContentBlockRenderer = ({ contentBlocks }) => {
       gap: 4
     }}>
       {contentBlocks.map((block) => (
-        <BlockRenderer key={block.blockId} block={block} />
+        <BlockRenderer key={block.blockId} block={block} {...props} />
       ))}
     </Box>
   );
 };
 
-const BlockRenderer = ({ block }) => {
+const BlockRenderer = ({ block, ...props }) => {
   switch (block.type) {
     case 'text':
       return <DetailCard content={block.data.htmlContent} />;
     case 'quiz':
       return <QuizComponent quizData={block.data} />;
     case 'fillInTheBlanks':
-      return <FillInTheBlanks data={block.data} />;
+      return <FillInTheBlanks data={block.data} {...props} />;
     case 'flashcard':
       return <Flashcard frontContent={block.data.front} backContent={block.data.back} />;
     case 'youtubeEmbed':

@@ -15,16 +15,6 @@ const ContactForm = ({ onCancel }) => {
 
   const handleChange = (setter) => (e) => setter(e.target.value);
   
-  // Styles for the inner buttons within the form (smaller width than Welcome buttons)
-  const formInnerButtonStyle = {
-    width: '100%',
-    height: '100%',
-    color: 'secondary.main', 
-    backgroundColor: 'transparent',
-    '&:hover': {
-        backgroundColor: (theme) => theme.palette.action.hover,
-    },
-  };
   
   // Styles for the wrapper/sizing of buttons within the form
   const formWrapperStyle = {
@@ -81,36 +71,36 @@ const ContactForm = ({ onCancel }) => {
           <GlassButtonWrapper sx={formWrapperStyle}>
               <Button
                 type="submit"
-                variant="text" 
+                variant="text"
                 size="large"
                 startIcon={<SendIcon />}
-                sx={formInnerButtonStyle}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  color: 'secondary.main',
+                  backgroundColor: 'transparent',
+                }}
               >
                 Send Message
               </Button>
           </GlassButtonWrapper>
 
           {/* Cancel Button */}
-          <Button
-            onClick={onCancel}
-            variant="text"
-            size="large"
-            sx={{ 
-                ...formWrapperStyle,
-                color: 'text.secondary', 
-                mt: 2, 
-                mx: 1,
-                py: 1.5,
-                borderRadius: '8px',
-                transition: 'transform 0.2s ease-in-out',
-                '&:hover': { 
-                    backgroundColor: (theme) => theme.palette.action.hover,
-                    transform: 'scale(1.05)',
-                },
-            }}
-          >
-            Cancel
-          </Button>
+          <GlassButtonWrapper sx={formWrapperStyle}>
+              <Button
+                onClick={onCancel}
+                variant="text"
+                size="large"
+                sx={{
+                    width: '100%',
+                    height: '100%',
+                    color: 'text.secondary',
+                    backgroundColor: 'transparent',
+                }}
+              >
+                Cancel
+              </Button>
+          </GlassButtonWrapper>
       </Box>
       
       <Typography variant="caption" color="text.secondary" textAlign="center">
@@ -139,15 +129,6 @@ const HomePage = () => {
     py: 1.5, 
   };
   
-  const innerButtonStyle = {
-    width: '100%',
-    height: '100%',
-    color: 'secondary.main', 
-    backgroundColor: 'transparent',
-    '&:hover': { 
-        backgroundColor: (theme) => theme.palette.action.hover,
-    },
-  }
 
   // Content to show when the form is NOT open
   const WelcomeContent = (
@@ -179,28 +160,38 @@ const HomePage = () => {
         
         {/* Email Button - Opens the on-site contact form */}
         <GlassButtonWrapper sx={sharedButtonStyle}>
-            <Button 
+            <Button
                 onClick={() => setShowContactForm(true)} // Toggle form view
-                variant="text" 
+                variant="text"
                 size="large"
                 startIcon={<SendIcon />}
-                sx={innerButtonStyle}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  color: 'secondary.main',
+                  backgroundColor: 'transparent',
+                }}
             >
                 Send Ryan a Message
             </Button>
         </GlassButtonWrapper>
-        
+
         {/* Preply Profile Button */}
         <GlassButtonWrapper sx={sharedButtonStyle}>
-            <Button 
+            <Button
                 component="a"
-                href={preplyLink} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+                href={preplyLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 variant="text"
                 size="large"
-                startIcon={<LanguageIcon />} 
-                sx={innerButtonStyle}
+                startIcon={<LanguageIcon />}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  color: 'secondary.main',
+                  backgroundColor: 'transparent',
+                }}
             >
                 Ryan's Preply Profile
             </Button>

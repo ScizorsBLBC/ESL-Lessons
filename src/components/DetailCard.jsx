@@ -93,7 +93,15 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
     return (
         <Paper
             ref={ref}
-            sx={{ ...liquidGlassStyle, p: 2.5, position: 'relative', overflow: 'visible' }}
+            sx={{
+                ...liquidGlassStyle,
+                p: 2.5,
+                position: 'relative',
+                overflow: 'visible',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%'  // Allow full height utilization
+            }}
         >
             <Box sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}>
                 <Tooltip
@@ -156,6 +164,7 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
                     color: (theme) => theme.palette.text.primary,
                     pt: 4,
                     lineHeight: 1.7,
+                    flex: 1,  // Allow content to grow and fill space
                     '& h1, & h2, & h3, & h4, & h5, & h6': {
                         color: (theme) => theme.palette.text.primary,
                         marginTop: 2,

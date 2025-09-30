@@ -102,7 +102,7 @@ const MainContent = () => {
 // --- Main Exported Component ---
 export default function CatCulture() {
   useEffect(() => {
-    document.title = 'The Feline Economy | ESL Lessons';
+    document.title = 'Neko Chan | ESL Lessons';
   }, []);
 
   return (

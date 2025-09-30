@@ -5,7 +5,7 @@ import Quiz from './Quiz';
 import GlassButtonWrapper from './GlassButtonWrapper';
 import { generateFlashcards, generateQuiz } from '../services/vocabularyService';
 
-const PracticeSuite = ({ contentBlocks, showQuizTab = true, mode = 'flashcards', showInternalButtons = true }) => {
+const PracticeSuite = ({ contentBlocks, showQuizTab = true, mode = 'flashcards', showInternalButtons = true, integrateWithPageButtons = false }) => {
   const [activeTab, setActiveTab] = useState(() => {
     switch (mode) {
       case 'quiz':
@@ -39,33 +39,22 @@ const PracticeSuite = ({ contentBlocks, showQuizTab = true, mode = 'flashcards',
     setCurrentFlashcardIndex(prev => (prev + 1) % flashcards.length);
   };
 
+  // Don't show internal buttons if integrating with page buttons or if explicitly disabled
+  const shouldShowInternalButtons = showQuizTab && showInternalButtons && !integrateWithPageButtons;
+
   return (
     <Box>
-      {showQuizTab && showInternalButtons && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4 }}>
+      {shouldShowInternalButtons && (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: { xs: 1, sm: 2 }, mb: 4 }}>
           <GlassButtonWrapper isActive={activeTab === 0}>
-            <Button
-              onClick={() => setActiveTab(0)}
-              sx={{
-                minWidth: '120px',
-                fontWeight: 600,
-                textTransform: 'none'
-              }}
-            >
-              FLASHCARDS
+            <Button onClick={() => setActiveTab(0)}>
+              Flashcards
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={activeTab === 1}>
-            <Button
-              onClick={() => setActiveTab(1)}
-              sx={{
-                minWidth: '120px',
-                fontWeight: 600,
-                textTransform: 'none'
-              }}
-            >
-              QUIZ
+            <Button onClick={() => setActiveTab(1)}>
+              Quiz
             </Button>
           </GlassButtonWrapper>
         </Box>
@@ -79,23 +68,7 @@ const PracticeSuite = ({ contentBlocks, showQuizTab = true, mode = 'flashcards',
               backContent={flashcards[currentFlashcardIndex].back}
             />
             <GlassButtonWrapper sx={{ mt: 4, display: 'inline-block' }}>
-              <Button
-                onClick={handleNextFlashcard}
-                sx={{
-                  backgroundColor: 'transparent',
-                  color: 'secondary.main',
-                  border: 'none',
-                  px: 2,
-                  py: 0.75,
-                  fontSize: '0.85rem',
-                  fontWeight: 500,
-                  textTransform: 'none',
-                  minWidth: 'auto',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  }
-                }}
-              >
+              <Button onClick={handleNextFlashcard}>
                 Next
               </Button>
             </GlassButtonWrapper>

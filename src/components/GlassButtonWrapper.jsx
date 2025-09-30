@@ -27,6 +27,8 @@ const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, color
         '&:hover': {
             boxShadow: theme.shadows[8],
             background: `linear-gradient(135deg, ${hexToRgba(theme.palette.background.paper, 0.2)}, ${hexToRgba(theme.palette.background.paper, 0.1)})`,
+            backgroundColor: theme.palette.action.hover,
+            transform: 'scale(1.05)',
         },
     };
 
@@ -35,7 +37,7 @@ const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, color
         boxShadow: theme.shadows[12],
     } : {};
 
-    // Apply theme colors to Button children
+    // Apply theme colors and typography to Button children
     const childrenWithThemeColors = React.Children.map(children, (child) => {
         if (React.isValidElement(child) && child.type === Button) {
             // Determine the color based on active state and color prop
@@ -45,6 +47,16 @@ const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, color
                 sx: {
                     color: (theme) => theme.palette[buttonColor.split('.')[0]][buttonColor.split('.')[1]],
                     backgroundColor: 'transparent',
+                    fontFamily: 'inherit',
+                    fontWeight: 600,
+                    textTransform: 'none',
+                    letterSpacing: '0.02em',
+                    // Responsive design for readability and accessibility
+                    minWidth: 'auto',  // Content-based width for readability
+                    fontSize: { xs: '0.875rem', sm: '1rem' },  // Responsive typography
+                    px: { xs: 3, sm: 2 },  // More padding on mobile for touch targets
+                    minHeight: { xs: '44px', sm: '36px' },  // Accessible touch targets
+                    whiteSpace: 'nowrap',  // Prevent text wrapping within buttons
                     ...child.props.sx
                 }
             });

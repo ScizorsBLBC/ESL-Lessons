@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Button } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Button, Typography, Card, CardContent } from '@mui/material';
 import { phrasalVerbData } from '../../data/phrasalVerbData.js';
 import ContentBlockRenderer from '../../components/ContentBlockRenderer';
 import LessonTabs from '../../components/LessonTabs';
@@ -11,7 +11,12 @@ export default function PhrasalVerbs() {
   const [activeTab, setActiveTab] = useState(0);
   const [selectedPracticeMode, setSelectedPracticeMode] = useState('practice');
   const [selectedVocabSection, setSelectedVocabSection] = useState('communication');
+  const [gapFillCompleted, setGapFillCompleted] = useState(false);
   const { content } = phrasalVerbData;
+
+  useEffect(() => {
+    document.title = 'Phrasal Verbs | ESL Lessons Hub';
+  }, []);
 
   const getFilteredContent = () => {
     if (activeTab === 3) {
@@ -74,68 +79,33 @@ export default function PhrasalVerbs() {
 
       {/* Practice mode buttons - always visible on Practice tab */}
       {activeTab === 3 && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 3, mb: 2 }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: { xs: 1, sm: 2 }, mt: 3, mb: 2 }}>
           <GlassButtonWrapper isActive={selectedPracticeMode === 'practice'}>
-            <Button
-              onClick={() => setSelectedPracticeMode('practice')}
-              sx={{
-                minWidth: '120px',
-                fontWeight: 600,
-                textTransform: 'none'
-              }}
-            >
-              FLASHCARDS
+            <Button onClick={() => setSelectedPracticeMode('practice')}>
+              Flashcards
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedPracticeMode === 'quiz'}>
-            <Button
-              onClick={() => setSelectedPracticeMode('quiz')}
-              sx={{
-                minWidth: '120px',
-                fontWeight: 600,
-                textTransform: 'none'
-              }}
-            >
-              QUIZ
+            <Button onClick={() => setSelectedPracticeMode('quiz')}>
+              Quiz
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedPracticeMode === 'gap-fill'}>
-            <Button
-              onClick={() => setSelectedPracticeMode('gap-fill')}
-              sx={{
-                minWidth: '120px',
-                fontWeight: 600,
-                textTransform: 'none'
-              }}
-            >
+            <Button onClick={() => setSelectedPracticeMode('gap-fill')}>
               Gap Fill
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedPracticeMode === 'contextual-practice'}>
-            <Button
-              onClick={() => setSelectedPracticeMode('contextual-practice')}
-              sx={{
-                minWidth: '120px',
-                fontWeight: 600,
-                textTransform: 'none'
-              }}
-            >
+            <Button onClick={() => setSelectedPracticeMode('contextual-practice')}>
               Practice Exercise
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedPracticeMode === 'homework'}>
-            <Button
-              onClick={() => setSelectedPracticeMode('homework')}
-              sx={{
-                minWidth: '120px',
-                fontWeight: 600,
-                textTransform: 'none'
-              }}
-            >
+            <Button onClick={() => setSelectedPracticeMode('homework')}>
               Homework
             </Button>
           </GlassButtonWrapper>
@@ -146,161 +116,61 @@ export default function PhrasalVerbs() {
       {activeTab === 2 && (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1.5, mt: 3, mb: 2 }}>
           <GlassButtonWrapper isActive={selectedVocabSection === 'communication'}>
-            <Button
-              onClick={() => setSelectedVocabSection('communication')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('communication')}>
               Communication
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'socializing'}>
-            <Button
-              onClick={() => setSelectedVocabSection('socializing')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('socializing')}>
               Socializing
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'business'}>
-            <Button
-              onClick={() => setSelectedVocabSection('business')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('business')}>
               Business
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'travel'}>
-            <Button
-              onClick={() => setSelectedVocabSection('travel')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('travel')}>
               Travel
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'action'}>
-            <Button
-              onClick={() => setSelectedVocabSection('action')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('action')}>
               Actions
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'thinking'}>
-            <Button
-              onClick={() => setSelectedVocabSection('thinking')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('thinking')}>
               Thinking
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'problems'}>
-            <Button
-              onClick={() => setSelectedVocabSection('problems')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('problems')}>
               Problems
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'daily'}>
-            <Button
-              onClick={() => setSelectedVocabSection('daily')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('daily')}>
               Daily Life
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'finance'}>
-            <Button
-              onClick={() => setSelectedVocabSection('finance')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('finance')}>
               Finance
             </Button>
           </GlassButtonWrapper>
 
           <GlassButtonWrapper isActive={selectedVocabSection === 'general'}>
-            <Button
-              onClick={() => setSelectedVocabSection('general')}
-              sx={{
-                px: 2,
-                py: 1,
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                minWidth: 'auto'
-              }}
-            >
+            <Button onClick={() => setSelectedVocabSection('general')}>
               General
             </Button>
           </GlassButtonWrapper>
@@ -319,9 +189,63 @@ export default function PhrasalVerbs() {
                 case 'quiz':
                   return <PracticeSuite contentBlocks={content} mode="quiz" showInternalButtons={false} />;
                 case 'gap-fill': {
+                  if (gapFillCompleted) {
+                    return (
+                      <Card sx={{
+                        width: '100%',
+                        maxWidth: { xs: '100%', sm: 600, md: 800 },
+                        mx: 'auto',
+                        mb: 3
+                      }}>
+                        <CardContent sx={{
+                          p: { xs: 3, sm: 4 },
+                          textAlign: 'center'
+                        }}>
+                          <Typography
+                            variant="h4"
+                            gutterBottom
+                            sx={{
+                              color: 'success.main',
+                              fontSize: { xs: '1.5rem', sm: '2rem' },
+                              mb: 3
+                            }}
+                          >
+                            🎉 Congratulations!
+                          </Typography>
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              color: 'text.secondary',
+                              mb: 3,
+                              fontSize: { xs: '1rem', sm: '1.25rem' }
+                            }}
+                          >
+                            You have successfully completed all gap-fill exercises!
+                          </Typography>
+                          <GlassButtonWrapper>
+                            <Button
+                              onClick={() => {
+                                setGapFillCompleted(false);
+                                setSelectedPracticeMode('gap-fill');
+                              }}
+                            >
+                              Try Again
+                            </Button>
+                          </GlassButtonWrapper>
+                        </CardContent>
+                      </Card>
+                    );
+                  }
+
                   const gapFillBlocks = content.filter(block => block.blockId === 'assessment-gap-fill');
                   return gapFillBlocks.map(block => (
-                    <ContentBlockRenderer key={block.blockId} contentBlocks={[block]} />
+                    <ContentBlockRenderer
+                      key={block.blockId}
+                      contentBlocks={[block]}
+                      onComplete={() => {
+                        setGapFillCompleted(true);
+                      }}
+                    />
                   ));
                 }
                 case 'contextual-practice': {
