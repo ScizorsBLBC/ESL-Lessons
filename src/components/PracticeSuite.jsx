@@ -1,12 +1,35 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
 import Flashcard from './Flashcard';
 import Quiz from './Quiz';
 import GlassButtonWrapper from './GlassButtonWrapper';
 import { generateFlashcards, generateQuiz } from '../services/vocabularyService';
 
-const PracticeSuite = ({ contentBlocks, showQuizTab = true, defaultTab = 0 }) => {
-  const [activeTab, setActiveTab] = useState(defaultTab);
+const PracticeSuite = ({ contentBlocks, showQuizTab = true, mode = 'flashcards', showInternalButtons = true }) => {
+  const [activeTab, setActiveTab] = useState(() => {
+    switch (mode) {
+      case 'quiz':
+        return 1;
+      case 'flashcards':
+      case 'practice':
+      default:
+        return 0;
+    }
+  });
+
+  // Update activeTab when mode changes
+  useEffect(() => {
+    switch (mode) {
+      case 'quiz':
+        setActiveTab(1);
+        break;
+      case 'flashcards':
+      case 'practice':
+      default:
+        setActiveTab(0);
+        break;
+    }
+  }, [mode]);
 
   const flashcards = useMemo(() => generateFlashcards(contentBlocks), [contentBlocks]);
   const quizData = useMemo(() => generateQuiz(contentBlocks, "Check Your Understanding", 20), [contentBlocks]);
@@ -18,23 +41,15 @@ const PracticeSuite = ({ contentBlocks, showQuizTab = true, defaultTab = 0 }) =>
 
   return (
     <Box>
-      {showQuizTab && (
+      {showQuizTab && showInternalButtons && (
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4 }}>
           <GlassButtonWrapper isActive={activeTab === 0}>
             <Button
               onClick={() => setActiveTab(0)}
               sx={{
-                backgroundColor: 'transparent',
-                color: activeTab === 0 ? 'primary.main' : 'secondary.main',
-                border: 'none',
-                px: 4,
-                py: 2,
-                fontSize: '1rem',
+                minWidth: '120px',
                 fontWeight: 600,
-                textTransform: 'none',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                }
+                textTransform: 'none'
               }}
             >
               FLASHCARDS
@@ -45,17 +60,9 @@ const PracticeSuite = ({ contentBlocks, showQuizTab = true, defaultTab = 0 }) =>
             <Button
               onClick={() => setActiveTab(1)}
               sx={{
-                backgroundColor: 'transparent',
-                color: activeTab === 1 ? 'primary.main' : 'secondary.main',
-                border: 'none',
-                px: 4,
-                py: 2,
-                fontSize: '1rem',
+                minWidth: '120px',
                 fontWeight: 600,
-                textTransform: 'none',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                }
+                textTransform: 'none'
               }}
             >
               QUIZ

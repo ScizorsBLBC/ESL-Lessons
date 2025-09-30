@@ -1,7 +1,7 @@
 import React from 'react';
-import { Paper, useTheme } from '@mui/material';
+import { Paper, useTheme, Button } from '@mui/material';
 
-const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, ...props }, ref) => {
+const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, color = 'secondary', ...props }, ref) => {
     const theme = useTheme();
 
     const hexToRgba = (hex, alpha) => {
@@ -35,6 +35,23 @@ const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, ...pr
         boxShadow: theme.shadows[12],
     } : {};
 
+    // Apply theme colors to Button children
+    const childrenWithThemeColors = React.Children.map(children, (child) => {
+        if (React.isValidElement(child) && child.type === Button) {
+            // Determine the color based on active state and color prop
+            const buttonColor = isActive ? 'primary.main' : `${color}.main`;
+
+            return React.cloneElement(child, {
+                sx: {
+                    color: (theme) => theme.palette[buttonColor.split('.')[0]][buttonColor.split('.')[1]],
+                    backgroundColor: 'transparent',
+                    ...child.props.sx
+                }
+            });
+        }
+        return child;
+    });
+
     return (
         <Paper
             elevation={0}
@@ -45,7 +62,7 @@ const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, ...pr
                 ...props.sx
             }}
         >
-            {children}
+            {childrenWithThemeColors}
         </Paper>
     );
 });
