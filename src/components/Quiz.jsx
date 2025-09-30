@@ -12,6 +12,7 @@ import {
   Alert,
   Paper
 } from '@mui/material';
+import GlassButtonWrapper from './GlassButtonWrapper';
 // import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import ErrorIcon from '@mui/icons-material/Error';
 
@@ -118,18 +119,20 @@ const QuizComponent = ({ quizData, onQuestionComplete, disableAutoAdvance = fals
               : "Good effort! Review the material and try again! 💪"
             }
           </Typography>
-          <Button
-            variant="contained"
-            onClick={handleRestartQuiz}
-            size="large"
-            sx={{
-              px: 4,
-              py: 1.5,
-              fontSize: { xs: '0.9rem', sm: '1rem' }
-            }}
-          >
-            Restart Quiz
-          </Button>
+          <GlassButtonWrapper>
+            <Button
+              variant="text"
+              onClick={handleRestartQuiz}
+              size="large"
+              sx={{
+                px: 4,
+                py: 1.5,
+                fontSize: { xs: '0.9rem', sm: '1rem' }
+              }}
+            >
+              Restart Quiz
+            </Button>
+          </GlassButtonWrapper>
         </CardContent>
       </Card>
     );
@@ -227,33 +230,38 @@ const QuizComponent = ({ quizData, onQuestionComplete, disableAutoAdvance = fals
         <Box sx={{
           display: 'flex',
           flexDirection: { xs: 'column', sm: 'row' },
+          flexWrap: 'wrap',
           gap: { xs: 2, sm: 0 },
           justifyContent: 'space-between',
           mt: 3
         }}>
-          <Button
-            variant="outlined"
-            onClick={handleSubmitAnswer}
-            disabled={!selectedAnswer}
-            sx={{
-              order: { xs: 2, sm: 1 },
-              width: { xs: '100%', sm: 'auto' }
-            }}
-          >
-            Submit Answer
-          </Button>
-
-          {showResult && !disableAutoAdvance && (
+          <GlassButtonWrapper>
             <Button
-              variant="contained"
-              onClick={handleNextQuestion}
+              variant="text"
+              onClick={handleSubmitAnswer}
+              disabled={!selectedAnswer}
               sx={{
-                order: { xs: 1, sm: 2 },
+                order: { xs: 2, sm: 1 },
                 width: { xs: '100%', sm: 'auto' }
               }}
             >
-              {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
+              Submit Answer
             </Button>
+          </GlassButtonWrapper>
+
+          {showResult && !disableAutoAdvance && (
+            <GlassButtonWrapper>
+              <Button
+                variant="text"
+                onClick={handleNextQuestion}
+                sx={{
+                  order: { xs: 1, sm: 2 },
+                  width: { xs: '100%', sm: 'auto' }
+                }}
+              >
+                {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
+              </Button>
+            </GlassButtonWrapper>
           )}
         </Box>
       </CardContent>

@@ -62,6 +62,11 @@ export default function ChartSection({ data, title, description, tables = [] }) 
                     color: theme.palette.text.primary,
                 },
                 grid: { display: false },
+                // Enhanced bar thickness for better readability and selection
+                // For horizontal bars (indexAxis: 'y'), this controls bar height
+                // For vertical bars (indexAxis: 'x'), this would control bar width
+                barThickness: 50,  // Enhanced height for better readability and selection
+                minBarLength: 44,  // Maintain minimum 44px for accessibility compliance
             }
         }
     }), [theme]);
@@ -84,10 +89,13 @@ export default function ChartSection({ data, title, description, tables = [] }) 
             <Grid item xs={12}>
                 <Box sx={{
                     display: 'flex', flexDirection: { xs: 'column', md: 'row' },
-                    gap: 4, height: { xs: 'auto', md: '500px' }, alignItems: 'stretch'
+                    gap: 4, minHeight: { xs: 'auto', md: '500px' }, alignItems: 'stretch'
                 }}>
                     <Card sx={{
-                        flexGrow: 1, flexShrink: 0, minHeight: { xs: '350px', md: 'auto' },
+                        flexGrow: 1, flexShrink: 0,
+                        minHeight: { xs: '450px', md: 'auto' },  // Increased for taller bars
+                        maxHeight: { xs: '75vh', md: 'auto' },  // Allow scrolling on mobile if chart is tall
+                        overflow: { xs: 'auto', md: 'visible' },  // Enable scrolling when needed for many bars
                         p: 2,
                         display: 'flex', flexDirection: 'column',
                         justifyContent: 'center', alignItems: 'center'
@@ -95,10 +103,16 @@ export default function ChartSection({ data, title, description, tables = [] }) 
                         <Bar ref={chartRef} options={chartOptions} data={chartData} onClick={onClick} />
                     </Card>
                     <Box sx={{
-                        flexBasis: { xs: 'auto', md: '45%' }, flexGrow: 1,
-                        minHeight: { xs: '300px', md: 'auto' }, display: 'flex'
+                        flexBasis: { xs: 'auto', md: '45%' },
+                        flexGrow: 1,
+                        flexShrink: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        minHeight: 0,  // Allow proper sizing
+                        maxHeight: { md: '500px' },  // Match parent on desktop
+                        overflow: { xs: 'visible', md: 'auto' }  // Allow content to expand on mobile
                     }}>
-                        <Fade in={!!selectedItem} key={selectedItem?.name || 'empty'}>
+                        <Fade in={!!selectedItem} key={selectedItem?.name || 'empty'} style={{ flex: 1 }}>
                            {selectedItem ? <DetailCard content={selectedItem.details} /> : <Box />}
                         </Fade>
                     </Box>

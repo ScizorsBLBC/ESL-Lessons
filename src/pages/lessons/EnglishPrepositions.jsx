@@ -17,7 +17,7 @@ import { generateQuiz } from '../../services/vocabularyService';
 const Header = () => (
   <Box sx={{ textAlign: 'center', mb: 4 }}>
     <Typography variant="h3" component="h1" gutterBottom sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
-      English Prepositions
+      Prepositions
     </Typography>
     <Typography variant="h6" sx={{ color: 'text.primary' }}>
       What are Prepositions?
@@ -164,7 +164,7 @@ const MainContent = () => {
                                 {/* Don't show titles above floating panes - keep button labels only */}
 
                                 {selectedActivity.topic === 'Flashcards' ? (
-                                     <PracticeSuite contentBlocks={prepositionData} showQuizTab={false} />
+                                     <PracticeSuite contentBlocks={prepositionData} showQuizTab={false} integrateWithPageButtons={true} />
                                  ) : selectedActivity.topic === 'Complete Quiz' ? (
                                      (() => {
                                          const quizData = generateQuiz(prepositionData, "Complete Prepositions Quiz", 20);
@@ -196,7 +196,7 @@ const MainContent = () => {
 // --- Main Exported Component ---
 export default function EnglishPrepositions() {
   useEffect(() => {
-    document.title = 'English Prepositions | ESL Lessons';
+    document.title = 'Prepositions | ESL Lessons';
   }, []);
 
   return (

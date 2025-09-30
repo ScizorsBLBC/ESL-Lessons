@@ -73,7 +73,7 @@ export default function ContentSelector({
             <Grid item xs={12} sx={{ width: '100%' }}>
                 <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h4" component="h2" gutterBottom>{title}</Typography>
-                    {description && <Typography sx={{ textAlign: 'center' }}>{description}</Typography>}
+                    {description && <Typography sx={{ textAlign: 'center' }} dangerouslySetInnerHTML={{ __html: description }} />}
                 </Box>
             </Grid>
             
@@ -89,20 +89,7 @@ export default function ContentSelector({
                              <MuiTooltip title={`View details for ${item[dataKey]}`} key={item[dataKey]} arrow>
                                 <Box sx={{ m: 1 }}>
                                     <GlassButtonWrapper isActive={currentItem === item}>
-                                        <Button
-                                            onClick={() => handleSelect(item)}
-                                            sx={{
-                                                color: (theme) => theme.palette.secondary.main,
-                                                minWidth: '120px',
-                                                transition: 'all 0.2s ease-in-out',
-                                                backgroundColor: 'transparent',
-                                                '&:hover': {
-                                                    backgroundColor: (theme) => theme.palette.action.hover,
-                                                    color: (theme) => theme.palette.primary.main,
-                                                    transform: 'scale(1.05)',
-                                                },
-                                            }}
-                                        >
+                                        <Button onClick={() => handleSelect(item)}>
                                             {item[dataKey]}
                                         </Button>
                                     </GlassButtonWrapper>

@@ -13,17 +13,6 @@ const ContactFormContent = () => {
 
   const handleChange = (setter) => (e) => setter(e.target.value);
   
-  // Styles for the inner button (text/icon is secondary.main / blue/cyan)
-  const formInnerButtonStyle = {
-    width: '100%',
-    height: '100%',
-    color: 'secondary.main', 
-    backgroundColor: 'transparent',
-    '&:hover': {
-        backgroundColor: (theme) => theme.palette.action.hover,
-        transform: 'scale(1.05)',
-    },
-  };
   
   // Styles for the wrapper/sizing of the button
   const formWrapperStyle = {
@@ -92,10 +81,15 @@ const ContactFormContent = () => {
           <GlassButtonWrapper sx={formWrapperStyle}>
               <Button
                 type="submit"
-                variant="text" 
+                variant="text"
                 size="large"
                 startIcon={<SendIcon />}
-                sx={formInnerButtonStyle}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  color: 'secondary.main',
+                  backgroundColor: 'transparent',
+                }}
               >
                 Send Message
               </Button>

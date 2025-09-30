@@ -12,7 +12,7 @@ import GlassButtonWrapper from '../../components/GlassButtonWrapper';
 const Header = ({ lessonNumber }) => (
   <Box sx={{ textAlign: 'center', mb: 4 }}>
     <Typography variant="h3" component="h1" gutterBottom sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
-      Interactive Idioms: Lesson {lessonNumber}
+      Idioms: Lesson {lessonNumber}
     </Typography>
     <Typography variant="h6" sx={{ color: 'text.primary' }}>
       Learn the stories behind common English idioms.
@@ -109,7 +109,7 @@ export default function IdiomPage() {
 
     useEffect(() => {
         if (activeLesson) {
-            document.title = `Idioms Lesson ${activeLesson.lesson} | ESL Lessons Hub`;
+            document.title = `Idioms ${activeLesson.lesson} | ESL Lessons Hub`;
         }
     }, [activeLesson]);
 
@@ -146,20 +146,7 @@ export default function IdiomPage() {
                     >
                         {viewModes.map((view, index) => (
                             <GlassButtonWrapper key={view} isActive={activeView === index}>
-                                <Button
-                                    onClick={() => handleViewChange(index)}
-                                    sx={{
-                                        color: theme.palette.secondary.main,
-                                        minWidth: '120px',
-                                        transition: 'all 0.2s ease-in-out',
-                                        backgroundColor: 'transparent',
-                                        '&:hover': {
-                                            backgroundColor: theme.palette.action.hover,
-                                            color: theme.palette.primary.main,
-                                            transform: 'scale(1.02)',
-                                        },
-                                    }}
-                                >
+                                <Button onClick={() => handleViewChange(index)}>
                                     {view}
                                 </Button>
                             </GlassButtonWrapper>

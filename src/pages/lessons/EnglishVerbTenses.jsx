@@ -175,20 +175,7 @@ export default function EnglishVerbTenses() {
           >
             {tenses.map((tense) => (
               <GlassButtonWrapper key={tense.blockId} isActive={selectedTense === tense}>
-                <Button
-                  onClick={() => setSelectedTense(tense)}
-                  sx={{
-                    color: (theme) => theme.palette.secondary.main,
-                    minWidth: '140px',
-                    transition: 'all 0.2s ease-in-out',
-                    backgroundColor: 'transparent',
-                    '&:hover': {
-                      backgroundColor: (theme) => theme.palette.action.hover,
-                      color: (theme) => theme.palette.primary.main,
-                      transform: 'scale(1.02)',
-                    },
-                  }}
-                >
+                <Button onClick={() => setSelectedTense(tense)}>
                   {(() => {
                     const htmlContent = tense.data.htmlContent;
                     const h3Match = htmlContent.match(/<h3[^>]*>([^<]+)<\/h3>/);

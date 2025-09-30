@@ -3,7 +3,7 @@
 
 export const verbTenseData = {
   "lessonId": "english-verb-tenses-complete-guide",
-  "title": "A Complete Guide to English Verb Tenses",
+  "title": "Verb Tenses",
   "subtitle": "Learn how to talk about the past, present, and future with confidence.",
   "content": [
     {

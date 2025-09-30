@@ -12,7 +12,7 @@ import Flashcard from '../../components/Flashcard';
 const Header = ({ lessonNumber }) => (
   <Box sx={{ textAlign: 'center', mb: 4 }}>
     <Typography variant="h3" component="h1" gutterBottom sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
-      Interactive Vocabulary: Lesson {lessonNumber}
+      Vocabulary: Lesson {lessonNumber}
     </Typography>
     <Typography variant="h6" sx={{ color: 'text.primary' }}>
       Learn and practice your new words.
@@ -97,7 +97,7 @@ export default function VocabularyPage() {
 
     useEffect(() => {
         if (activeLesson) {
-            document.title = `Vocabulary Lesson ${activeLesson.lesson} | ESL Lessons Hub`;
+            document.title = `Vocab ${activeLesson.lesson} | ESL Lessons Hub`;
         }
     }, [activeLesson]);
 
@@ -124,7 +124,7 @@ export default function VocabularyPage() {
                             <ContentSelector
                                 sectionData={activeLesson.words}
                                 title={`Lesson ${activeLesson.lesson}: Words`}
-                                description="Select a word to see its definition and a sample sentence."
+                                description="Select a word from the buttons below.<br /><br />Click on the flashcard to flip it over to see its definition and a sample sentence."
                                 detailRenderer={FlashcardRenderer}
                                 theme={theme}
                             />

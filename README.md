@@ -51,6 +51,8 @@ This project is configured for **continuous deployment** via Netlify, enabling s
    # Make your changes and test locally
    npm run dev
 
+   # Does the README.md need to be updated with these changes?
+
    # Stage and commit your changes
    git add .
    git commit -m "feat: add new lesson component with glassmorphism styling"
@@ -68,7 +70,69 @@ This project is configured for **continuous deployment** via Netlify, enabling s
    # Request review from maintainers
    ```
 
-3. **Automated Deployment**:
+3. **Post-Merge Cleanup & Branch Management**:
+   **Critical Step**: Always perform these cleanup steps after your pull request is successfully merged to prevent branch clutter and ensure you're working with the latest code.
+
+   ```bash
+   # Step 1: Verify the merge was successful on GitHub
+   # - Go to your repository on GitHub
+   # - Confirm the pull request shows "Merged"
+   # - Check that the deployment completed successfully
+
+   # Step 2: Delete the remote branch on GitHub
+   # Navigate to your repository on GitHub
+   # Click on "Branches" in the left sidebar
+   # Find your feature branch (e.g., "feature/new-lesson-component")
+   # Click the trash icon (🗑️) to delete the branch
+   # Confirm deletion when prompted
+
+   # Step 3: Switch to main branch locally
+   git checkout main
+
+   # Step 4: Pull the latest changes to ensure you have everything
+   git pull origin main
+
+   # Step 5: Verify you have the latest code
+   git log --oneline -5  # Shows last 5 commits
+   git status             # Should show "On branch main" with no changes
+   ```
+   **Safety Verification Steps**:
+   ```bash
+   # Step 6: Before deleting your branch, verify:
+   git branch -a                    # List all branches (local and remote)
+   git log main..feature/your-branch # Shows commits only on your branch
+   git diff main..feature/your-branch # Shows all changes on your branch
+   ```
+
+   ```bash
+   # Step 7: Delete your local feature branch
+   git branch -d feature/new-lesson-component
+
+   # Step 8: Clean up any untracked files if needed
+   git clean -fd  # Only if you're sure (removes untracked files/directories)
+   ```
+
+   **Important Notes**:
+   - **Never delete branches with uncommitted work** - commit or stash first
+   - **Double-check GitHub deletion** - ensure you're deleting the right branch
+   - **Wait for deployment** - confirm Netlify build completes before cleanup
+   - **Check for conflicts** - if merge had conflicts, ensure they're resolved
+
+   **Troubleshooting**:
+   ```bash
+   # If git pull fails due to conflicts:
+   git status                    # See what's conflicting
+   git diff                      # View the conflicts
+   # Resolve conflicts manually, then:
+   git add .                     # Stage resolved files
+   git commit -m "fix: resolve merge conflicts"
+
+   # If you accidentally delete a branch with work:
+   git reflog                    # Shows recent branch history
+   git checkout -b recovered-branch <commit-hash>  # Recover from reflog
+   ```
+
+4. **Automated Deployment**:
    - **Netlify Integration**: Connected to the main branch for automatic deployments
    - **Build Process**: Triggered automatically when pull requests are merged to `main`
    - **Environment Variables**: Secure API keys and configuration managed through Netlify dashboard
@@ -323,3 +387,86 @@ const VocabularyExerciseService = {
 2. **Service Layer**: Abstract parsing and generation logic into reusable utilities
 3. **Component Integration**: Update existing components to accept generated exercise data
 4. **Configuration**: Allow lessons to specify exercise parameters (question count, difficulty, etc.)
+
+## Global UI/UX Refactor & Accessibility Enhancements
+
+### Comprehensive Button Styling Consolidation
+- **Issue**: Inconsistent button styling and poor mobile responsiveness across the application
+- **Solution**: Complete refactor of the global button system with centralized, responsive styling
+- **Key Improvements**:
+  - **GlassButtonWrapper Enhancement**: Added responsive typography, touch-friendly sizing, and content-aware widths
+  - **Global Touch Targets**: Minimum 44px height for WCAG accessibility compliance on mobile devices
+  - **Responsive Typography**: Font sizes scale appropriately across screen sizes (xs: 0.875rem, sm: 1rem)
+  - **Smart Wrapping**: Button containers use `flexWrap: 'wrap'` for natural multi-row layouts on small screens
+  - **Content-Based Sizing**: Buttons size to their content width rather than fixed minimums
+- **Benefits**:
+  - **100% Readability**: No button text truncation on any screen size
+  - **Enhanced Accessibility**: Proper touch targets for users with motor impairments
+  - **Consistent UX**: Unified button behavior across all lessons and components
+  - **Future-Proof**: New buttons automatically inherit responsive, accessible styling
+
+### Chart Accessibility & Responsiveness Overhaul
+- **Issue**: Chart bars were too thin for reliable touch interaction on mobile devices
+- **Solution**: Enhanced ChartSection component with accessibility-focused responsive design
+- **Key Improvements**:
+  - **Touch-Friendly Bars**: Increased bar thickness to 50px (44px minimum for accessibility)
+  - **Responsive Container**: Smart height management with scrolling for tall charts
+  - **Mobile-First Design**: Charts adapt gracefully to small screens while maintaining usability
+  - **Content-Aware Layout**: Containers expand to accommodate varying content lengths
+  - **Cross-Platform Consistency**: Works identically on mobile, tablet, and desktop
+- **Technical Implementation**:
+  - **Chart.js Integration**: Enhanced bar thickness and minimum length controls
+  - **Responsive Breakpoints**: Different sizing for mobile (xs), tablet (sm), and desktop (md+)
+  - **Flexible Containers**: Layout adapts to content rather than using rigid constraints
+  - **Scroll Management**: Automatic scrolling for charts that exceed viewport height
+
+### Gap-Fill Exercise Completion System
+- **Issue**: Gap-fill exercises had no completion feedback or state management
+- **Solution**: Added comprehensive completion handling with user feedback
+- **Key Features**:
+  - **Completion Detection**: Automatically detects when all sentences are completed
+  - **Visual Feedback**: Shows congratulatory message with option to retry
+  - **State Management**: Proper completion state tracking across exercise sessions
+  - **User Experience**: Clear progression indication and retry functionality
+  - **Responsive Design**: Completion UI adapts to all screen sizes
+- **Technical Implementation**:
+  - **Component Enhancement**: Added `onComplete` callback prop to FillInTheBlanks
+  - **ContentBlockRenderer Updates**: Pass-through completion handlers
+  - **Responsive Completion UI**: Card-based layout with glassmorphism styling
+  - **State Synchronization**: Proper state management between parent and child components
+
+### Responsive Layout System Improvements
+- **Issue**: Content panes didn't adapt to varying text lengths, causing overflow issues
+- **Solution**: Enhanced responsive layout system with content-aware sizing
+- **Key Improvements**:
+  - **Flexible Containers**: Layout adapts to content length rather than fixed heights
+  - **Content Expansion**: Text content can grow to fill available space
+  - **Mobile Optimization**: Proper overflow handling for small screens
+  - **Desktop Balance**: Maintains visual proportions while allowing content flexibility
+  - **Cross-Component Consistency**: Unified responsive behavior across all layouts
+- **Technical Implementation**:
+  - **Flexbox Enhancements**: Improved flex properties for content adaptation
+  - **Responsive Constraints**: Smart min/max height management
+  - **Overflow Handling**: Proper scrolling and content flow management
+  - **Component Integration**: DetailCard and ChartSection work together seamlessly
+
+### Document Title Optimization
+- **Enhancement**: Shortened browser tab titles for better mobile experience
+- **Changes**:
+  - **Vocabulary Lessons**: "Vocab 1 | ESL Lessons Hub" (was "Vocabulary Lesson 1 | ESL Lessons Hub")
+  - **Idioms Lessons**: "Idioms 1 | ESL Lessons Hub" (was "Idioms Lesson 1 | ESL Lessons Hub")
+- **Benefits**:
+  - **Mobile-Friendly**: More space-efficient in browser tabs
+  - **Quick Identification**: Easier to scan multiple lesson tabs
+  - **Consistent Branding**: Maintains "ESL Lessons Hub" suffix for recognition
+
+### Global Design System Maturity
+The recent enhancements represent a significant maturation of the ESL Lessons Hub's global design system:
+
+- **Centralized Styling**: All UI elements now use consistent, responsive patterns
+- **Accessibility-First**: WCAG 2.1 AA compliance built into every component
+- **Performance-Optimized**: Efficient responsive design without layout thrashing
+- **Maintainable Architecture**: Changes in one place affect the entire application
+- **Future-Proof Foundation**: New features automatically inherit best practices
+
+**Impact**: The application now provides a world-class, accessible learning experience that works flawlessly across all devices while maintaining the signature glassmorphism aesthetic that makes it visually distinctive and engaging for ESL learners.
