@@ -7,8 +7,19 @@ export const prepositionData = {
     // --- NEW INTRODUCTION OBJECT ---
     introduction: {
         title: 'English Prepositions: Location, Time, and Movement',
-        description: `Prepositions are small words that help us connect words in a sentence. They often tell us WHERE something is (Location), WHEN something happens (Time), or HOW something is done or in what DIRECTION (Movement/Manner). Think of them as little helper words that give us more details!
-        Prepositions are very important because they make our sentences clear and help people understand where things are, when things happen, or how things are connected. Without them, sentences can be very confusing!`
+        description: `Prepositions are small words that help us connect words in a sentence. They often tell us WHERE something is (Location), WHEN something happens (Time), or HOW something is done or in what DIRECTION (Movement/Manner). Think of them as little helper words that give us more details!<br><br>
+        Prepositions are very important because they make our sentences clear and help people understand where things are, when things happen, or how things are connected. Without them, sentences can be very confusing!
+        <h3 style="font-size: 1.5em; font-weight: bold; margin-bottom: 1em;">Tips for Learning Prepositions</h3>
+                <p style="margin-bottom: 1em;">Learning prepositions takes practice! Here are some tips: </p>
+                <ul style="list-style-type: disc; list-style-position: inside; padding-left: 0; margin-top: 0.5em; display: grid; gap: 1em;">
+                    <li>Read a lot in English. Pay attention to how prepositions are used in sentences. </li>
+                    <li>Listen to English. Notice the prepositions you hear in songs, movies, and conversations. </li>
+                    <li>Practice using them. Try to make your own sentences with new prepositions you learn. </li>
+                    <li>Especially practice the difference between "to" and "at" for places! </li>
+                    <li>Think of prepositions in common phrases. For example, "on the table," "in the morning," "at school," "go to the park." </li>
+                    <li>Don't worry about making mistakes! Everyone makes mistakes when learning. The most important thing is to keep trying. </li>
+                </ul>
+        `
     },
     // --- Section 1: Place Prepositions ---
     place: [
@@ -157,7 +168,7 @@ export const prepositionData = {
                     <li>The cat jumped <strong>out of</strong> the window. </li>
                 </ul>
             `
-        },
+        }
     ],
 
     // --- Section 3: Time Prepositions ---
@@ -331,22 +342,6 @@ export const prepositionData = {
                     <p>Let's walk (to / at) the new cafe.</p>
                     <p style="margin-top: 1.5em; font-style: italic; font-weight: bold;">(Answers: 1. to, 2. at, 3. to, 4. at, 5. to)</p>
                 </div>
-            `
-        },
-        {
-            topic: 'Tips',
-            title: 'Tips for Learning Prepositions',
-            details: `
-                <h3 style="font-size: 1.5em; font-weight: bold; margin-bottom: 1em;">Tips for Learning Prepositions</h3>
-                <p style="margin-bottom: 1em;">Learning prepositions takes practice! Here are some tips: </p>
-                <ul style="list-style-type: disc; list-style-position: inside; padding-left: 0; margin-top: 0.5em; display: grid; gap: 1em;">
-                    <li>Read a lot in English. Pay attention to how prepositions are used in sentences. </li>
-                    <li>Listen to English. Notice the prepositions you hear in songs, movies, and conversations. </li>
-                    <li>Practice using them. Try to make your own sentences with new prepositions you learn. </li>
-                    <li>Especially practice the difference between "to" and "at" for places! </li>
-                    <li>Think of prepositions in common phrases. For example, "on the table," "in the morning," "at school," "go to the park." </li>
-                    <li>Don't worry about making mistakes! Everyone makes mistakes when learning. The most important thing is to keep trying. </li>
-                </ul>
             `
         }
     ],

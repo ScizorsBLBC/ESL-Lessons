@@ -9,6 +9,9 @@ import ContentSelector from '../../components/ContentSelector';
 import LessonTabs from '../../components/LessonTabs';
 import ContentBlockRenderer from '../../components/ContentBlockRenderer';
 import DetailCard from '../../components/DetailCard';
+import PracticeSuite from '../../components/PracticeSuite';
+import Quiz from '../../components/Quiz';
+import { generateQuiz } from '../../services/vocabularyService';
 
 // --- Reusable Header Component ---
 const Header = () => (
@@ -135,9 +138,14 @@ const MainContent = () => {
                                          details: '<p>Practice the difference between "to" (movement) and "at" (location).</p>'
                                      },
                                      {
-                                         topic: 'Tips',
-                                         title: 'Tips for Learning Prepositions',
-                                         details: '<p>Helpful strategies and advice for mastering English prepositions.</p>'
+                                         topic: 'Flashcards',
+                                         title: 'Preposition Flashcards',
+                                         details: '<p>Interactive flashcards to learn and practice all prepositions with examples. Flashcards only.</p>'
+                                     },
+                                     {
+                                         topic: 'Complete Quiz',
+                                         title: 'Complete Quiz',
+                                         details: '<p>Comprehensive quiz covering all prepositions with auto-generated questions and smart distractors. Goes directly to the quiz.</p>'
                                      }
                                  ]}
                                  title=""
@@ -153,12 +161,15 @@ const MainContent = () => {
                          {/* Show content when an activity is selected */}
                          {selectedActivity && (
                              <Box>
-                                 <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold' }}>
-                                     {selectedActivity.title}
-                                 </Typography>
+                                {/* Don't show titles above floating panes - keep button labels only */}
 
-                                 {selectedActivity.topic === 'Tips' ? (
-                                     <DetailCard content={prepositionData.homework.find(item => item.topic === 'Tips').details} />
+                                {selectedActivity.topic === 'Flashcards' ? (
+                                     <PracticeSuite contentBlocks={prepositionData} showQuizTab={false} />
+                                 ) : selectedActivity.topic === 'Complete Quiz' ? (
+                                     (() => {
+                                         const quizData = generateQuiz(prepositionData, "Complete Prepositions Quiz", 20);
+                                         return quizData ? <Quiz quizData={quizData} /> : <Typography>No quiz available</Typography>;
+                                     })()
                                  ) : (
                                      <ContentBlockRenderer
                                          contentBlocks={[

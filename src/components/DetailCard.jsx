@@ -1,7 +1,7 @@
 // src/components/DetailCard.jsx
 
-import React, { useState, useCallback, useRef } from 'react';
-import { Paper, Typography, IconButton, Box, useTheme, CircularProgress } from '@mui/material';
+import React, { useState, useCallback } from 'react';
+import { Paper, Typography, IconButton, Box, useTheme, CircularProgress, Tooltip } from '@mui/material';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import StopIcon from '@mui/icons-material/Stop';
 
@@ -9,7 +9,6 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
     const theme = useTheme();
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const audioRef = useRef(null);
 
     const strippedContent = content.replace(/<[^>]*>?/gm, '');
 
@@ -17,40 +16,60 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
         if (isLoading) return;
 
         if (isPlaying) {
-            if (audioRef.current) {
-                audioRef.current.pause();
-                audioRef.current.currentTime = 0;
+            if ('speechSynthesis' in window) {
+                speechSynthesis.cancel();
             }
             setIsPlaying(false);
             return;
         }
 
+        // Check if browser supports speech synthesis
+        if (!('speechSynthesis' in window)) {
+            console.warn('Text-to-speech not supported in this browser');
+            return;
+        }
+
         setIsLoading(true);
         try {
-            const response = await fetch('/api/tts', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: strippedContent }),
-            });
+            // Create utterance with American English and good settings for ESL students
+            const utterance = new SpeechSynthesisUtterance(strippedContent);
+            utterance.lang = 'en-US'; // American English
+            utterance.rate = 0.85; // Slightly slower for ESL comprehension
+            utterance.pitch = 1.0; // Natural pitch
+            utterance.volume = 0.9; // Slightly quieter to be less jarring
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch audio from the server.');
+            // Try to get a good American English voice
+            const voices = speechSynthesis.getVoices();
+            const americanVoice = voices.find(voice =>
+                voice.lang.includes('en-US') && voice.name.includes('Samantha') // macOS voice
+            ) || voices.find(voice =>
+                voice.lang.includes('en-US') && voice.name.includes('Zira') // Windows voice
+            ) || voices.find(voice =>
+                voice.lang.includes('en-US')
+            );
+
+            if (americanVoice) {
+                utterance.voice = americanVoice;
             }
 
-            const data = await response.json();
-            if (data.audioContent) {
-                const audioSrc = `data:audio/mp3;base64,${data.audioContent}`;
-                audioRef.current = new Audio(audioSrc);
-                audioRef.current.play();
+            utterance.onstart = () => {
                 setIsPlaying(true);
+                setIsLoading(false);
+            };
 
-                audioRef.current.onended = () => {
-                    setIsPlaying(false);
-                };
-            }
+            utterance.onend = () => {
+                setIsPlaying(false);
+            };
+
+            utterance.onerror = (error) => {
+                console.error("Error fetching or playing TTS audio:", error);
+                setIsLoading(false);
+                setIsPlaying(false);
+            };
+
+            speechSynthesis.speak(utterance);
         } catch (error) {
-            console.error("Error fetching or playing TTS audio:", error);
-        } finally {
+            console.error("Error with TTS:", error);
             setIsLoading(false);
         }
     }, [strippedContent, isPlaying, isLoading]);
@@ -77,23 +96,56 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
             sx={{ ...liquidGlassStyle, p: 2.5, position: 'relative', overflow: 'visible' }}
         >
             <Box sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}>
-                <IconButton
-                    onClick={handleSpeak}
-                    aria-label={isPlaying ? "Stop reading content" : "Read content aloud"}
-                    size="small"
-                    disabled={!content || isLoading}
-                    sx={{
-                        backgroundColor: isPlaying ? hexToRgba(theme.palette.error.main, 0.2) : hexToRgba(theme.palette.background.paper, 0.15),
-                        border: `1px solid ${isPlaying ? hexToRgba(theme.palette.error.main, 0.3) : hexToRgba(theme.palette.text.primary, 0.2)}`,
-                        backdropFilter: 'blur(8px)',
-                        '&:hover': {
-                            backgroundColor: isPlaying ? hexToRgba(theme.palette.error.main, 0.3) : hexToRgba(theme.palette.background.paper, 0.25),
-                        },
-                        transition: 'all 0.2s ease-in-out',
-                    }}
+                <Tooltip
+                    title={
+                        !('speechSynthesis' in window)
+                            ? "Text-to-speech not supported in this browser"
+                            : isPlaying
+                                ? "Stop reading"
+                                : "Read content aloud (American English)"
+                    }
+                    placement="left"
                 >
-                    {isLoading ? <CircularProgress size={20} /> : (isPlaying ? <StopIcon fontSize="small" sx={{ color: 'error.main' }} /> : <VolumeUpIcon fontSize="small" />)}
-                </IconButton>
+                    <span>
+                        <IconButton
+                            onClick={handleSpeak}
+                            aria-label={
+                                !('speechSynthesis' in window)
+                                    ? "Text-to-speech not available"
+                                    : isPlaying
+                                        ? "Stop text-to-speech"
+                                        : "Start text-to-speech"
+                            }
+                            size="small"
+                            disabled={!content || isLoading || !('speechSynthesis' in window)}
+                            sx={{
+                                backgroundColor: isPlaying
+                                    ? hexToRgba(theme.palette.error.main, 0.2)
+                                    : hexToRgba(theme.palette.background.paper, 0.15),
+                                border: `1px solid ${
+                                    isPlaying
+                                        ? hexToRgba(theme.palette.error.main, 0.3)
+                                        : hexToRgba(theme.palette.text.primary, 0.2)
+                                }`,
+                                backdropFilter: 'blur(8px)',
+                                '&:hover': {
+                                    backgroundColor: isPlaying
+                                        ? hexToRgba(theme.palette.error.main, 0.3)
+                                        : hexToRgba(theme.palette.background.paper, 0.25),
+                                },
+                                transition: 'all 0.2s ease-in-out',
+                            }}
+                        >
+                            {isLoading ? (
+                                <CircularProgress size={20} />
+                            ) : isPlaying ? (
+                                <StopIcon fontSize="small" sx={{ color: 'error.main' }} />
+                            ) : (
+                                <VolumeUpIcon fontSize="small" />
+                            )}
+                        </IconButton>
+                    </span>
+                </Tooltip>
             </Box>
 
             <Typography

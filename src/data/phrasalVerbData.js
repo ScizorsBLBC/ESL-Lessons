@@ -148,7 +148,7 @@ export const phrasalVerbData = {
       type: "fillInTheBlanks",
       data: {
         title: "Phrasal Verbs Gap Fill",
-        instructions: "Fill in the blank with the correct phrasal verb from the options.",
+        instructions: "Select the correct phrasal verb from the multiple choice options below.",
         sentences: [
           {
             text: "If we don't have all the information, we should ________ the meeting until next week.",

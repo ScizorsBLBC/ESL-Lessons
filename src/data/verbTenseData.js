@@ -70,39 +70,6 @@ export const verbTenseData = {
       }
     },
     {
-      "blockId": "present-tenses-quiz-09",
-      "type": "quiz",
-      "data": {
-        "quizTitle": "Check Your Knowledge: Present Tenses",
-        "questions": [
-          {
-            "question": "Which sentence is correct for something that happens every day?",
-            "answers": [
-              "I am drinking coffee now.",
-              "I drink coffee.",
-              "I have drunk coffee.",
-              "I have been drinking coffee."
-            ],
-            "correctAnswer": "2",
-            "messageForCorrectAnswer": "Great job! We use the Simple Present for habits and routines.",
-            "messageForIncorrectAnswer": "Not quite. For daily habits, the Simple Present ('I drink') is the best choice."
-          },
-          {
-            "question": "Your friend asks, 'Why are you so tired?' What is the best response?",
-            "answers": [
-              "I studied.",
-              "I study hard.",
-              "I have been studying for hours.",
-              "I will study."
-            ],
-            "correctAnswer": "3",
-            "messageForCorrectAnswer": "Exactly! You are explaining the present result (being tired) by emphasizing the duration of the past activity.",
-            "messageForIncorrectAnswer": "Think about explaining the *reason* for a present result. The Present Perfect Continuous ('have been studying') is perfect for this."
-          }
-        ]
-      }
-    },
-    {
       "blockId": "past-tenses-intro-10",
       "type": "text",
       "data": {
@@ -148,27 +115,6 @@ export const verbTenseData = {
           ["Past Continuous", "She <strong>was reading</strong> when the phone rang.", "An action in progress in the past (often interrupted)."],
           ["Past Perfect", "They <strong>had finished</strong> dinner before I arrived.", "An action that happened before another past action."],
           ["Past Perfect Continuous", "I <strong>had been waiting</strong> for an hour when he came.", "How long an action continued before another past action."]
-        ]
-      }
-    },
-    {
-      "blockId": "past-tenses-quiz-16",
-      "type": "quiz",
-      "data": {
-        "quizTitle": "Check Your Knowledge: Past Tenses",
-        "questions": [
-          {
-            "question": "Which sentence shows that one action happened before another in the past?",
-            "answers": [
-              "When I arrived, she cooked dinner.",
-              "While I was arriving, she cooked dinner.",
-              "When I arrived, she had cooked dinner.",
-              "When I arrived, she was cooking dinner."
-            ],
-            "correctAnswer": "3",
-            "messageForCorrectAnswer": "Correct! The Past Perfect ('had cooked') shows the cooking was finished before the arrival.",
-            "messageForIncorrectAnswer": "Try again. To show one action finished *before* another past action, we use the Past Perfect."
-          }
         ]
       }
     },
@@ -229,27 +175,6 @@ export const verbTenseData = {
       }
     },
     {
-      "blockId": "future-tenses-quiz-21",
-      "type": "quiz",
-      "data": {
-        "quizTitle": "Check Your Knowledge: Future Tenses",
-        "questions": [
-          {
-            "question": "The phone is ringing. What do you say?",
-            "answers": [
-              "I'm going to get it.",
-              "I'll get it.",
-              "I get it.",
-              "I will be getting it."
-            ],
-            "correctAnswer": "2",
-            "messageForCorrectAnswer": "Perfect! 'I'll get it' is a spontaneous decision made at the moment of speaking.",
-            "messageForIncorrectAnswer": "Not quite. For a decision made at the moment of speaking, we use 'will'."
-          }
-        ]
-      }
-    },
-    {
       "blockId": "final-practice-fill-blanks-22",
       "type": "fillInTheBlanks",
       "data": {
@@ -280,11 +205,64 @@ export const verbTenseData = {
       }
     },
     {
-      "blockId": "final-practice-quiz-23",
+      "blockId": "comprehensive-verb-tenses-practice-24",
       "type": "quiz",
       "data": {
-        "quizTitle": "Final Practice: Sentence Transformation",
+        "quizTitle": "Comprehensive Verb Tenses Practice",
+        "quizSynopsis": "Test your knowledge of all English verb tenses with this comprehensive quiz covering present, past, and future tenses.",
         "questions": [
+          // Present Tenses Questions (2 questions)
+          {
+            "question": "Which sentence is correct for something that happens every day?",
+            "answers": [
+              "I am drinking coffee now.",
+              "I drink coffee.",
+              "I have drunk coffee.",
+              "I have been drinking coffee."
+            ],
+            "correctAnswer": "2",
+            "messageForCorrectAnswer": "Great job! We use the Simple Present for habits and routines.",
+            "messageForIncorrectAnswer": "Not quite. For daily habits, the Simple Present ('I drink') is the best choice."
+          },
+          {
+            "question": "Your friend asks, 'Why are you so tired?' What is the best response?",
+            "answers": [
+              "I studied.",
+              "I study hard.",
+              "I have been studying for hours.",
+              "I will study."
+            ],
+            "correctAnswer": "3",
+            "messageForCorrectAnswer": "Exactly! You are explaining the present result (being tired) by emphasizing the duration of the past activity.",
+            "messageForIncorrectAnswer": "Think about explaining the *reason* for a present result. The Present Perfect Continuous ('have been studying') is perfect for this."
+          },
+          // Past Tenses Questions (1 question)
+          {
+            "question": "Which sentence shows that one action happened before another in the past?",
+            "answers": [
+              "When I arrived, she cooked dinner.",
+              "While I was arriving, she cooked dinner.",
+              "When I arrived, she had cooked dinner.",
+              "When I arrived, she was cooking dinner."
+            ],
+            "correctAnswer": "3",
+            "messageForCorrectAnswer": "Correct! The Past Perfect ('had cooked') shows the cooking was finished before the arrival.",
+            "messageForIncorrectAnswer": "Try again. To show one action finished *before* another past action, we use the Past Perfect."
+          },
+          // Future Tenses Questions (1 question)
+          {
+            "question": "The phone is ringing. What do you say?",
+            "answers": [
+              "I'm going to get it.",
+              "I'll get it.",
+              "I get it.",
+              "I will be getting it."
+            ],
+            "correctAnswer": "2",
+            "messageForCorrectAnswer": "Perfect! 'I'll get it' is a spontaneous decision made at the moment of speaking.",
+            "messageForIncorrectAnswer": "Not quite. For a decision made at the moment of speaking, we use 'will'."
+          },
+          // Final Practice Questions (2 questions)
           {
             "question": "Original: 'She cooked dinner. The guests arrived.' How can you combine these to show she finished cooking *before* the guests arrived?",
             "answers": [
