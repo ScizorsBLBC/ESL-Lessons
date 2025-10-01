@@ -73,7 +73,7 @@ export const newsData = [
       "Level 4 Questions": "",
       "Level 5 Text": "",
       "Level 5 Questions": "",
-      "Level 6 Text": "Jeans video sparks race and genetics debate\nA video from a U.S. fashion retailer has created controversy over its use of the words \"jeans\" (as in denim) and \"genes\" (as in genetics). Social media is alight with claims the video is racist. The company, American Eagle, produced the video for its new line of clothes. The video stars denim-clad actress Sydney Sweeney. She tells the camera: \"Genes are passed down from parents to offspring, often determining traits like hair colour, personality and even eye colour. My jeans are blue.\" The video closes with the tagline: \"Sydney Sweeney has great jeans.\" American Eagle said the play on words was part of its ad campaign's \"provocative language\". It said the words were definitely going to \"push buttons\".santi\nMany people have criticized the wordplay for having eugenic undertones. Eugenics is a debunked theory that posits that humanity can be improved by encouraging people with certain genes to reproduce, to increase the occurrence of \"desirable\" racial traits. Critics of the ad highlight the fact that Ms Sweeney is white, blue-eyed, and blonde. They suggest her looks are really \"great genes\". Former Fox News host Megyn Kelly called the criticism a \"leftist meltdown\". U.S. Vice President JD Vance called it an overreaction. Meanwhile, the White House communications director said attacking the ad was \"cancel culture run amok\". American Eagle says its ad \"is and always was about the jeans.\"",
+      "Level 6 Text": "Jeans video sparks race and genetics debate\nA video from a U.S. fashion retailer has created controversy over its use of the words \"jeans\" (as in denim) and \"genes\" (as in genetics). Social media is alight with claims the video is racist. The company, American Eagle, produced the video for its new line of clothes. The video stars denim-clad actress Sydney Sweeney. She tells the camera: \"Genes are passed down from parents to offspring, often determining traits like hair colour, personality and even eye colour. My jeans are blue.\" The video closes with the tagline: \"Sydney Sweeney has great jeans.\" American Eagle said the play on words was part of its ad campaign's \"provocative language\". It said the words were definitely going to \"push buttons\".\nMany people have criticized the wordplay for having eugenic undertones. Eugenics is a debunked theory that posits that humanity can be improved by encouraging people with certain genes to reproduce, to increase the occurrence of \"desirable\" racial traits. Critics of the ad highlight the fact that Ms Sweeney is white, blue-eyed, and blonde. They suggest her looks are really \"great genes\". Former Fox News host Megyn Kelly called the criticism a \"leftist meltdown\". U.S. Vice President JD Vance called it an overreaction. Meanwhile, the White House communications director said attacking the ad was \"cancel culture run amok\". American Eagle says its ad \"is and always was about the jeans.\"",
       "Level 6 Questions": "What does the article say the jeans ad created?\nWhat did the company make the ad for?\nWhat does the ad say are passed down through the generations?\nWhat does the ad say the actress has?\nWhat did the company say language in its ad would push?\nWhat did critics criticize the ad for having?\nWhat did the article say Eugenics was as a theory?\nWhat did a former Fox News host call the criticism of the ad?\nWhat did the White House say had happened to cancel culture?\nWhat did the fashion company say the ad was always about?",
       "Level 6 Instruction": "Write a full sentence answer for each question below.",
       "Level 6 Writing Prompt": "Free Writing\nWrite about jeans and genes wordplay for 10 minutes.",
@@ -115,14 +115,14 @@ export const newsData = [
       "Image URL": "",
       "Level 0 Text": "",
       "Level 0 Questions": "",
-      "Level 1 Text": "",
-      "Level 1 Questions": "",
-      "Level 1 Instruction": "",
+      "Level 1 Text": "France has banned smoking in public places. France's health minister said: \"These are places to play, learn, and breathe; not for smoking.\" She added that children have a right to breathe clean air. People who smoke in parks and on beaches will now be breaking the law. The ban will protect children from passive smoking, which is breathing in smoke from other people who are smoking. France wants a tobacco-free generation by 2032.\n\nSmoking is falling in France. However, passive smoking still kills 5,000 people a year. Most French people support a smoking ban, even in restaurants. Smoking is a leading cause of disease and death. It can damage nearly every organ of the body. Cigarette smoke harms children's developing bodies. When children breathe in second-hand smoke, they can have breathing problems. It can damage their lungs.",
+      "Level 1 Questions": "In which two places does the article say French people cannot smoke?\nWhat will the new law protect children from?\nWhat does the French government want to create by 2032?\nWhat did a woman say children have a right to breathe?\nWhat does the article say can lead to breathing problems and asthma?\n",
+      "Level 1 Instruction": "Write a full-sentence answer for each question below.",
       "Level 2 Text": "",
       "Level 2 Questions": "",
-      "Level 3 Text": "France bans smoking for tobacco-free generation\nFrance has banned smoking in public places like beaches and parks. Any smoker who lights up a cigarette in public will be breaking the law. The new smoking ban is to protect children from passive smoking. This happens when you breathe in smoke from other people who are smoking. The government wants to create a tobacco-free generation by 2032. This means protecting children today. France's Minister of Health said: \"Tobacco must disappear from places where there are children \u2026 a park, a beach, a school. These are places to play, learn, and breathe; not for smoking.\" She added: \"The freedom to smoke stops where the right of children to breathe clean air begins.\"\nSmoking is slowly falling in France. However, passive smoking still causes up to 5,000 deaths per year. A recent survey showed that 68 per cent of French people support rules to ban smoking in public. They also want bans at outdoor cafes and restaurants, but these places are not included under the new ban. Smoking is one of the leading causes of preventable disease, disability and death. It can damage nearly every organ of the body. Smoking near children is especially dangerous because their bodies are still developing. Second-hand smoke can lead to breathing problems and asthma. It can slow down or damage lung development. People hope the new ban means children can grow up to be healthier.",
+      "Level 3 Text": "France bans smoking for tobacco-free generation\nFrance has banned smoking in public places like beaches and parks. Any smoker who lights up a cigarette in public will be breaking the law. The new smoking ban is to protect children from passive smoking. This happens when you breathe in smoke from other people who are smoking. The government wants to create a tobacco-free generation by 2032. This means protecting children today. France's Minister of Health said: \"Tobacco must disappear from places where there are children … a park, a beach, a school. These are places to play, learn, and breathe; not for smoking.\" She added: \"The freedom to smoke stops where the right of children to breathe clean air begins.\"\nSmoking is slowly falling in France. However, passive smoking still causes up to 5,000 deaths per year. A recent survey showed that 68 per cent of French people support rules to ban smoking in public. They also want bans at outdoor cafes and restaurants, but these places are not included under the new ban. Smoking is one of the leading causes of preventable disease, disability and death. It can damage nearly every organ of the body. Smoking near children is especially dangerous because their bodies are still developing. Second-hand smoke can lead to breathing problems and asthma. It can slow down or damage lung development. People hope the new ban means children can grow up to be healthier.",
       "Level 3 Questions": "In which two places does the article say French people cannot smoke?\nWhat will the new law protect children from?\nWhat does the French government want to create by 2032?\nWho said tobacco must disappear from public places?\nWhat did a woman say children have a right to breathe?\nHow many people does passive smoking kill each year?\nWhat percentage of French people support a smoking ban?\nWhat bodily organs can smoking damage?\nWhat does the article say can lead to breathing problems and asthma?\nWhat can be slowed down or damaged by breathing in smoke?",
-      "Level 3 Instruction": "Write a full sentence answer for each question below.",
+      "Level 3 Instruction": "Write a full-sentence answer for each question below.",
       "Level 4 Text": "",
       "Level 4 Questions": "",
       "Level 5 Text": "",
@@ -131,7 +131,7 @@ export const newsData = [
       "Level 6 Questions": "",
       "Level 6 Instruction": "",
       "Level 6 Writing Prompt": "",
-         "Date Written": "2025-10-01",
+      "Date Written": "2025-07-03"
  }
   },
   {
@@ -1536,6 +1536,33 @@ export const newsData = [
       "Level 6 Instruction": "Write a full-sentence answer for each question below.",
       "Level 6 Writing Prompt": "Write about revenge quitting for 10 minutes. Do you think anyone who quits should do so respectfully? ",
       "Date Written": "2025-09-22"
+    }
+  },
+  {
+    id: 'rec058',
+    fields: {
+      "Headline": "World's tallest bridge opens in China ",
+      "Slug": "bridges",
+      "Image URL": "https://breakingnewsenglish.com/2509/250929-huajiang-grand-canyon-bridge.jpg",
+      "Level 0 Text": "",
+      "Level 0 Questions": "",
+      "Level 1 Text": "",
+      "Level 1 Questions": "",
+      "Level 1 Instruction": "",
+      "Level 2 Text": "",
+      "Level 2 Questions": "",
+      "Level 3 Text": "",
+      "Level 3 Questions": "",
+      "Level 3 Instruction": "",
+      "Level 4 Text": "",
+      "Level 4 Questions": "",
+      "Level 5 Text": "",
+      "Level 5 Questions": "",
+      "Level 6 Text": "A record-breaking bridge opened to traffic on Sunday in China. The Huajiang Grand Canyon Bridge in mountainous Guizhou Province is now the world's tallest bridge. It stands at a lofty height of 625 metres above the Beipan River. The feat of engineering also has the longest span of any bridge that has been constructed in rugged terrain. The bridge is 2,890 metres long, with the main span stretching 1,420 metres. The crossing will have a significant impact on the economy, logistics, and travel times in the region. It will slash the travel time between the two sides of the Beipan River from two hours to just two minutes. A spokesperson said it would revitalize rural areas.\n\nChina is displaying an impressive level of prowess in bridge-building. The website highestbridges.com lists the 18 tallest bridges in the world, all of which have been constructed or are under construction in China. The top three are in Guizhou, which also boasts a further 32,000 spans. Nearly half of the 100 highest bridges in the world are located there. The Huajiang Grand Canyon Bridge is also full of cutting-edge engineering features in its wind-resistant design and high-altitude construction. The spokesperson expects the bridge will become a sightseeing spot and attract more than a million visitors a year. It has a cafe, a geological museum, and a bungee-jumping centre.",
+      "Level 6 Questions": "What did the bridge open to in Sunday?\nHow high above a river is the bridge?\nHow long is the bridge's main span?\nHow much time has the bridge saved to cross the Beipan River?\nWhat did a spokesperson say the bridge would revitalize?\nHow many of the tallest bridges in the world are in China?\nHow many of the tallest bridges in the world are in Guizhou Province?\nWhat is the Huajiang Grand Canyon Bridge full of?\nHow many visitors are expected to visit the bridge each year?\nWhat kind of museum is there at the bridge?",
+      "Level 6 Instruction": "Write a full-sentence answer for each question below.",
+      "Level 6 Writing Prompt": "Free Writing\nWrite about the Huajiang Grand Canyon Bridge, and whether we should look at building bridges across oceans. Write for 10 minutes.",
+      "Date Written": "2025-09-29"
     }
   }
 ];

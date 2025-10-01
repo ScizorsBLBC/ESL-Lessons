@@ -96,15 +96,15 @@ app.post('/api/articles/save', async (req, res) => {
     return res.status(403).json({ error: 'Article management only available in development' });
   }
 
-  const { articleData, mode } = req.body;
+  const { articleData, mode, fileLocation = 'newsData.js' } = req.body;
 
   if (!articleData) {
     return res.status(400).json({ error: 'Article data is required' });
   }
 
   try {
-    const projectRoot = process.cwd(); // Current working directory (project root)
-    const newsDataPath = path.join(projectRoot, 'src', 'data', 'newsData.js');
+    const projectRoot = path.resolve(__dirname, '..'); // Go up one level from server directory to project root
+    const newsDataPath = path.join(projectRoot, 'src', 'data', fileLocation);
 
     // Read current newsData.js
     let newsDataContent = fs.readFileSync(newsDataPath, 'utf8');
@@ -148,7 +148,6 @@ app.post('/api/articles/save', async (req, res) => {
       }
 
       const articleToReplace = match[0];
-      const endIndex = startIndex + match[0].length;
 
       if (!articleToReplace) {
         return res.status(500).json({ error: 'Could not determine article boundaries for replacement' });
@@ -282,8 +281,6 @@ app.post('/api/articles/save', async (req, res) => {
         let topicsContent = fs.readFileSync(topicsPath, 'utf8');
 
         // Add topic mapping if not already present
-        const topicMapping = `  '${articleData.slug}': '${articleData.topic}',`;
-
         if (!topicsContent.includes(`'${articleData.slug}': '${articleData.topic}'`)) {
           topicsContent = topicsContent.replace(
             /\s+\}\s*$/,

@@ -13,13 +13,15 @@ const api = axios.create({
  * Save an article (create or update)
  * @param {object} articleData - The article data to save
  * @param {string} mode - 'create' or 'update'
+ * @param {string} fileLocation - The file location to save to (e.g., 'newsData.js')
  * @returns {Promise<object>} API response
  */
-export const saveArticle = async (articleData, mode) => {
+export const saveArticle = async (articleData, mode, fileLocation = 'newsData.js') => {
   try {
     const response = await api.post('/articles/save', {
       articleData,
-      mode
+      mode,
+      fileLocation
     });
     return response.data;
   } catch (error) {
