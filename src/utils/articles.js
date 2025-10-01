@@ -55,8 +55,8 @@ export const transformArticleToCanonicalSchema = (article, level) => {
   // First unescape \n strings back to actual newlines, then normalize paragraph breaks
   let unescapedText = levelText.replace(/\\n/g, '\n');
 
-  // For levels 3 and 6, remove the headline if it appears at the beginning of the body text
-  if (level === 3 || level === 6) {
+  // For levels 1, 3, and 6, remove the headline if it appears at the beginning of the body text
+  if (level === 1 || level === 3 || level === 6) {
     const headline = article.fields.Headline;
     const firstLine = unescapedText.split('\n')[0].trim();
 
