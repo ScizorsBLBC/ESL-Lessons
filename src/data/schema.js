@@ -15,7 +15,7 @@ export const lessonSchema = `
         "type": "object",
         "properties": {
           "blockId": { "type": "string" },
-          "type": { "type": "string", "enum": ["text", "quiz", "fillInTheBlanks", "flashcard", "youtubeEmbed", "chart"] },
+          "type": { "type": "string", "enum": ["text", "quiz", "fillInTheBlanks", "flashcard", "youtubeEmbed", "chart", "practiceSuite"] },
           "data": { "type": "object" }
         },
         "required": ["blockId", "type", "data"]

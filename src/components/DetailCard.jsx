@@ -10,7 +10,7 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const strippedContent = content.replace(/<[^>]*>?/gm, '');
+    const strippedContent = content ? content.replace(/<[^>]*>?/gm, '') : '';
 
     const handleSpeak = useCallback(async () => {
         if (isLoading) return;
@@ -159,7 +159,7 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
             <Typography
                 variant="body1"
                 component="div"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: content || '' }}
                 sx={{
                     color: (theme) => theme.palette.text.primary,
                     pt: 4,
@@ -168,13 +168,11 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
                     '& h1, & h2, & h3, & h4, & h5, & h6': {
                         color: (theme) => theme.palette.text.primary,
                         marginTop: 2,
-                        marginBottom: 1,
-                        textAlign: 'center'
+                        marginBottom: 1
                     },
                     '& p': {
                         color: (theme) => theme.palette.text.secondary,
-                        marginBottom: 1.5,
-                        textAlign: 'justify'
+                        marginBottom: 1.5
                     },
                     '& ul, & ol': {
                         color: (theme) => theme.palette.text.secondary,
@@ -190,7 +188,6 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
                     },
                     '& .homework-email': {
                         backgroundColor: (theme) => theme.palette.action.hover,
-                        borderLeft: (theme) => `4px solid ${theme.palette.secondary.main}`,
                         padding: '1rem',
                         marginTop: '1rem',
                         textAlign: 'left',
