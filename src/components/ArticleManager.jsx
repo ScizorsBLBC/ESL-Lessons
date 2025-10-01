@@ -37,6 +37,7 @@ const ArticleManager = () => {
   const [selectedArticleId, setSelectedArticleId] = useState('');
   const [activeTab, setActiveTab] = useState(0);
   const [formData, setFormData] = useState(getEmptyArticleData());
+  const [fileLocation, setFileLocation] = useState('newsData.js');
   const [saveStatus, setSaveStatus] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [allTopics] = useState(getAllTopics());
@@ -193,7 +194,7 @@ const ArticleManager = () => {
       const mode = isNew ? 'create' : 'update';
 
       // Save via API
-      const result = await saveArticle(formData, mode);
+      const result = await saveArticle(formData, mode, fileLocation);
 
       if (result.success) {
         // Update local state for immediate feedback
@@ -231,6 +232,7 @@ const ArticleManager = () => {
 
           // Reset form for new article creation
           setFormData(getEmptyArticleData());
+          setFileLocation('newsData.js');
           setSelectedArticleId('');
         } else {
           // For existing articles, update the local state
@@ -295,8 +297,10 @@ const ArticleManager = () => {
     if (newValue === 1) { // Edit tab
       setSelectedArticleId('');
       setFormData(getEmptyArticleData());
+      setFileLocation('newsData.js');
       setSearchQuery(''); // Clear search when switching to edit tab
     } else {
+      setFileLocation('newsData.js'); // Reset to default
       setSearchQuery(''); // Clear search when switching away from edit tab
     }
     setSaveStatus('');
@@ -339,6 +343,8 @@ const ArticleManager = () => {
           saveStatus={saveStatus}
           allTopics={allTopics}
           mode="create"
+          fileLocation={fileLocation}
+          onFileLocationChange={setFileLocation}
         />
       )}
 
@@ -423,6 +429,8 @@ const ArticleManager = () => {
               saveStatus={saveStatus}
               allTopics={allTopics}
               mode="edit"
+              fileLocation={fileLocation}
+              onFileLocationChange={setFileLocation}
             />
           )}
         </Box>
@@ -431,7 +439,7 @@ const ArticleManager = () => {
   );
 };
 
-const ArticleForm = ({ formData, onInputChange, onSave, saveStatus, allTopics, mode }) => {
+const ArticleForm = ({ formData, onInputChange, onSave, saveStatus, allTopics, mode, fileLocation, onFileLocationChange }) => {
   return (
     <Box>
       <Stack spacing={3}>
@@ -484,6 +492,23 @@ const ArticleForm = ({ formData, onInputChange, onSave, saveStatus, allTopics, m
                     {topic.icon} {topic.name}
                   </MenuItem>
                 ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <Select
+                value={fileLocation}
+                onChange={(e) => onFileLocationChange(e.target.value)}
+                displayEmpty
+              >
+                <MenuItem value="newsData.js">
+                  <em>📄 newsData.js (Default)</em>
+                </MenuItem>
+                <MenuItem value="articleTopics.js">
+                  <em>🏷️ articleTopics.js (Topics only)</em>
+                </MenuItem>
+                <MenuItem value="vocabularyData.js">
+                  <em>📚 vocabularyData.js (Vocabulary)</em>
+                </MenuItem>
               </Select>
             </FormControl>
           </Stack>

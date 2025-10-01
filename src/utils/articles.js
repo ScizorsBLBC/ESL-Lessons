@@ -52,16 +52,35 @@ export const transformArticleToCanonicalSchema = (article, level) => {
   const contentBlocks = [];
 
   // Main article content block (left pane)
+  // First unescape \n strings back to actual newlines, then normalize paragraph breaks
+  let unescapedText = levelText.replace(/\\n/g, '\n');
+
+  // For levels 3 and 6, remove the headline if it appears at the beginning of the body text
+  if (level === 3 || level === 6) {
+    const headline = article.fields.Headline;
+    const firstLine = unescapedText.split('\n')[0].trim();
+
+    // If the first line matches the headline, remove it
+    if (firstLine === headline) {
+      unescapedText = unescapedText.substring(unescapedText.indexOf('\n') + 1).trim();
+    }
+  }
+
+  // Normalize paragraph breaks: ensure all paragraph breaks are \n\n for consistent spacing
+  // Split by newlines, filter out empty lines, and join with \n\n
+  const lines = unescapedText.split('\n').filter(line => line.trim().length > 0);
+  const normalizedText = lines.join('\n\n');
+
   contentBlocks.push({
     blockId: `${article.fields.Slug}-content`,
     type: 'text',
     data: {
-      htmlContent: levelText
+      htmlContent: normalizedText.replace(/\n/g, '<br>')
     }
   });
 
-  // Level 3 and Level 6 have additional sections in the right pane
-  if (level === 3 || level === 6) {
+  // Level 1, 3, and 6 have additional sections in the right pane
+  if (level === 1 || level === 3 || level === 6) {
     const questions = article.fields[`Level ${level} Questions`];
     const instruction = article.fields[`Level ${level} Instruction`];
     const writingPrompt = article.fields[`Level ${level} Writing Prompt`];
@@ -70,12 +89,14 @@ export const transformArticleToCanonicalSchema = (article, level) => {
 
     // Add questions section
     if (questions && questions.trim()) {
+      const unescapedQuestions = questions.replace(/\\n/g, '\n');
+      const formattedQuestions = unescapedQuestions.replace(/\n/g, '<br>');
       exercisesContent += `
 <div class="homework-email">
   <h3 style="margin-top: 0; color: inherit; text-align: center;">Comprehension Questions:</h3>
   <p style="margin-bottom: 1.5rem; color: inherit; text-align: center;"><strong>Write a full-sentence answer for each question below.</strong></p>
   <div style="text-align: left; display: inline-block; max-width: 600px;">
-    ${questions.split('\n').map(q => `<p style="margin-bottom: 1rem; color: inherit; text-align: left;">${q}</p>`).join('')}
+    ${formattedQuestions.split('<br>').map(q => `<p style="margin-bottom: 1rem; color: inherit; text-align: left;">${q}</p>`).join('')}
   </div>
 </div>`;
     }
@@ -83,16 +104,20 @@ export const transformArticleToCanonicalSchema = (article, level) => {
     // Add instruction section (only if it's not the standard "Write a full sentence..." text that's already in questions)
     const normalizedInstruction = instruction.trim().toLowerCase().replace(/[-\s]/g, ' ');
     if (instruction && instruction.trim() && !normalizedInstruction.includes("write a full sentence answer for each question below")) {
+      const unescapedInstruction = instruction.replace(/\\n/g, '\n');
+      const formattedInstruction = unescapedInstruction.replace(/\n/g, '<br>');
       exercisesContent += `
 
 <div class="homework-email">
-  <p style="color: inherit; text-align: center; font-weight: bold;">${instruction}</p>
+  <p style="color: inherit; text-align: center; font-weight: bold;">${formattedInstruction}</p>
 </div>`;
     }
 
     // Add writing prompt section
     if (writingPrompt && writingPrompt.trim()) {
-      const lines = writingPrompt.split('\n');
+      const unescapedWritingPrompt = writingPrompt.replace(/\\n/g, '\n');
+      const formattedWritingPrompt = unescapedWritingPrompt.replace(/\n/g, '<br>');
+      const lines = formattedWritingPrompt.split('<br>');
       const firstLine = lines[0].trim();
 
       exercisesContent += `

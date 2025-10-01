@@ -186,6 +186,12 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
                         color: (theme) => theme.palette.text.primary,
                         fontWeight: 600
                     },
+                    '& br': {
+                        display: 'block',
+                        content: '""',
+                        marginTop: '0.5em',
+                        marginBottom: '0.5em'
+                    },
                     '& .homework-email': {
                         backgroundColor: (theme) => theme.palette.action.hover,
                         padding: '1rem',
