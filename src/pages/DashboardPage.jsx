@@ -1,12 +1,13 @@
 // src/pages/DashboardPage.jsx
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Paper, CircularProgress, Link, List, ListItem, ListItemText, Select, MenuItem, TextField, Button, ListItemIcon, Stack } from '@mui/material';
-import { fetchNewsFeed, getNewsList } from '../services/api.js'; // UPDATED IMPORT
+import { Box, Typography, Paper, Link, Select, MenuItem, TextField, Button, Stack } from '@mui/material';
 import { vocabularyData } from '../data/vocabularyData.js';
 import { idiomData } from '../data/idiomData.js';
 import { lessonRoutes } from '../LessonRoutes.jsx';
 import LessonTabs from '../components/LessonTabs';
 import GlassButtonWrapper from '../components/GlassButtonWrapper';
+import OrganizedNewsDashboard from '../components/OrganizedNewsDashboard';
+import ArticleManager from '../components/ArticleManager';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -76,34 +77,13 @@ export default function DashboardPage() {
     useEffect(() => {
         document.title = 'Dashboard | ESL Lessons Hub';
     }, []);
-    const [rssFeed, setRssFeed] = useState([]);
-    const [news, setNews] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState(0);
     const [selectedVocabLesson, setSelectedVocabLesson] = useState(1);
     const [selectedIdiomLesson, setSelectedIdiomLesson] = useState(1);
     const [copySuccess, setCopySuccess] = useState('');
 
-    const sections = ["Lesson Navigation", "News Feed", "Curated News", "Vocabulary", "Idioms"];
+    const sections = ["Lesson Navigation", "Curated News", "Article Manager", "Vocabulary", "Idioms"];
 
-    // --- Data Loading Effect ---
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                setLoading(true);
-                const [feed, newsList] = await Promise.all([
-                    fetchNewsFeed(), getNewsList()
-                ]);
-                setRssFeed(feed);
-                setNews(newsList);
-            } catch (error) {
-                console.error("Failed to load dashboard data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadData();
-    }, []);
 
     // --- Event Handlers ---
     const handleTabChange = (event, newValue) => setActiveTab(newValue);
@@ -121,29 +101,8 @@ export default function DashboardPage() {
         });
     };
     
-    // --- Shared Button Styles ---
-    const smallButtonWrapperStyle = {
-        py: 0.25,
-        px: 0.5,
-        borderRadius: '8px',
-        flexShrink: 0,
-    };
-    const smallButtonInnerStyle = {
-        color: 'secondary.main',
-        backgroundColor: 'transparent',
-        fontSize: '0.8rem',
-        minWidth: 'auto',
-        px: 1.5,
-        '&:hover': {
-            backgroundColor: (theme) => theme.palette.action.hover,
-        },
-    };
 
     // --- Render Logic ---
-    if (loading) {
-        return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}><CircularProgress /></Box>;
-    }
-
     return (
         <Box sx={{ maxWidth: '900px', mx: 'auto', py: 4, px: { xs: 2, sm: 0 } }}>
             <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold', textAlign: 'center', mb: 4, color: 'text.secondary' }}>
@@ -155,59 +114,13 @@ export default function DashboardPage() {
             {activeTab === 0 && <LessonNavigation />}
 
             {activeTab === 1 && (
-                 <Section title="Latest from Breaking News English RSS" instructions='To add an article, open your Airtable "News" table...'>
-                    <List dense>
-                        {rssFeed.slice(0, 100).map((item, index) => (
-                            <ListItem key={index} divider>
-                                <ListItemText primary={item.title} sx={{ mr: 2 }}/>
-                                <GlassButtonWrapper sx={smallButtonWrapperStyle}>
-                                    <Button
-                                        component={Link}
-                                        href={item.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        variant="text"
-                                        startIcon={<OpenInNewIcon />}
-                                        sx={smallButtonInnerStyle}
-                                    >
-                                        Read Site
-                                    </Button>
-                                </GlassButtonWrapper>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Section>
+                <OrganizedNewsDashboard />
             )}
+
             {activeTab === 2 && (
-                <Section title="Your Curated News Articles">
-                    <List>
-                        {news.map(item => (
-                            <ListItem key={item.id} sx={{flexDirection: 'column', alignItems: 'flex-start'}} divider>
-                                <Typography variant="h6" component="h3">{item.fields.Headline}</Typography>
-                                <Stack direction="row" spacing={1} sx={{ mt: 1.5, flexWrap: 'wrap', gap: 1 }}>
-                                    {[0, 1, 2, 3, 4, 5, 6].map(level => (
-                                        item.fields[`Level ${level} Text`] && (
-                                        <GlassButtonWrapper key={level} sx={smallButtonWrapperStyle}>
-                                            <Button
-                                                component={Link}
-                                                href={createShareLink('news', item.fields.Slug, level)}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                variant="text"
-                                                sx={smallButtonInnerStyle}
-                                            >
-                                                Level {level}
-                                            </Button>
-                                        </GlassButtonWrapper>
-                                        )
-                                    ))}
-                                </Stack>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Section>
+                <ArticleManager />
             )}
-            
+
             {activeTab === 3 && (
                  <Section title="Vocabulary Lesson Link Generator" instructions="Select a lesson to generate a direct shareable link for your student.">
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>

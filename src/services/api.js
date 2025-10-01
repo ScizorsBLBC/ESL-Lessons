@@ -1,64 +1,43 @@
 // src/services/api.js
+import axios from 'axios';
 
-import { newsData } from '../data/newsData.js';
+// Create axios instance with base configuration
+// Use direct backend URL in development, proxy in production
+const isDevelopment = process.env.NODE_ENV === 'development';
+const api = axios.create({
+  baseURL: isDevelopment ? 'http://localhost:3001/api' : '/api',
+  timeout: 10000,
+});
 
-// --- News Functions now use local data ---
-
-export const getNewsList = async () => {
-  // We wrap this in a Promise to simulate an async API call,
-  // keeping the function signature consistent.
-  return Promise.resolve(newsData);
-};
-
-export const getNewsArticle = async (slug) => {
-  // Finds a single article by its slug in our local data file.
-  const article = newsData.find(article => article.fields.Slug === slug);
-  return Promise.resolve(article || null);
-};
-
-
-// --- RSS Feed Fetching for Dashboard ---
-const cache = new Map();
-const CACHE_TTL = 3600 * 1000; // 1 hour
-
-const getFromCache = (key) => {
-  const cached = cache.get(key);
-  if (cached && (Date.now() - cached.timestamp < CACHE_TTL)) {
-    return cached.data;
+/**
+ * Save an article (create or update)
+ * @param {object} articleData - The article data to save
+ * @param {string} mode - 'create' or 'update'
+ * @returns {Promise<object>} API response
+ */
+export const saveArticle = async (articleData, mode) => {
+  try {
+    const response = await api.post('/articles/save', {
+      articleData,
+      mode
+    });
+    return response.data;
+  } catch (error) {
+    console.error('API Error saving article:', error);
+    throw new Error(error.response?.data?.error || 'Failed to save article');
   }
-  return null;
 };
 
-const setInCache = (key, data) => {
-  cache.set(key, { data, timestamp: Date.now() });
-};
-
-export const fetchNewsFeed = async () => {
-    const cacheKey = 'rss-feed-direct';
-    const cachedData = getFromCache(cacheKey);
-    if (cachedData) return cachedData;
-
-    const RSS_FEED_URL = 'https://breakingnewsenglish.com/bne.xml';
-    const CORS_PROXY_URL = `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_FEED_URL)}`;
-
-    try {
-        const response = await fetch(CORS_PROXY_URL);
-        if (!response.ok) throw new Error('Network response was not ok.');
-        
-        const str = await response.text();
-        const data = new window.DOMParser().parseFromString(str, "text/xml");
-        const items = data.querySelectorAll("item");
-        
-        const feedItems = Array.from(items).map(el => ({
-            title: el.querySelector("title")?.textContent || 'No Title',
-            link: el.querySelector("link")?.textContent || '#',
-        })).filter(item => item.title && item.link);
-
-        setInCache(cacheKey, feedItems);
-        return feedItems;
-
-    } catch (error) {
-        console.error("Failed to fetch or parse RSS feed:", error);
-        return [];
-    }
+/**
+ * Test API connectivity
+ * @returns {Promise<object>} API health response
+ */
+export const checkApiHealth = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/health');
+    return response.data;
+  } catch (error) {
+    console.error('API Health check failed:', error);
+    throw new Error('API server is not running');
+  }
 };

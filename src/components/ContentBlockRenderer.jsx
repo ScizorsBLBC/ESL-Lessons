@@ -3,9 +3,21 @@ import DetailCard from './DetailCard';
 import QuizComponent from './Quiz';
 import FillInTheBlanks from './FillInTheBlanks';
 import Flashcard from './Flashcard';
+import TwoPaneLayout from './TwoPaneLayout';
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 
 const ContentBlockRenderer = ({ contentBlocks, ...props }) => {
+  // Special case: If exactly 2 blocks, use TwoPaneLayout for side-by-side on desktop
+  if (contentBlocks.length === 2) {
+    return (
+      <TwoPaneLayout
+        pane1={<BlockRenderer block={contentBlocks[0]} {...props} />}
+        pane2={<BlockRenderer block={contentBlocks[1]} {...props} />}
+      />
+    );
+  }
+
+  // Default behavior: Stack all blocks vertically
   return (
     <Box sx={{
       width: '100%',
