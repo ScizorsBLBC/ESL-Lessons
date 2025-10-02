@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
+import { createVisualizationWrapper } from '../utils/stylingUtils';
 
 // Import all content block components
 import Quiz from './Quiz';
@@ -23,16 +24,10 @@ import FlowchartVisualization from './FlowchartVisualization';   // New componen
  * @returns {JSX.Element} The rendered content block component.
  */
 const ContentBlockRenderer = ({ blockId, type, data, accessibility }) => {
-    // Shared styling for visualization components wrapper
-    const visualizationWrapperStyle = {
-        my: 4,
-        p: { xs: 2, md: 4 },
-        borderRadius: 4,
-        boxShadow: 6,
-        bgcolor: 'background.paper',
-        border: '1px solid',
-        borderColor: 'primary.light',
-    };
+    const theme = useTheme();
+
+    // Use centralized styling utilities for consistency
+    const visualizationWrapperStyle = createVisualizationWrapper()(theme);
 
     try {
         switch (type) {

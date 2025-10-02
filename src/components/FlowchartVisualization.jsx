@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Paper, Step, StepLabel, Stepper } from '@mui/material';
+import { Box, Typography, Paper, Step, StepLabel, Stepper, useTheme } from '@mui/material';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 
 /**
@@ -12,7 +12,27 @@ import CallSplitIcon from '@mui/icons-material/CallSplit';
  * @returns {JSX.Element}
  */
 const FlowchartVisualization = ({ data, accessibility }) => {
+    const theme = useTheme();
     const { title, steps } = data;
+
+    // Theme-aware colors for monochrome compatibility
+    const isMonochrome = theme.palette.mode === 'light'
+        ? theme.palette.primary.main === '#000000' || theme.palette.secondary.main === '#757575'
+        : theme.palette.primary.main === '#FFFFFF' || theme.palette.secondary.main === '#BDBDBD';
+
+    const visualizationColors = isMonochrome ? {
+        border: 'grey.400',
+        icon: 'grey.600',
+        text: 'grey.600',
+        secondary: 'grey.500',
+        accent: 'grey.500'
+    } : {
+        border: 'info.main',
+        icon: 'info.main',
+        text: 'text.secondary',
+        secondary: 'warning.main',
+        accent: 'warning.main'
+    };
 
     // --- Placeholder Visualization Rendering ---
     const renderPlaceholderVisualization = () => {
@@ -36,20 +56,20 @@ const FlowchartVisualization = ({ data, accessibility }) => {
         }
 
         return (
-            <Box sx={{ mt: 3, p: 3, border: '2px dashed', borderColor: 'info.main', borderRadius: 2 }}>
-                <Typography variant="subtitle1" gutterBottom sx={{ color: 'info.main' }}>
-                    <CallSplitIcon sx={{ verticalAlign: 'middle', mr: 1 }} /> Flowchart Visualization (In Development)
+            <Box sx={{ mt: 3, p: 3, border: '2px dashed', borderColor: visualizationColors.border, borderRadius: 2 }}>
+                <Typography variant="subtitle1" gutterBottom sx={{ color: visualizationColors.icon }}>
+                    <CallSplitIcon sx={{ verticalAlign: 'middle', mr: 1, color: visualizationColors.icon }} /> Flowchart Visualization (In Development)
                 </Typography>
-                <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+                <Typography variant="body2" sx={{ color: visualizationColors.text, mb: 2 }}>
                     **Visualization Data Structure Preview:** This area will render an interactive flowchart showing procedural steps.
                 </Typography>
                 <Stepper orientation="vertical" activeStep={orderedSteps.length} sx={{ '& .MuiStepConnector-line': { minHeight: '50px' } }}>
                     {orderedSteps.map((step, index) => (
                         <Step key={step.id} active={false}>
                             <StepLabel icon={
-                                step.type === 'decision' ? <CallSplitIcon color="warning" /> : null
+                                step.type === 'decision' ? <CallSplitIcon sx={{ color: visualizationColors.secondary }} /> : null
                             }>
-                                <Paper elevation={2} sx={{ p: 1.5, bgcolor: step.type === 'decision' ? 'warning.light' : 'primary.light', color: 'white', borderRadius: 2 }}>
+                                <Paper elevation={2} sx={{ p: 1.5, bgcolor: visualizationColors.secondary + '.light', color: 'text.primary', borderRadius: 2 }}>
                                     <Typography variant="body1" sx={{ fontWeight: 'bold' }}>{step.label} ({step.type})</Typography>
                                     <Typography variant="caption">{step.content.substring(0, 80)}...</Typography>
                                 </Paper>
@@ -84,8 +104,8 @@ const FlowchartVisualization = ({ data, accessibility }) => {
     );
 
     return (
-        <Paper elevation={4} sx={{ p: 3, mb: 4, borderRadius: 3, borderLeft: '8px solid', borderColor: 'info.main' }}>
-            <Typography variant="h4" component="h2" gutterBottom sx={{ color: 'info.dark', fontWeight: 'bold' }}>
+        <Paper elevation={4} sx={{ p: 3, mb: 4, borderRadius: 3, borderLeft: '8px solid', borderColor: visualizationColors.border }}>
+            <Typography variant="h4" component="h2" gutterBottom sx={{ color: visualizationColors.icon, fontWeight: 'bold' }}>
                 Flowchart: {title}
             </Typography>
             {renderPlaceholderVisualization()}

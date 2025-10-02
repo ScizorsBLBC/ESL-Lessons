@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Paper, IconButton } from '@mui/material';
+import { Box, Typography, Paper, IconButton, useTheme } from '@mui/material';
 import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import GlassButtonWrapper from './GlassButtonWrapper';
@@ -14,6 +14,7 @@ import { createLessonCard, createLessonTitle, createIconButton } from '../utils/
  * @returns {JSX.Element}
  */
 const Flashcard = ({ data }) => {
+    const theme = useTheme();
     const { title, cards = [] } = data;
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
@@ -45,8 +46,8 @@ const Flashcard = ({ data }) => {
     };
 
     return (
-        <Paper elevation={4} sx={createLessonCard('secondary.main')}>
-            <Typography variant="h5" component="h3" sx={createLessonTitle('secondary.dark')}>
+        <Paper elevation={4} sx={createLessonCard('secondary.main')(theme)}>
+            <Typography variant="h5" component="h3" sx={createLessonTitle('secondary.dark')(theme)}>
                 {title || "Flashcards"}
             </Typography>
             <Typography variant="caption" display="block" sx={{ mb: 2 }}>

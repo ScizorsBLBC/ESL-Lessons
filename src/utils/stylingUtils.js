@@ -5,37 +5,75 @@
  * All functions return sx-compatible objects that follow the style guide patterns.
  */
 
+// Helper function for hex to rgba conversion
+const hexToRgba = (hex, alpha) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 // =============================================================================
 // CARD & CONTAINER UTILITIES
 // =============================================================================
 
 /**
- * Creates a standardized lesson card style with proper theming
+ * Creates a standardized lesson card style with proper glassmorphism theming
  * @param {string} accentColor - Theme color for left border accent (e.g., 'primary.main', 'secondary.main')
  * @returns {object} sx-compatible style object
  */
-export const createLessonCard = (accentColor = 'primary.main') => ({
-  borderRadius: 3,
-  borderLeft: '8px solid',
-  borderColor: accentColor,
-  p: { xs: 2, md: 4 },
-  my: 4,
-});
+export const createLessonCard = (accentColor = 'primary.main') => {
+  // Return a function that takes theme and returns the styling
+  return (theme) => {
+    // Use the same liquid glass styling pattern as defined in theme.js
+    const liquidGlassStyle = {
+      backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
+      backdropFilter: 'blur(12px) saturate(180%)',
+      border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
+      borderRadius: 3,
+      borderLeft: '8px solid',
+      borderColor: accentColor,
+    };
+
+    return {
+      ...liquidGlassStyle,
+      p: { xs: 2, md: 4 },
+      my: 4,
+      // Override MUI Paper elevation defaults that might add colored borders
+      '&.MuiPaper-elevation1': {
+        boxShadow: `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+      },
+      '&.MuiPaper-elevation2': {
+        boxShadow: `0px 3px 6px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 6px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 18px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+      },
+      '&.MuiPaper-elevation3': {
+        boxShadow: `0px 3px 8px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 8px 14px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 24px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+      },
+      '&.MuiPaper-elevation4': {
+        boxShadow: `0px 4px 10px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 10px 18px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 32px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+      },
+      '&.MuiPaper-elevation6': {
+        boxShadow: `0px 6px 14px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 14px 26px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 48px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+      },
+    };
+  };
+};
 
 /**
- * Creates a visualization wrapper with consistent styling
- * @param {object} theme - MUI theme object
- * @returns {object} sx-compatible style object
+ * Creates a visualization wrapper with consistent glassmorphism styling
+ * @returns {function} Function that takes theme and returns styling object
  */
-export const createVisualizationWrapper = (theme) => ({
-  my: 4,
-  p: { xs: 2, md: 4 },
-  borderRadius: 4,
-  boxShadow: 6,
-  bgcolor: 'background.paper',
-  border: '1px solid',
-  borderColor: 'primary.light',
-});
+export const createVisualizationWrapper = () => {
+  return (theme) => ({
+    my: 4,
+    p: { xs: 2, md: 4 },
+    borderRadius: 4,
+    backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
+    backdropFilter: 'blur(12px) saturate(180%)',
+    border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
+    boxShadow: theme.shadows[6],
+  });
+};
 
 /**
  * Creates an accessibility data table with consistent styling
@@ -68,11 +106,13 @@ export const createAccessibilityTable = () => ({
  * @param {string} color - Theme color for the title
  * @returns {object} sx-compatible style object
  */
-export const createLessonTitle = (color = 'primary.dark') => ({
-  fontWeight: 'bold',
-  color,
-  mb: 2,
-});
+export const createLessonTitle = (color = 'primary.dark') => {
+  return (theme) => ({
+    fontWeight: 'bold',
+    color,
+    mb: 2,
+  });
+};
 
 /**
  * Creates consistent section heading styling
@@ -80,13 +120,15 @@ export const createLessonTitle = (color = 'primary.dark') => ({
  * @param {string} color - Theme color for the heading
  * @returns {object} sx-compatible style object
  */
-export const createSectionHeading = (variant = 'h5', color = 'text.primary') => ({
-  variant,
-  component: variant,
-  fontWeight: 'bold',
-  color,
-  gutterBottom: true,
-});
+export const createSectionHeading = (variant = 'h5', color = 'text.primary') => {
+  return (theme) => ({
+    variant,
+    component: variant,
+    fontWeight: 'bold',
+    color,
+    gutterBottom: true,
+  });
+};
 
 // =============================================================================
 // INTERACTIVE ELEMENT UTILITIES
@@ -96,22 +138,26 @@ export const createSectionHeading = (variant = 'h5', color = 'text.primary') => 
  * Creates consistent button styling for interactive elements
  * @returns {object} sx-compatible style object
  */
-export const createInteractiveButton = () => ({
-  textTransform: 'none',
-  fontWeight: 500,
-  minHeight: { xs: '44px', sm: '36px' }, // Accessibility: 44px touch target
-});
+export const createInteractiveButton = () => {
+  return (theme) => ({
+    textTransform: 'none',
+    fontWeight: 500,
+    minHeight: { xs: '44px', sm: '36px' }, // Accessibility: 44px touch target
+  });
+};
 
 /**
- * Creates consistent icon button styling
+ * Creates consistent icon button styling with glassmorphism effects
  * @param {string} color - Theme color for the icon
- * @returns {object} sx-compatible style object
+ * @returns {function} Function that takes theme and returns styling object
  */
-export const createIconButton = (color = 'primary.main') => ({
-  color,
-  minHeight: { xs: '44px', sm: '36px' }, // Accessibility: 44px touch target
-  minWidth: { xs: '44px', sm: '36px' },
-});
+export const createIconButton = (color = 'primary.main') => {
+  return (theme) => ({
+    color,
+    minHeight: { xs: '44px', sm: '36px' }, // Accessibility: 44px touch target
+    minWidth: { xs: '44px', sm: '36px' },
+  });
+};
 
 // =============================================================================
 // RESPONSIVE UTILITIES
@@ -194,27 +240,31 @@ export const getThemeColor = (colorType = 'primary', shade = 'main') => {
  * Creates error state styling with proper theme colors
  * @returns {object} sx-compatible style object
  */
-export const createErrorState = () => ({
-  color: 'error.main',
-  bgcolor: 'error.light',
-  border: '1px solid',
-  borderColor: 'error.main',
-  borderRadius: 1,
-  p: 2,
-});
+export const createErrorState = () => {
+  return (theme) => ({
+    color: 'error.main',
+    bgcolor: 'error.light',
+    border: '1px solid',
+    borderColor: 'error.main',
+    borderRadius: 1,
+    p: 2,
+  });
+};
 
 /**
  * Creates success state styling with proper theme colors
  * @returns {object} sx-compatible style object
  */
-export const createSuccessState = () => ({
-  color: 'success.main',
-  bgcolor: 'success.light',
-  border: '1px solid',
-  borderColor: 'success.main',
-  borderRadius: 1,
-  p: 2,
-});
+export const createSuccessState = () => {
+  return (theme) => ({
+    color: 'success.main',
+    bgcolor: 'success.light',
+    border: '1px solid',
+    borderColor: 'success.main',
+    borderRadius: 1,
+    p: 2,
+  });
+};
 
 // =============================================================================
 // LAYOUT UTILITIES
@@ -271,42 +321,48 @@ export const createTwoColumnLayout = (options = {}) => {
  * Creates styling for quiz question cards
  * @returns {object} sx-compatible style object
  */
-export const createQuizCard = () => ({
-  width: '100%',
-  maxWidth: { xs: '100%', sm: 600, md: 800 },
-  mx: 'auto',
-  mb: 3,
-});
+export const createQuizCard = () => {
+  return (theme) => ({
+    width: '100%',
+    maxWidth: { xs: '100%', sm: 600, md: 800 },
+    mx: 'auto',
+    mb: 3,
+  });
+};
 
 /**
  * Creates styling for form controls in exercises
  * @returns {object} sx-compatible style object
  */
-export const createFormControl = () => ({
-  mb: 3,
-  '& .MuiFormControlLabel-label': {
-    fontSize: { xs: '0.9rem', sm: '1rem' },
-    lineHeight: 1.4,
-  },
-});
+export const createFormControl = () => {
+  return (theme) => ({
+    mb: 3,
+    '& .MuiFormControlLabel-label': {
+      fontSize: { xs: '0.9rem', sm: '1rem' },
+      lineHeight: 1.4,
+    },
+  });
+};
 
 /**
  * Creates styling for exercise feedback (correct/incorrect)
  * @param {boolean} isCorrect - Whether the answer is correct
  * @returns {object} sx-compatible style object
  */
-export const createFeedbackStyle = (isCorrect) => ({
-  mb: 3,
-  bgcolor: isCorrect ? 'success.light' : 'error.light',
-  color: isCorrect ? 'success.dark' : 'error.dark',
-  border: '1px solid',
-  borderColor: isCorrect ? 'success.main' : 'error.main',
-  borderRadius: 1,
-  p: 2,
-  '& .MuiAlert-icon': {
-    color: isCorrect ? 'success.main' : 'error.main',
-  },
-});
+export const createFeedbackStyle = (isCorrect) => {
+  return (theme) => ({
+    mb: 3,
+    bgcolor: isCorrect ? 'success.light' : 'error.light',
+    color: isCorrect ? 'success.dark' : 'error.dark',
+    border: '1px solid',
+    borderColor: isCorrect ? 'success.main' : 'error.main',
+    borderRadius: 1,
+    p: 2,
+    '& .MuiAlert-icon': {
+      color: isCorrect ? 'success.main' : 'error.main',
+    },
+  });
+};
 
 export default {
   // Main utilities

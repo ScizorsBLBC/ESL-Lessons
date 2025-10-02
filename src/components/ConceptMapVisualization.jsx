@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Paper, Grid } from '@mui/material';
+import { Box, Typography, Paper, Grid, useTheme } from '@mui/material';
 import TimelineIcon from '@mui/icons-material/Timeline'; // Using a placeholder icon
 import { createLessonCard, createLessonTitle, createAccessibilityTable } from '../utils/stylingUtils';
 
@@ -13,7 +13,27 @@ import { createLessonCard, createLessonTitle, createAccessibilityTable } from '.
  * @returns {JSX.Element}
  */
 const ConceptMapVisualization = ({ data, accessibility }) => {
+    const theme = useTheme();
     const { title, nodes, links } = data;
+
+    // Theme-aware colors for monochrome compatibility
+    const isMonochrome = theme.palette.mode === 'light'
+        ? theme.palette.primary.main === '#000000' || theme.palette.secondary.main === '#757575'
+        : theme.palette.primary.main === '#FFFFFF' || theme.palette.secondary.main === '#BDBDBD';
+
+    const visualizationColors = isMonochrome ? {
+        border: 'grey.400',
+        icon: 'grey.600',
+        text: 'grey.600',
+        cardBg: 'grey.100',
+        nodeBg: 'grey.200'
+    } : {
+        border: 'secondary.main',
+        icon: 'secondary.main',
+        text: 'text.secondary',
+        cardBg: 'primary.light',
+        nodeBg: 'primary.light'
+    };
 
     // --- Placeholder Visualization Rendering ---
     // In a final implementation, this section would render an SVG or D3/React Flow diagram
@@ -24,19 +44,20 @@ const ConceptMapVisualization = ({ data, accessibility }) => {
             mt: 3,
             p: 3,
             border: '2px dashed',
-            borderColor: 'secondary.main',
+            borderColor: visualizationColors.border,
             borderRadius: 2
         }}>
             <Typography variant="subtitle1" gutterBottom sx={{
-                color: 'secondary.main'
+                color: visualizationColors.icon
             }}>
                 <TimelineIcon sx={{
                     verticalAlign: 'middle',
-                    mr: 1
+                    mr: 1,
+                    color: visualizationColors.icon
                 }} /> Conceptual Map Visualization (In Development)
             </Typography>
             <Typography variant="body2" sx={{
-                color: 'text.secondary',
+                color: visualizationColors.text,
                 mb: 2
             }}>
                 **Visualization Data Structure Preview:** This area will render an interactive concept map showing nodes and their links.
@@ -46,8 +67,8 @@ const ConceptMapVisualization = ({ data, accessibility }) => {
                     <Grid size={{ xs: 12, sm: 4 }} key={node.id}>
                         <Paper elevation={3} sx={{
                             p: 2,
-                            bgcolor: 'primary.light',
-                            color: 'primary.contrastText',
+                            bgcolor: visualizationColors.nodeBg,
+                            color: 'text.primary',
                             height: '100%'
                         }}>
                             <Typography variant="body1"><strong>{node.label}</strong></Typography>
@@ -135,8 +156,8 @@ const ConceptMapVisualization = ({ data, accessibility }) => {
     );
 
     return (
-        <Paper elevation={4} sx={createLessonCard('secondary.main')}>
-            <Typography variant="h4" component="h2" sx={createLessonTitle('secondary.dark')}>
+        <Paper elevation={4} sx={createLessonCard('secondary.main')(theme)}>
+            <Typography variant="h4" component="h2" sx={createLessonTitle('secondary.dark')(theme)}>
                 Concept Map: {title}
             </Typography>
             {renderPlaceholderVisualization()}

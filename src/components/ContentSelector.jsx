@@ -73,7 +73,7 @@ export default function ContentSelector({
             <Grid size={12} sx={{ width: '100%' }}>
                 <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h4" component="h2" gutterBottom>{title}</Typography>
-                    {description && <Typography sx={{ textAlign: 'center' }} dangerouslySetInnerHTML={{ __html: description }} />}
+                    {description && <Box component="div" sx={{ textAlign: 'center' }} dangerouslySetInnerHTML={{ __html: description }} />}
                 </Box>
             </Grid>
             

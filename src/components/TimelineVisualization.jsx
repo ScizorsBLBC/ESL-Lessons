@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Paper, Tooltip, Collapse } from '@mui/material';
+import { Box, Typography, Paper, Tooltip, Collapse, useTheme } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { createLessonCard, createLessonTitle, createAccessibilityTable } from '../utils/stylingUtils';
 
@@ -16,8 +16,30 @@ import { createLessonCard, createLessonTitle, createAccessibilityTable } from '.
  * @returns {JSX.Element}
  */
 const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) => {
+    const theme = useTheme();
     const { title, timePoints = [], timeSpans = [], description } = data;
     const [hoveredId, setHoveredId] = useState(null);
+
+    // Theme-aware colors for monochrome compatibility
+    const isMonochrome = theme.palette.mode === 'light'
+        ? theme.palette.primary.main === '#000000' || theme.palette.secondary.main === '#757575'
+        : theme.palette.primary.main === '#FFFFFF' || theme.palette.secondary.main === '#BDBDBD';
+
+    const visualizationColors = isMonochrome ? {
+        background: 'grey.50',
+        text: 'grey.600',
+        border: 'grey.400',
+        primary: 'grey.700',
+        accent: 'grey.500',
+        success: 'grey.600'
+    } : {
+        background: 'background.default',
+        text: 'text.secondary',
+        border: 'text.primary',
+        primary: 'text.primary',
+        accent: 'warning.main',
+        success: 'success.main'
+    };
     
     // Combine all events for unified lookup
     const allEvents = [...timePoints, ...timeSpans];
@@ -25,15 +47,15 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
 
     // --- Core Visualization Rendering ---
     const renderCoreVisualization = () => (
-        <Box sx={{ mt: 3, p: 3, bgcolor: 'background.default', borderRadius: 2, boxShadow: 3 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2, textAlign: 'center' }}>{description}</Typography>
+        <Box sx={{ mt: 3, p: 3, bgcolor: visualizationColors.background, borderRadius: 2, boxShadow: 3 }}>
+            <Typography variant="body2" sx={{ color: visualizationColors.text, mb: 2, textAlign: 'center' }}>{description}</Typography>
 
             {/* Timeline Axis Container */}
             <Box sx={{
                 position: 'relative',
                 height: 180,
                 borderBottom: '2px solid',
-                borderColor: 'text.primary',
+                borderColor: visualizationColors.border,
                 mt: 4,
                 mb: 2
             }}>
@@ -85,9 +107,9 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
                                     width: 12,
                                     height: 12,
                                     borderRadius: '50%',
-                                    bgcolor: isSelected ? 'warning.main' : 'primary.main',
+                                    bgcolor: isSelected ? visualizationColors.accent : visualizationColors.primary,
                                     border: isSelected ? '3px solid' : '1px solid',
-                                    borderColor: isSelected ? 'error.main' : 'primary.dark',
+                                    borderColor: isSelected ? visualizationColors.accent : visualizationColors.primary,
                                     transform: isSelected ? 'translate(-50%, -50%) scale(1.2)' : 'translate(-50%, -50%)',
                                     transition: 'all 0.3s',
                                     cursor: 'pointer',
@@ -104,7 +126,7 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
                                     transform: 'translateX(-50%)',
                                     fontWeight: isSelected ? 'bold' : 'normal',
                                     whiteSpace: 'nowrap',
-                                    color: isSelected ? 'warning.dark' : 'text.primary'
+                                    color: isSelected ? visualizationColors.accent : visualizationColors.primary
                                 }}>
                                     {point.label.split(' ')[0]}
                                 </Typography>
@@ -130,10 +152,10 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
                                     width: `${width}%`,
                                     top: '60%', // Below the center line
                                     height: 10,
-                                    bgcolor: isSelected ? 'success.light' : 'secondary.light',
+                                    bgcolor: isSelected ? visualizationColors.success + '.light' : visualizationColors.secondary + '.light',
                                     opacity: isSelected ? 1 : 0.7,
                                     border: span.style === 'wavy' ? '2px dashed' : '2px solid',
-                                    borderColor: isSelected ? 'success.dark' : 'secondary.dark',
+                                    borderColor: isSelected ? visualizationColors.success : visualizationColors.secondary,
                                     borderRadius: 1,
                                     cursor: 'pointer',
                                     transition: 'all 0.3s',
@@ -151,7 +173,7 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
                                     transform: 'translateX(-50%)',
                                     fontWeight: isSelected ? 'bold' : 'normal',
                                     whiteSpace: 'nowrap',
-                                    color: isSelected ? 'success.dark' : 'text.secondary'
+                                    color: isSelected ? visualizationColors.success : visualizationColors.text
                                 }}>
                                     {span.label.split(' ')[0]}
                                 </Typography>
@@ -165,12 +187,12 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
             <Collapse in={!!currentEvent} sx={{ mt: 2 }}>
                 <Paper elevation={6} sx={{
                     p: 2,
-                    bgcolor: 'primary.light',
+                    bgcolor: visualizationColors.primary + '.light',
                     border: '1px solid',
-                    borderColor: 'primary.main'
+                    borderColor: visualizationColors.primary
                 }}>
                     <Typography variant="h6" sx={{
-                        color: 'primary.dark',
+                        color: visualizationColors.primary,
                         mb: 1
                     }}>
                         {currentEvent?.label || "Select a Tense"}
@@ -185,7 +207,7 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
     const renderAccessibilityTable = () => (
         <Box sx={{ mt: 4 }}>
             <Typography variant="h6" sx={{
-                color: 'text.secondary',
+                color: visualizationColors.text,
                 mb: 1
             }}>Data Table for Accessibility</Typography>
             <Paper variant="outlined" sx={{
@@ -243,9 +265,9 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
     );
 
     return (
-        <Paper elevation={4} sx={createLessonCard('success.main')}>
-            <Typography variant="h4" component="h2" sx={createLessonTitle('success.dark')}>
-                <AccessTimeIcon sx={{ verticalAlign: 'middle', mr: 1 }} /> {title}
+        <Paper elevation={4} sx={createLessonCard('success.main')(theme)}>
+            <Typography variant="h4" component="h2" sx={createLessonTitle('success.dark')(theme)}>
+                <AccessTimeIcon sx={{ verticalAlign: 'middle', mr: 1, color: 'inherit' }} /> {title}
             </Typography>
             {renderCoreVisualization()}
             {accessibility && renderAccessibilityTable()}

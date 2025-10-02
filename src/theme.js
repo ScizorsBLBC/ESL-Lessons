@@ -38,6 +38,9 @@ const baseOverrides = (theme) => {
       // --- NEW: Typography override for justified text ---
       MuiTypography: {
         styleOverrides: {
+          root: ({ theme }) => ({
+            color: 'inherit', // Ensure proper color inheritance
+          }),
           // Target paragraph text for justification
           body1: { textAlign: 'justify' },
           body2: { textAlign: 'justify' },
@@ -50,10 +53,27 @@ const baseOverrides = (theme) => {
           h6: { textAlign: 'center' },
         }
       },
-      MuiPaper: { styleOverrides: { root: { ...liquidGlassStyle, borderRadius: 12 } } },
-      MuiCard: { styleOverrides: { root: { ...liquidGlassStyle, borderRadius: 12 } } },
-      MuiMenu: { styleOverrides: { paper: liquidGlassStyle } },
-      MuiAccordion: { styleOverrides: { root: { ...liquidGlassStyle, '&:before': { display: 'none' } } } },
+      MuiSvgIcon: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            color: 'inherit', // Ensure icons inherit color from parent
+          }),
+        }
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            ...liquidGlassStyle,
+            borderRadius: 12,
+            // Override MUI's CSS custom properties that contain hardcoded colors
+            '--Paper-shadow': `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`,
+            '--Paper-overlay': `linear-gradient(${hexToRgba(theme.palette.background.paper, 0.092)}, ${hexToRgba(theme.palette.background.paper, 0.092)})`,
+          }),
+        }
+      },
+      MuiCard: { styleOverrides: { root: ({ theme }) => ({ ...liquidGlassStyle, borderRadius: 12, '--Paper-shadow': `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}` }) } },
+      MuiMenu: { styleOverrides: { paper: ({ theme }) => ({ ...liquidGlassStyle, '--Paper-shadow': `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}` }) } },
+      MuiAccordion: { styleOverrides: { root: ({ theme }) => ({ ...liquidGlassStyle, '&:before': { display: 'none' }, '--Paper-shadow': `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}` }) } },
       MuiButton: {
         styleOverrides: {
           root: {
@@ -95,19 +115,79 @@ const baseOverrides = (theme) => {
 };
 
 // --- Theme Definitions ---
-let lightTheme = createTheme({ palette: { mode: 'light', primary: { main: '#9C27B0' }, secondary: { main: '#E91E63' }, background: { default: '#F8F7FA', paper: '#FFFFFF' }, text: { primary: '#2C1B3E', secondary: '#8E24AA' } } });
+let lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: { main: '#9C27B0' },
+    secondary: { main: '#E91E63' },
+    success: { main: '#4CAF50', light: '#81C784', dark: '#388E3C' },
+    warning: { main: '#FF9800', light: '#FFB74D', dark: '#F57C00' },
+    error: { main: '#F44336', light: '#EF5350', dark: '#C62828' },
+    info: { main: '#2196F3', light: '#64B5F6', dark: '#1565C0' },
+    background: { default: '#F8F7FA', paper: '#FFFFFF' },
+    text: { primary: '#2C1B3E', secondary: '#8E24AA' }
+  }
+});
 lightTheme = createTheme(lightTheme, baseOverrides(lightTheme));
 
-let monochromeLightTheme = createTheme({ palette: { mode: 'light', primary: { main: '#000000' }, secondary: { main: '#757575' }, background: { default: '#F5F5F5', paper: '#FFFFFF' }, text: { primary: '#000000', secondary: '#424242' } } });
+let monochromeLightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: { main: '#000000' },
+    secondary: { main: '#757575' },
+    success: { main: '#4CAF50', light: '#81C784', dark: '#388E3C' },
+    warning: { main: '#FF9800', light: '#FFB74D', dark: '#F57C00' },
+    error: { main: '#F44336', light: '#EF5350', dark: '#C62828' },
+    info: { main: '#2196F3', light: '#64B5F6', dark: '#1565C0' },
+    background: { default: '#F5F5F5', paper: '#FFFFFF' },
+    text: { primary: '#000000', secondary: '#424242' }
+  }
+});
 monochromeLightTheme = createTheme(monochromeLightTheme, baseOverrides(monochromeLightTheme));
 
-let darkTheme = createTheme({ palette: { mode: 'dark', primary: { main: '#E91E63' }, secondary: { main: '#00BCD4' }, background: { default: '#2C1B3E', paper: '#3E2A50' }, text: { primary: '#F5F1F8', secondary: '#FF80AB' } } });
+let darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: { main: '#E91E63' },
+    secondary: { main: '#00BCD4' },
+    success: { main: '#4CAF50', light: '#81C784', dark: '#388E3C' },
+    warning: { main: '#FF9800', light: '#FFB74D', dark: '#F57C00' },
+    error: { main: '#F44336', light: '#EF5350', dark: '#C62828' },
+    info: { main: '#2196F3', light: '#64B5F6', dark: '#1565C0' },
+    background: { default: '#2C1B3E', paper: '#3E2A50' },
+    text: { primary: '#F5F1F8', secondary: '#FF80AB' }
+  }
+});
 darkTheme = createTheme(darkTheme, baseOverrides(darkTheme));
 
-let monochromeDarkTheme = createTheme({ palette: { mode: 'dark', primary: { main: '#FFFFFF' }, secondary: { main: '#BDBDBD' }, background: { default: '#121212', paper: '#1E1E1E' }, text: { primary: '#FFFFFF', secondary: '#E0E0E0' } } });
+let monochromeDarkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: { main: '#FFFFFF' },
+    secondary: { main: '#BDBDBD' },
+    success: { main: '#4CAF50', light: '#81C784', dark: '#388E3C' },
+    warning: { main: '#FF9800', light: '#FFB74D', dark: '#F57C00' },
+    error: { main: '#F44336', light: '#EF5350', dark: '#C62828' },
+    info: { main: '#2196F3', light: '#64B5F6', dark: '#1565C0' },
+    background: { default: '#121212', paper: '#1E1E1E' },
+    text: { primary: '#FFFFFF', secondary: '#E0E0E0' }
+  }
+});
 monochromeDarkTheme = createTheme(monochromeDarkTheme, baseOverrides(monochromeDarkTheme));
 
-let vaporwaveTheme = createTheme({ palette: { mode: 'dark', primary: { main: '#F200FF' }, secondary: { main: '#00FFFF' }, background: { default: '#2E004B', paper: '#4F1A7E' }, text: { primary: '#DFFF00', secondary: '#FF8A00' } } });
+let vaporwaveTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: { main: '#F200FF' },
+    secondary: { main: '#00FFFF' },
+    success: { main: '#4CAF50', light: '#81C784', dark: '#388E3C' },
+    warning: { main: '#FF9800', light: '#FFB74D', dark: '#F57C00' },
+    error: { main: '#F44336', light: '#EF5350', dark: '#C62828' },
+    info: { main: '#2196F3', light: '#64B5F6', dark: '#1565C0' },
+    background: { default: '#2E004B', paper: '#4F1A7E' },
+    text: { primary: '#DFFF00', secondary: '#FF8A00' }
+  }
+});
 vaporwaveTheme = createTheme(vaporwaveTheme, baseOverrides(vaporwaveTheme));
 
 export { darkTheme, vaporwaveTheme, lightTheme, monochromeDarkTheme, monochromeLightTheme };

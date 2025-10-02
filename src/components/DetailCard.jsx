@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react';
 import { Paper, Typography, IconButton, Box, useTheme, CircularProgress, Tooltip } from '@mui/material';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import StopIcon from '@mui/icons-material/Stop';
+import { createLessonCard, createIconButton } from '../utils/stylingUtils';
 
 const DetailCard = React.forwardRef(({ content }, ref) => {
     const theme = useTheme();
@@ -74,27 +75,15 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
         }
     }, [strippedContent, isPlaying, isLoading]);
 
-    // Apply styling
-    const hexToRgba = (hex, alpha) => {
-        const r = parseInt(hex.slice(1, 3), 16);
-        const g = parseInt(hex.slice(3, 5), 16);
-        const b = parseInt(hex.slice(5, 7), 16);
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    };
-
-    const liquidGlassStyle = {
-        backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
-        backdropFilter: 'blur(12px) saturate(180%)',
-        border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
-        boxShadow: theme.shadows[4],
-        borderRadius: 8,
-    };
+    // Use centralized styling utilities for consistency
+    const cardStyle = createLessonCard('secondary.main')(theme);
+    const iconButtonStyle = createIconButton('secondary.main')(theme);
 
     return (
         <Paper
             ref={ref}
             sx={{
-                ...liquidGlassStyle,
+                ...cardStyle,
                 p: 2.5,
                 position: 'relative',
                 overflow: 'visible',
@@ -127,19 +116,13 @@ const DetailCard = React.forwardRef(({ content }, ref) => {
                             size="small"
                             disabled={!content || isLoading || !('speechSynthesis' in window)}
                             sx={{
+                                ...iconButtonStyle,
                                 backgroundColor: isPlaying
-                                    ? hexToRgba(theme.palette.error.main, 0.2)
-                                    : hexToRgba(theme.palette.background.paper, 0.15),
-                                border: `1px solid ${
-                                    isPlaying
-                                        ? hexToRgba(theme.palette.error.main, 0.3)
-                                        : hexToRgba(theme.palette.text.primary, 0.2)
-                                }`,
-                                backdropFilter: 'blur(8px)',
+                                    ? 'error.light'
+                                    : 'background.paper',
+                                opacity: isPlaying ? 0.8 : 0.6,
                                 '&:hover': {
-                                    backgroundColor: isPlaying
-                                        ? hexToRgba(theme.palette.error.main, 0.3)
-                                        : hexToRgba(theme.palette.background.paper, 0.25),
+                                    opacity: isPlaying ? 0.9 : 0.8,
                                 },
                                 transition: 'all 0.2s ease-in-out',
                             }}

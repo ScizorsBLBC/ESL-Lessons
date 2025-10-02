@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, Paper, Grid } from '@mui/material';
+import { Box, TextField, Button, Typography, Paper, Grid, useTheme } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import GlassButtonWrapper from './GlassButtonWrapper';
@@ -15,6 +15,7 @@ import { createLessonCard, createLessonTitle, createErrorState } from '../utils/
  * @returns {JSX.Element}
  */
 const FillInTheBlanks = ({ data }) => {
+    const theme = useTheme();
     const { title, sentence, words } = data;
     const blanks = sentence.split('_');
     const [userAnswers, setUserAnswers] = useState(Array(words.length).fill(''));
@@ -22,7 +23,7 @@ const FillInTheBlanks = ({ data }) => {
 
     if (!sentence || !words || blanks.length - 1 !== words.length) {
         return (
-            <Paper sx={createErrorState()}>
+            <Paper sx={createErrorState()(theme)}>
                 <Typography>Error: Invalid Fill-in-the-Blanks data structure.</Typography>
             </Paper>
         );
@@ -126,8 +127,8 @@ const FillInTheBlanks = ({ data }) => {
     };
 
     return (
-        <Paper elevation={4} sx={createLessonCard('primary.main')}>
-            <Typography variant="h5" component="h3" sx={createLessonTitle('primary.dark')}>
+        <Paper elevation={4} sx={createLessonCard('primary.main')(theme)}>
+            <Typography variant="h5" component="h3" sx={createLessonTitle('primary.dark')(theme)}>
                 {title || "Fill in the Blanks"}
             </Typography>
             <Typography variant="body1" component="div" sx={{ mb: 4, lineHeight: 3 }}>

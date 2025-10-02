@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Paper } from '@mui/material';
+import { Box, Typography, Paper, useTheme } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { createLessonCard, createLessonTitle, createAccessibilityTable } from '../utils/stylingUtils';
 
@@ -14,8 +14,31 @@ import { createLessonCard, createLessonTitle, createAccessibilityTable } from '.
  * @returns {JSX.Element}
  */
 const ChartSection = ({ data, accessibility }) => {
+    const theme = useTheme();
+
     // Handle both schema format and cultural data format
     const { title, chartType, labels, datasets, data: chartData, xAxisLabel, yAxisLabel, descriptionHtml } = data;
+
+    // Theme-aware colors for monochrome compatibility
+    const isMonochrome = theme.palette.mode === 'light'
+        ? theme.palette.primary.main === '#000000' || theme.palette.secondary.main === '#757575'
+        : theme.palette.primary.main === '#FFFFFF' || theme.palette.secondary.main === '#BDBDBD';
+
+    const chartColors = isMonochrome ? {
+        border: 'grey.400',
+        icon: 'grey.600',
+        text: 'grey.600',
+        background: 'grey.100',
+        chipBg: 'grey.200',
+        chipText: 'grey.800'
+    } : {
+        border: 'warning.main',
+        icon: 'warning.main',
+        text: 'text.secondary',
+        background: 'action.hover',
+        chipBg: 'warning.light',
+        chipText: 'warning.contrastText'
+    };
 
     // If we have cultural data format, transform it to schema format
     const processedData = datasets ? { labels, datasets } : {
@@ -32,27 +55,28 @@ const ChartSection = ({ data, accessibility }) => {
             mt: 3,
             p: 3,
             border: '2px dashed',
-            borderColor: 'warning.main',
+            borderColor: chartColors.border,
             borderRadius: 2
         }}>
             <Typography variant="subtitle1" gutterBottom sx={{
-                color: 'warning.main'
+                color: chartColors.icon
             }}>
                 <BarChartIcon sx={{
                     verticalAlign: 'middle',
-                    mr: 1
+                    mr: 1,
+                    color: chartColors.icon
                 }} /> Chart Visualization ({chartType} - Mock Data)
             </Typography>
             <Typography variant="body2" sx={{
-                color: 'text.secondary',
+                color: chartColors.text,
                 mb: 2
             }}>
                 **Visualization Data Structure Preview:** This area will render an interactive {chartType} chart.
             </Typography>
             {descriptionHtml && (
-                <Typography variant="body2" sx={{ mb: 2 }}>
+                <Box component="div" sx={{ mb: 2 }}>
                     <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
-                </Typography>
+                </Box>
             )}
             <Box sx={{
                 maxHeight: 250,
@@ -72,8 +96,8 @@ const ChartSection = ({ data, accessibility }) => {
                             {processedData.labels.map((label, i) => (
                                 <Paper key={i} sx={{
                                     p: 1,
-                                    bgcolor: 'warning.light',
-                                    color: 'warning.contrastText'
+                                    bgcolor: chartColors.chipBg,
+                                    color: chartColors.chipText
                                 }}>
                                     {label}: **{dataset.data[i] || 0}**
                                 </Paper>
@@ -89,12 +113,12 @@ const ChartSection = ({ data, accessibility }) => {
     const renderAccessibilityTable = () => (
         <Box sx={{ mt: 4 }}>
             <Typography variant="h6" sx={{
-                color: 'text.secondary',
+                color: chartColors.text,
                 mb: 1
             }}>Accessibility & Data Table</Typography>
             <Paper variant="outlined" sx={{
                 p: 2,
-                bgcolor: 'action.hover'
+                bgcolor: chartColors.background
             }}>
                 <Typography variant="body2" sx={{
                     fontStyle: 'italic',
@@ -119,8 +143,8 @@ const ChartSection = ({ data, accessibility }) => {
 
 
     return (
-        <Paper elevation={4} sx={createLessonCard('warning.main')}>
-            <Typography variant="h4" component="h2" sx={createLessonTitle('warning.dark')}>
+        <Paper elevation={4} sx={createLessonCard('warning.main')(theme)}>
+            <Typography variant="h4" component="h2" sx={createLessonTitle('warning.dark')(theme)}>
                 Chart: {title}
             </Typography>
             {renderPlaceholderVisualization()}
