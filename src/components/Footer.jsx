@@ -27,16 +27,26 @@ const Footer = () => {
                 borderTop: (theme) => `1px solid ${theme.palette.divider}`,
             }}
         >
-            <Typography 
-                variant="body2" 
-                color="text.secondary"
-                sx={{ 
-                    textAlign: 'center' 
+            <Typography
+                variant="body2"
+                sx={{
+                    color: 'text.secondary',
+                    textAlign: 'center'
                 }}
             >
-                © {new Date().getFullYear()} ESL Lessons Hub | 
-                <Link href="/about" color="secondary" sx={{ ml: 1, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>About</Link>
-                <Link href="/contact" color="secondary" sx={{ ml: 2, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>Contact</Link>
+                © {new Date().getFullYear()} ESL Lessons Hub |
+                <Link href="/about" sx={{
+                    ml: 1,
+                    color: 'secondary.main',
+                    textDecoration: 'none',
+                    '&:hover': { textDecoration: 'underline' }
+                }}>About</Link>
+                <Link href="/contact" sx={{
+                    ml: 2,
+                    color: 'secondary.main',
+                    textDecoration: 'none',
+                    '&:hover': { textDecoration: 'underline' }
+                }}>Contact</Link>
             </Typography>
         </Paper>
     );

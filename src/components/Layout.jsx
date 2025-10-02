@@ -1,6 +1,6 @@
 // src/components/Layout.jsx
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, cloneElement } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import {
@@ -19,11 +19,11 @@ import GlobalScrollIndicator from './GlobalScrollIndicator';
 import Footer from './Footer'; // IMPORTED FOOTER COMPONENT
 
 const themes = [
-    { key: 'light', label: 'Light', icon: <Brightness7Icon fontSize="small" sx={{ color: lightTheme.palette.primary.main }} />, theme: lightTheme, preview: ['#E91E63', '#9C27B0', '#F8F7FA'] },
-    { key: 'monochromeLight', label: 'Monochrome Light', icon: <InvertColorsOffIcon fontSize="small" sx={{ color: monochromeLightTheme.palette.text.primary }} />, theme: monochromeLightTheme, preview: ['#C5C5C5', '#757575', '#000000'] },
-    { key: 'dark', label: 'Dark', icon: <Brightness4Icon fontSize="small" sx={{ color: darkTheme.palette.primary.main }} />, theme: darkTheme, preview: ['#E91E63', '#00BCD4', '#2C1B3E'] },
-    { key: 'monochromeDark', label: 'Monochrome Dark', icon: <TonalityIcon fontSize="small" sx={{ color: monochromeDarkTheme.palette.text.primary }} />, theme: monochromeDarkTheme, preview: ['#5E5E5E', '#1E1E1E', '#121212'] },
-    { key: 'vaporwave', label: 'VaporWave', icon: <AutoAwesomeIcon fontSize="small" sx={{ color: vaporwaveTheme.palette.secondary.main }} />, theme: vaporwaveTheme, preview: ['#2E004B', '#F200FF', '#FF8A00'] },
+    { key: 'light', label: 'Light', icon: <Brightness7Icon fontSize="small" sx={{ color: lightTheme.palette.primary.main }} />, theme: lightTheme, preview: [lightTheme.palette.primary.main, lightTheme.palette.secondary.main, lightTheme.palette.background.paper] },
+    { key: 'monochromeLight', label: 'Monochrome Light', icon: <InvertColorsOffIcon fontSize="small" sx={{ color: monochromeLightTheme.palette.text.primary }} />, theme: monochromeLightTheme, preview: [monochromeLightTheme.palette.text.secondary, monochromeLightTheme.palette.text.primary, monochromeLightTheme.palette.background.paper] },
+    { key: 'dark', label: 'Dark', icon: <Brightness4Icon fontSize="small" sx={{ color: darkTheme.palette.primary.main }} />, theme: darkTheme, preview: [darkTheme.palette.primary.main, darkTheme.palette.secondary.main, darkTheme.palette.background.paper] },
+    { key: 'monochromeDark', label: 'Monochrome Dark', icon: <TonalityIcon fontSize="small" sx={{ color: monochromeDarkTheme.palette.text.primary }} />, theme: monochromeDarkTheme, preview: [monochromeDarkTheme.palette.text.secondary, monochromeDarkTheme.palette.text.primary, monochromeDarkTheme.palette.background.paper] },
+    { key: 'vaporwave', label: 'VaporWave', icon: <AutoAwesomeIcon fontSize="small" sx={{ color: vaporwaveTheme.palette.secondary.main }} />, theme: vaporwaveTheme, preview: [vaporwaveTheme.palette.primary.main, vaporwaveTheme.palette.secondary.main, vaporwaveTheme.palette.background.paper] },
 ];
 
 export default function Layout() {
@@ -57,7 +57,16 @@ export default function Layout() {
     <ThemeProvider theme={activeTheme}>
       <CssBaseline />
       <MuiTooltip title="Change Theme" arrow>
-        <IconButton onClick={handleOpenMenu} color="inherit" sx={{ position: 'fixed', top: 16, right: 16, zIndex: 1300 }}>
+        <IconButton
+          onClick={handleOpenMenu}
+          sx={{
+            position: 'fixed',
+            top: 16,
+            right: 16,
+            zIndex: 1300,
+            color: 'inherit'
+          }}
+        >
           <PaletteIcon />
         </IconButton>
       </MuiTooltip>
@@ -77,10 +86,18 @@ export default function Layout() {
               },
             }}
           >
-            <ListItemIcon sx={{ '& .MuiSvgIcon-root': { color: themeOption.icon.props.sx.color } }}>
-              {themeOption.icon}
+            <ListItemIcon sx={{
+              '& .MuiSvgIcon-root': {
+                color: themeOption.preview[0]
+              }
+            }}>
+              {React.cloneElement(themeOption.icon, {
+                sx: { ...themeOption.icon.props.sx, color: themeOption.preview[0] }
+              })}
             </ListItemIcon>
-            <ListItemText sx={{ color: themeOption.theme.palette.text.primary }}>
+            <ListItemText sx={{
+              color: themeOption.theme.palette.text.primary
+            }}>
               {themeOption.label}
             </ListItemText>
           </MenuItem>

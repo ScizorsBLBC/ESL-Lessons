@@ -1564,5 +1564,32 @@ export const newsData = [
       "Level 6 Writing Prompt": "Free Writing\nWrite about the Huajiang Grand Canyon Bridge, and whether we should look at building bridges across oceans. Write for 10 minutes.",
       "Date Written": "2025-09-29"
     }
+  },
+  {
+    id: 'rec059',
+    fields: {
+      "Headline": "Over 99% of heart attacks have a warning sign",
+      "Slug": "heart-attacks",
+      "Image URL": "https://breakingnewsenglish.com/2510/251002-heart-attacks-and-strokes.jpg",
+      "Level 0 Text": "",
+      "Level 0 Questions": "",
+      "Level 1 Text": "Doctors say we can avoid diseases like heart attacks and strokes. These are the biggest causes of death. A study from researchers said over 99 per cent of people who had a heart attack or stroke had at least one warning sign. These signs include high blood pressure, cholesterol, and smoking and drinking. People can reduce these. The most effective lifestyle changes are to eat a healthier diet, to exercise, and to quit smoking and drinking.\n\nThe study analyzed health records of more than nine million people. Nearly all of the patients could have avoided a heart attack or stroke. The lead researcher said: \"There is a small number of [changeable] risk factors for heart disease, and…often more than one is present…leading up to heart attacks or strokes.\" He said we needed to look at the things that lead to heart attacks. The goal is to work on finding ways to control risk factors.",
+      "Level 1 Questions": "What two cardiovascular diseases do doctors say people can avoid?\nHow many warning signs did doctors say people can have?\nHow many health records of people in the USA did doctors look at?\nWhat is present in the background leading up to heart attacks?\nWhat does the article say people should quit?\n",
+      "Level 1 Instruction": "Write a full-sentence answer for each question below.",
+      "Level 2 Text": "",
+      "Level 2 Questions": "",
+      "Level 3 Text": "Doctors say people can take steps to avoid cardiovascular diseases like heart attacks and strokes. These are the leading causes of death around the world. A study from doctors at Northwestern University's Feinberg School of Medicine in Chicago and Yonsei University in South Korea said that more than 99 per cent of people who had a heart attack or stroke had at least one warning sign. The doctors said there were several major signs: high blood pressure, cholesterol, obesity, high blood sugar, and smoking and drinking. All of these things can be reduced if people change their lifestyles. The most effective changes are to eat a healthier diet, exercise, and quit smoking and drinking.\n\nIn the study, doctors analyzed 10 years of health records of nine million people in South Korea and 7,000 people in the USA. Nearly all of the patients could have avoided heart attacks and strokes. Lead researcher Dr Philip Greenland said: \"We have known for many years that there is a small number of modifiable risk factors for heart disease, and at least one, but often more than one, is present in the background leading up to heart attacks, heart failure, or strokes.\" He added: \"Efforts need to be made to treat that factor to prevent heart attack, stroke, or heart failure.\" Dr Greenland said: \"The goal now is to work harder on finding ways to control these modifiable risk factors.\"",
+      "Level 3 Questions": "What two cardiovascular diseases do doctors say people can avoid?\nHow many warning signs did doctors say people can have?\nHow many signs of cardiovascular disease did doctors say there were?\nWhat do people need to change to avoid cardiovascular diseases?\nWhat does the article say people should quit?\nHow many health records of South Koreans did doctors look at?\nHow many health records of people in the USA did doctors look at?\nWho is Philip Greenland?\nWhat is present in the background leading up to heart attacks?\nWhat do doctors need to work harder on controlling?",
+      "Level 3 Instruction": "Write a full-sentence answer for each question below.",
+      "Level 4 Text": "",
+      "Level 4 Questions": "",
+      "Level 5 Text": "",
+      "Level 5 Questions": "",
+      "Level 6 Text": "",
+      "Level 6 Questions": "",
+      "Level 6 Instruction": "",
+      "Level 6 Writing Prompt": "",
+      "Date Written": "2025-10-02"
+    }
   }
 ];

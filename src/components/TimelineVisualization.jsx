@@ -1,158 +1,256 @@
-// src/components/TimelineVisualization.jsx
-
-import React from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Chip,
-  LinearProgress,
-  useTheme
-} from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Paper, Tooltip, Collapse } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { createLessonCard, createLessonTitle, createAccessibilityTable } from '../utils/stylingUtils';
 
-const TimelineVisualization = ({
-  title = "Timeline",
-  items = [],
-  currentIndex = 0,
-  showProgress = true
-}) => {
-  const theme = useTheme();
+/**
+ * Component to display a Timeline, visualizing temporal relationships.
+ * This version is enhanced to be interactive, highlighting a selected event (tense)
+ * and displaying its content on click/selection.
+ *
+ * @param {object} props
+ * @param {object} props.data - The data object conforming to the timeline schema.
+ * @param {object} [props.accessibility] - The accessibility object.
+ * @param {string} [props.selectedId] - The ID of the currently selected tense/event to highlight.
+ * @param {function} [props.onSelectId] - Callback function when a point/span is clicked, passing the ID.
+ * @returns {JSX.Element}
+ */
+const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) => {
+    const { title, timePoints = [], timeSpans = [], description } = data;
+    const [hoveredId, setHoveredId] = useState(null);
+    
+    // Combine all events for unified lookup
+    const allEvents = [...timePoints, ...timeSpans];
+    const currentEvent = allEvents.find(e => e.id === selectedId);
 
-  const progress = items.length > 0 ? ((currentIndex + 1) / items.length) * 100 : 0;
+    // --- Core Visualization Rendering ---
+    const renderCoreVisualization = () => (
+        <Box sx={{ mt: 3, p: 3, bgcolor: 'background.default', borderRadius: 2, boxShadow: 3 }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2, textAlign: 'center' }}>{description}</Typography>
 
-  return (
-    <Card sx={{
-      backgroundColor: theme.palette.background.paper,
-      backdropFilter: 'blur(12px) saturate(180%)',
-      border: `1px solid ${theme.palette.divider}`,
-      boxShadow: theme.shadows[4],
-      borderRadius: 2,
-      mb: 3
-    }}>
-      <CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <AccessTimeIcon sx={{ mr: 2, color: theme.palette.primary.main }} />
-          <Typography variant="h6" color="text.secondary">
-            {title}
-          </Typography>
-        </Box>
+            {/* Timeline Axis Container */}
+            <Box sx={{
+                position: 'relative',
+                height: 180,
+                borderBottom: '2px solid',
+                borderColor: 'text.primary',
+                mt: 4,
+                mb: 2
+            }}>
 
-        {showProgress && (
-          <Box sx={{ mb: 3 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-              <Typography variant="body2" color="text.secondary">
-                Progress: {currentIndex + 1} of {items.length}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {Math.round(progress)}%
-              </Typography>
-            </Box>
-            <LinearProgress
-              variant="determinate"
-              value={progress}
-              sx={{
-                height: 8,
-                borderRadius: 4,
-                backgroundColor: theme.palette.action.hover,
-                '& .MuiLinearProgress-bar': {
-                  backgroundColor: theme.palette.primary.main,
-                  borderRadius: 4
-                }
-              }}
-            />
-          </Box>
-        )}
-
-        <Box sx={{ position: 'relative' }}>
-          {/* Timeline line */}
-          <Box sx={{
-            position: 'absolute',
-            left: 20,
-            top: 0,
-            bottom: 0,
-            width: 2,
-            backgroundColor: theme.palette.divider,
-            zIndex: 1
-          }} />
-
-          {items.map((item, index) => {
-            const isActive = index === currentIndex;
-            const isCompleted = index < currentIndex;
-            const isUpcoming = index > currentIndex;
-
-            return (
-              <Box
-                key={index}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  mb: 3,
-                  position: 'relative',
-                  zIndex: 2
-                }}
-              >
-                {/* Timeline dot */}
+                {/* Fixed Labels: Past, Now, Future */}
+                <Typography variant="caption" sx={{
+                    position: 'absolute',
+                    left: 0,
+                    top: -25,
+                    fontWeight: 'bold'
+                }}>Past</Typography>
                 <Box sx={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: '50%',
-                  backgroundColor: isCompleted
-                    ? theme.palette.success.main
-                    : isActive
-                    ? theme.palette.primary.main
-                    : theme.palette.action.disabled,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  mr: 2,
-                  position: 'relative',
-                  boxShadow: isActive ? theme.shadows[4] : 'none',
-                  transform: isActive ? 'scale(1.1)' : 'scale(1)',
-                  transition: 'all 0.3s ease-in-out'
+                    position: 'absolute',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    textAlign: 'center'
                 }}>
-                  {isCompleted ? (
-                    <CheckCircleIcon sx={{ color: 'white', fontSize: 20 }} />
-                  ) : (
-                    <Typography variant="body2" sx={{ color: 'white', fontWeight: 'bold' }}>
-                      {index + 1}
-                    </Typography>
-                  )}
+                    <Typography variant="caption" sx={{
+                        top: -25,
+                        fontWeight: 'bold'
+                    }}>Now</Typography>
+                    <Box sx={{
+                        width: 1,
+                        height: '100%',
+                        bgcolor: 'error.main'
+                    }} /> {/* Present Moment Line */}
                 </Box>
+                <Typography variant="caption" sx={{
+                    position: 'absolute',
+                    right: 0,
+                    top: -25,
+                    fontWeight: 'bold'
+                }}>Future</Typography>
 
-                {/* Content */}
-                <Box sx={{ flex: 1 }}>
-                  <Chip
-                    label={item.label}
-                    color={isActive ? "primary" : isCompleted ? "success" : "default"}
-                    variant={isActive ? "filled" : "outlined"}
-                    sx={{
-                      mb: 1,
-                      fontWeight: isActive ? 'bold' : 'normal'
-                    }}
-                  />
-                  {item.description && (
-                    <Typography
-                      variant="body2"
-                      color={isActive ? "text.primary" : "text.secondary"}
-                      sx={{
-                        fontStyle: isUpcoming ? 'italic' : 'normal',
-                        opacity: isUpcoming ? 0.7 : 1
-                      }}
-                    >
-                      {item.description}
+                {/* TIME POINTS (Above the line: Simple & Perfect Tenses) */}
+                {timePoints.map((point) => {
+                    const isSelected = point.id === selectedId;
+                    const isHovered = point.id === hoveredId;
+                    return (
+                        <Tooltip key={point.id} title={point.label} arrow placement="top">
+                            <Box
+                                onClick={() => onSelectId && onSelectId(point.id)}
+                                onMouseEnter={() => setHoveredId(point.id)}
+                                onMouseLeave={() => setHoveredId(null)}
+                                sx={{
+                                    position: 'absolute',
+                                    left: `${point.position}%`,
+                                    top: '40%', // Above the center line
+                                    width: 12,
+                                    height: 12,
+                                    borderRadius: '50%',
+                                    bgcolor: isSelected ? 'warning.main' : 'primary.main',
+                                    border: isSelected ? '3px solid' : '1px solid',
+                                    borderColor: isSelected ? 'error.main' : 'primary.dark',
+                                    transform: isSelected ? 'translate(-50%, -50%) scale(1.2)' : 'translate(-50%, -50%)',
+                                    transition: 'all 0.3s',
+                                    cursor: 'pointer',
+                                    boxShadow: isSelected || isHovered ? '0 0 10px' : 'none',
+                                    '&:hover': {
+                                        boxShadow: '0 0 10px',
+                                    },
+                                }}
+                            >
+                                <Typography variant="caption" sx={{
+                                    position: 'absolute',
+                                    bottom: -20,
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    fontWeight: isSelected ? 'bold' : 'normal',
+                                    whiteSpace: 'nowrap',
+                                    color: isSelected ? 'warning.dark' : 'text.primary'
+                                }}>
+                                    {point.label.split(' ')[0]}
+                                </Typography>
+                            </Box>
+                        </Tooltip>
+                    );
+                })}
+
+                {/* TIME SPANS (Below the line: Continuous Tenses) */}
+                {timeSpans.map((span) => {
+                    const isSelected = span.id === selectedId;
+                    const isHovered = span.id === hoveredId;
+                    const width = span.endPosition - span.startPosition;
+                    return (
+                        <Tooltip key={span.id} title={span.label} arrow placement="bottom">
+                            <Box
+                                onClick={() => onSelectId && onSelectId(span.id)}
+                                onMouseEnter={() => setHoveredId(span.id)}
+                                onMouseLeave={() => setHoveredId(null)}
+                                sx={{
+                                    position: 'absolute',
+                                    left: `${span.startPosition}%`,
+                                    width: `${width}%`,
+                                    top: '60%', // Below the center line
+                                    height: 10,
+                                    bgcolor: isSelected ? 'success.light' : 'secondary.light',
+                                    opacity: isSelected ? 1 : 0.7,
+                                    border: span.style === 'wavy' ? '2px dashed' : '2px solid',
+                                    borderColor: isSelected ? 'success.dark' : 'secondary.dark',
+                                    borderRadius: 1,
+                                    cursor: 'pointer',
+                                    transition: 'all 0.3s',
+                                    transform: isSelected ? 'scaleY(1.5)' : 'scaleY(1)',
+                                    boxShadow: isSelected || isHovered ? '0 0 10px' : 'none',
+                                    '&:hover': {
+                                        boxShadow: '0 0 10px',
+                                    },
+                                }}
+                            >
+                                <Typography variant="caption" sx={{
+                                    position: 'absolute',
+                                    top: 15,
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    fontWeight: isSelected ? 'bold' : 'normal',
+                                    whiteSpace: 'nowrap',
+                                    color: isSelected ? 'success.dark' : 'text.secondary'
+                                }}>
+                                    {span.label.split(' ')[0]}
+                                </Typography>
+                            </Box>
+                        </Tooltip>
+                    );
+                })}
+            </Box>
+
+            {/* Detailed Content Popout (Below the Timeline) */}
+            <Collapse in={!!currentEvent} sx={{ mt: 2 }}>
+                <Paper elevation={6} sx={{
+                    p: 2,
+                    bgcolor: 'primary.light',
+                    border: '1px solid',
+                    borderColor: 'primary.main'
+                }}>
+                    <Typography variant="h6" sx={{
+                        color: 'primary.dark',
+                        mb: 1
+                    }}>
+                        {currentEvent?.label || "Select a Tense"}
                     </Typography>
-                  )}
-                </Box>
-              </Box>
-            );
-          })}
+                    <Box dangerouslySetInnerHTML={{ __html: currentEvent?.contentHtml || "Click a point or span on the timeline to see details about its time usage." }} />
+                </Paper>
+            </Collapse>
         </Box>
-      </CardContent>
-    </Card>
-  );
+    );
+    // --- End Core Visualization Rendering ---
+
+    const renderAccessibilityTable = () => (
+        <Box sx={{ mt: 4 }}>
+            <Typography variant="h6" sx={{
+                color: 'text.secondary',
+                mb: 1
+            }}>Data Table for Accessibility</Typography>
+            <Paper variant="outlined" sx={{
+                p: 2,
+                bgcolor: 'action.hover'
+            }}>
+                <Typography variant="body2" sx={{
+                    fontStyle: 'italic',
+                    mb: 1
+                }}>
+                    **Alt Text:** {accessibility.altText}
+                </Typography>
+                {accessibility.dataTable && (
+                    <Box component="table" sx={{
+                        width: '100%',
+                        borderCollapse: 'collapse',
+                        mt: 2,
+                        ...createAccessibilityTable()
+                    }}>
+                        <Box component="thead" sx={{
+                            borderBottom: '2px solid',
+                            borderColor: 'divider'
+                        }}>
+                            <Box component="tr">
+                                {accessibility.dataTable.headers.map((header, i) => (
+                                    <Box component="th" key={i} sx={{
+                                        p: 1,
+                                        textAlign: 'left',
+                                        fontWeight: 'bold'
+                                    }}>{header}</Box>
+                                ))}
+                            </Box>
+                        </Box>
+                        <Box component="tbody">
+                            {accessibility.dataTable.rows.map((row, i) => (
+                                <Box component="tr" key={i} sx={{
+                                    '&:nth-of-type(even)': {
+                                        bgcolor: 'action.selected'
+                                    }
+                                }}>
+                                    {row.map((cell, j) => (
+                                        <Box component="td" key={j} sx={{
+                                            p: 1,
+                                            borderTop: '1px solid',
+                                            borderColor: 'divider'
+                                        }}>{cell}</Box>
+                                    ))}
+                                </Box>
+                            ))}
+                        </Box>
+                    </Box>
+                )}
+            </Paper>
+        </Box>
+    );
+
+    return (
+        <Paper elevation={4} sx={createLessonCard('success.main')}>
+            <Typography variant="h4" component="h2" sx={createLessonTitle('success.dark')}>
+                <AccessTimeIcon sx={{ verticalAlign: 'middle', mr: 1 }} /> {title}
+            </Typography>
+            {renderCoreVisualization()}
+            {accessibility && renderAccessibilityTable()}
+        </Paper>
+    );
 };
 
 export default TimelineVisualization;

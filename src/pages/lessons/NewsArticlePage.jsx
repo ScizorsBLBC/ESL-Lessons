@@ -5,6 +5,7 @@ import { Box, Typography, CircularProgress } from '@mui/material';
 import { getNewsArticleForLevel } from '../../utils/dataAccess.js';
 import ContentBlockRenderer from '../../components/ContentBlockRenderer';
 import LessonHeader from '../../components/LessonHeader';
+import TwoPaneLayout from '../../components/TwoPaneLayout';
 
 export default function NewsArticlePage() {
     const { slug, level } = useParams();
@@ -62,10 +63,31 @@ export default function NewsArticlePage() {
         );
     }
 
+    // Check if this level has a two-pane layout (levels 1, 3, 6)
+    const levelNum = parseInt(level);
+    const hasTwoPaneLayout = [1, 3, 6].includes(levelNum);
+
+    // For two-pane layout, separate main content from exercises
+    if (hasTwoPaneLayout && article.content && article.content.length > 0) {
+        const mainContent = article.content[0]; // Main article text
+        const exercisesContent = article.content.slice(1); // Questions and writing prompt
+
+        return (
+            <Box sx={{ py: 4, px: { xs: 2, sm: 4, md: 6 } }}>
+                <LessonHeader title={article.title} subtitle={article.subtitle} />
+                <TwoPaneLayout
+                    pane1={<ContentBlockRenderer content={[mainContent]} />}
+                    pane2={<ContentBlockRenderer content={exercisesContent} />}
+                />
+            </Box>
+        );
+    }
+
+    // Single pane layout for other levels
     return (
         <Box sx={{ py: 4, px: { xs: 2, sm: 4, md: 6 } }}>
             <LessonHeader title={article.title} subtitle={article.subtitle} />
-            <ContentBlockRenderer contentBlocks={article.content} />
+            <ContentBlockRenderer content={article.content || []} />
         </Box>
     );
 }

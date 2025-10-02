@@ -1,139 +1,146 @@
 import React, { useState } from 'react';
-import { Paper, Box, Typography } from '@mui/material';
+import { Box, Typography, Paper, IconButton } from '@mui/material';
+import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import GlassButtonWrapper from './GlassButtonWrapper';
+import { createLessonCard, createLessonTitle, createIconButton } from '../utils/stylingUtils';
 
-// Helper function to detect if content contains HTML tags
-const isHtmlContent = (content) => {
-  if (typeof content !== 'string') return false;
-  return /<[^>]*>/.test(content);
-};
+/**
+ * Component for a Flashcard set.
+ * Updated to strictly expect the data via the 'data' prop.
+ *
+ * @param {object} props
+ * @param {object} props.data - The data object conforming to the flashcard schema.
+ * @returns {JSX.Element}
+ */
+const Flashcard = ({ data }) => {
+    const { title, cards = [] } = data;
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isFlipped, setIsFlipped] = useState(false);
 
-const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onFlip }) => {
-  // Use external control if provided, otherwise use internal state
-  const [internalFlipped, setInternalFlipped] = useState(false);
-
-  // When using external control, always use the showBack prop
-  // When not using external control, reset to front when content changes
-  React.useEffect(() => {
-    if (onFlip) {
-      // When using external control, we don't need to do anything special
-      // The showBack prop will control the state
-    } else {
-      // When using internal control, reset to front when content changes
-      setInternalFlipped(false);
+    if (cards.length === 0) {
+        return (
+            <Paper sx={{
+                p: 2,
+                bgcolor: 'error.light',
+                color: 'error.dark',
+                border: '1px solid',
+                borderColor: 'error.main',
+                borderRadius: 1
+            }}>
+                <Typography>Error: No flashcards found in data.</Typography>
+            </Paper>
+        );
     }
-  }, [frontContent, onFlip, showBack]);
 
-  const isFlipped = onFlip ? showBack : internalFlipped;
-  const handleFlip = onFlip ? onFlip : () => setInternalFlipped(!internalFlipped);
+    const currentCard = cards[currentIndex];
 
-  return (
-    <Box
-      sx={{
-        perspective: '1000px',
-        width: '300px',
-        height: '200px',
-        cursor: 'pointer',
-      }}
-      onClick={handleFlip}
-    >
-      <Paper
-        elevation={0}
-        sx={{
-          position: 'relative',
-          width: '100%',
-          height: '100%',
-          transformStyle: 'preserve-3d',
-          transition: 'transform 0.6s',
-          transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          p: 3,
-          borderRadius: 3,
-          '&:hover': {
-            transform: isFlipped ? 'rotateY(180deg) scale(1.02)' : 'rotateY(0deg) scale(1.02)',
-            boxShadow: 8,
-          },
-        }}
-      >
-        {/* Front of card - only show when not flipped */}
-        {!isFlipped && (
-          <Box
-            sx={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 2,
-            }}
-          >
-            <Box sx={{ width: '100%', textAlign: 'center', maxWidth: '280px' }}>
-              {React.isValidElement(frontContent) ? (
-                frontContent
-              ) : isHtmlContent(frontContent) ? (
-                <Typography
-                  variant="h6"
-                  sx={{ textAlign: 'center' }}
-                  dangerouslySetInnerHTML={{ __html: frontContent }}
-                />
-              ) : (
-                <Typography variant="h6" sx={{ textAlign: 'center' }}>
-                  {frontContent}
-                </Typography>
-              )}
-            </Box>
-          </Box>
-        )}
+    const handleFlip = () => {
+        setIsFlipped(!isFlipped);
+    };
 
-        {/* Back of card - only show when flipped */}
-        {isFlipped && (
-          <Box
-            sx={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transform: 'rotateY(-180deg)',
-              zIndex: 2,
-            }}
-          >
-            <Box sx={{ width: '100%', textAlign: 'center', maxWidth: '280px' }}>
-              {React.isValidElement(backContent) ? (
-                backContent
-              ) : isHtmlContent(backContent) ? (
-                <Typography
-                  variant="body1"
-                  sx={{
-                    textAlign: 'center',
-                    whiteSpace: 'pre-line',
-                    lineHeight: 1.6
-                  }}
-                  dangerouslySetInnerHTML={{ __html: backContent }}
-                />
-              ) : (
-                <Typography
-                  variant="body1"
-                  sx={{
-                    textAlign: 'center',
-                    whiteSpace: 'pre-line',
-                    lineHeight: 1.6
-                  }}
+    const handleNext = () => {
+        setIsFlipped(false);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
+    };
+
+    return (
+        <Paper elevation={4} sx={createLessonCard('secondary.main')}>
+            <Typography variant="h5" component="h3" sx={createLessonTitle('secondary.dark')}>
+                {title || "Flashcards"}
+            </Typography>
+            <Typography variant="caption" display="block" sx={{ mb: 2 }}>
+                Card {currentIndex + 1} of {cards.length}
+            </Typography>
+
+            <Box
+                onClick={handleFlip}
+                sx={{
+                    position: 'relative',
+                    height: 200,
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    bgcolor: 'action.hover',
+                    borderRadius: 2,
+                    boxShadow: 3,
+                    cursor: 'pointer',
+                    transition: 'transform 0.6s',
+                    transformStyle: 'preserve-3d',
+                    '&:hover': {
+                        boxShadow: 6,
+                    },
+                }}
+            >
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        backfaceVisibility: 'hidden',
+                        transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                        transition: 'transform 0.6s',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        p: 3
+                    }}
                 >
-                  {backContent}
-                </Typography>
-              )}
+                    <Typography variant="h6" sx={{
+                        color: 'text.primary'
+                    }} align="center">
+                        {isFlipped ? currentCard.back : currentCard.front}
+                    </Typography>
+                </Box>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        backfaceVisibility: 'hidden',
+                        transform: isFlipped ? 'rotateY(0deg)' : 'rotateY(-180deg)',
+                        transition: 'transform 0.6s',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        p: 3
+                    }}
+                >
+                    <Typography variant="h6" sx={{
+                        color: 'text.primary'
+                    }} align="center">
+                        {isFlipped ? currentCard.back : currentCard.front}
+                    </Typography>
+                </Box>
             </Box>
-          </Box>
-        )}
-      </Paper>
-    </Box>
-  );
-});
 
-Flashcard.displayName = 'Flashcard';
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                mt: 2
+            }}>
+                <GlassButtonWrapper>
+                    <IconButton
+                        onClick={handleFlip}
+                        sx={createIconButton('primary.main')}
+                        title="Flip Card"
+                    >
+                        <FlipCameraAndroidIcon />
+                    </IconButton>
+                </GlassButtonWrapper>
+                <GlassButtonWrapper>
+                    <IconButton
+                        onClick={handleNext}
+                        sx={createIconButton('primary.main')}
+                        title="Next Card"
+                    >
+                        <SkipNextIcon />
+                    </IconButton>
+                </GlassButtonWrapper>
+            </Box>
+        </Paper>
+    );
+};
 
 export default Flashcard;

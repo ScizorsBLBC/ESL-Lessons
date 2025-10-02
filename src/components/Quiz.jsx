@@ -16,8 +16,8 @@ import GlassButtonWrapper from './GlassButtonWrapper';
 // import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import ErrorIcon from '@mui/icons-material/Error';
 
-const QuizComponent = ({ quizData, onQuestionComplete, disableAutoAdvance = false }) => {
-  const { quizTitle, questions } = quizData;
+const QuizComponent = ({ data: quizData, onQuestionComplete, disableAutoAdvance = false }) => {
+  const { title: quizTitle, questions } = quizData;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [showResult, setShowResult] = useState(false);
@@ -34,7 +34,7 @@ const QuizComponent = ({ quizData, onQuestionComplete, disableAutoAdvance = fals
   const handleSubmitAnswer = () => {
     const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
     const result = {
-      question: currentQuestion.question,
+      question: currentQuestion.text || currentQuestion.question,
       selectedAnswer,
       correctAnswer: currentQuestion.correctAnswer,
       isCorrect,
@@ -183,7 +183,7 @@ const QuizComponent = ({ quizData, onQuestionComplete, disableAutoAdvance = fals
             lineHeight: 1.4
           }}
         >
-          {currentQuestion.question}
+          {currentQuestion.text || currentQuestion.question}
         </Typography>
 
         <RadioGroup

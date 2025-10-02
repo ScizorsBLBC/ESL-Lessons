@@ -1,115 +1,132 @@
 import React from 'react';
-import DetailCard from './DetailCard';
-import QuizComponent from './Quiz';
+import { Box, Typography } from '@mui/material';
+
+// Import all content block components
+import Quiz from './Quiz';
 import FillInTheBlanks from './FillInTheBlanks';
 import Flashcard from './Flashcard';
-import TwoPaneLayout from './TwoPaneLayout';
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
+import YouTubeEmbed from './YouTubeEmbed';
+import ChartSection from './ChartSection'; // Existing chart component, renamed from Chart.jsx
+import TimelineVisualization from './TimelineVisualization'; // Existing component
+import ConceptMapVisualization from './ConceptMapVisualization'; // New component
+import FlowchartVisualization from './FlowchartVisualization';   // New component
 
-const ContentBlockRenderer = ({ contentBlocks, ...props }) => {
-  // Special case: If exactly 2 blocks, use TwoPaneLayout for side-by-side on desktop
-  if (contentBlocks.length === 2) {
+/**
+ * A central component responsible for rendering all types of content blocks
+ * based on the structured JSON schema. This enforces the data-driven architecture.
+ *
+ * @param {object} props
+ * @param {string} props.blockId - Unique ID for the block.
+ * @param {('text'|'quiz'|'fillInTheBlanks'|'flashcard'|'youtubeEmbed'|'chart'|'timeline'|'conceptMap'|'flowchart')} props.type - The type of content block.
+ * @param {object} props.data - The data object specific to the block type.
+ * @param {object} [props.accessibility] - Optional accessibility data for visualizations.
+ * @returns {JSX.Element} The rendered content block component.
+ */
+const ContentBlockRenderer = ({ blockId, type, data, accessibility }) => {
+    // Shared styling for visualization components wrapper
+    const visualizationWrapperStyle = {
+        my: 4,
+        p: { xs: 2, md: 4 },
+        borderRadius: 4,
+        boxShadow: 6,
+        bgcolor: 'background.paper',
+        border: '1px solid',
+        borderColor: 'primary.light',
+    };
+
+    try {
+        switch (type) {
+            case 'text':
+                // For a simple text block, we render raw HTML content directly.
+                return (
+                    <Box key={blockId} sx={{ my: 3 }} className="lesson-text">
+                        <div dangerouslySetInnerHTML={{ __html: data.htmlContent }} />
+                    </Box>
+                );
+
+            case 'quiz':
+                return <Quiz key={blockId} data={data} />;
+
+            case 'fillInTheBlanks':
+                return <FillInTheBlanks key={blockId} data={data} />;
+
+            case 'flashcard':
+                return <Flashcard key={blockId} data={data} />;
+
+            case 'youtubeEmbed':
+                return <YouTubeEmbed key={blockId} embedUrl={data.embedUrl} title={data.title} />;
+
+            case 'chart':
+                return (
+                    <Box key={blockId} sx={visualizationWrapperStyle}>
+                        <ChartSection data={data} accessibility={accessibility} />
+                    </Box>
+                );
+
+            case 'timeline':
+                return (
+                    <Box key={blockId} sx={visualizationWrapperStyle}>
+                        <TimelineVisualization data={data} accessibility={accessibility} />
+                    </Box>
+                );
+
+            case 'conceptMap':
+                return (
+                    <Box key={blockId} sx={visualizationWrapperStyle}>
+                        <ConceptMapVisualization data={data} accessibility={accessibility} />
+                    </Box>
+                );
+
+            case 'flowchart':
+                return (
+                    <Box key={blockId} sx={visualizationWrapperStyle}>
+                        <FlowchartVisualization data={data} accessibility={accessibility} />
+                    </Box>
+                );
+
+            default:
+                // Handle unknown block type gracefully
+                console.error(`Unknown content block type: ${type} for blockId: ${blockId}`);
+                return (
+                    <Box key={blockId} sx={{ my: 3, p: 2, border: '1px dashed red' }}>
+                        <Typography color="error">
+                            Error: Unknown block type "{type}" (ID: {blockId})
+                        </Typography>
+                    </Box>
+                );
+        }
+    } catch (error) {
+        // Handle rendering errors
+        console.error(`Error rendering block ${blockId} of type ${type}:`, error);
+        return (
+            <Box key={blockId} sx={{ my: 3, p: 2, border: '1px solid red', bgcolor: 'error.main', color: 'white' }}>
+                <Typography variant="h6">Fatal Rendering Error</Typography>
+                <Typography>
+                    A critical error occurred while displaying this lesson section (Type: {type}, ID: {blockId}). Please check the data structure.
+                </Typography>
+            </Box>
+        );
+    }
+};
+
+/**
+ * Main wrapper for a lesson. It iterates through the content array and renders each block.
+ * @param {object} props
+ * @param {Array<object>} props.content - The array of content blocks from the JSON lesson data.
+ */
+const LessonContentRenderer = ({ content }) => {
+    if (!content || content.length === 0) {
+        return <Typography variant="h5" color="textSecondary" sx={{ mt: 4 }}>Lesson content is empty or not yet loaded.</Typography>;
+    }
+
     return (
-      <TwoPaneLayout
-        pane1={<BlockRenderer block={contentBlocks[0]} {...props} />}
-        pane2={<BlockRenderer block={contentBlocks[1]} {...props} />}
-      />
-    );
-  }
-
-  // Default behavior: Stack all blocks vertically
-  return (
-    <Box sx={{
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 4
-    }}>
-      {contentBlocks.map((block) => (
-        <BlockRenderer key={block.blockId} block={block} {...props} />
-      ))}
-    </Box>
-  );
-};
-
-const BlockRenderer = ({ block, ...props }) => {
-  switch (block.type) {
-    case 'text':
-      return <DetailCard content={block.data.htmlContent} />;
-    case 'quiz':
-      return <QuizComponent quizData={block.data} />;
-    case 'fillInTheBlanks':
-      return <FillInTheBlanks data={block.data} {...props} />;
-    case 'flashcard':
-      return <Flashcard frontContent={block.data.front} backContent={block.data.back} />;
-    case 'youtubeEmbed':
-      return (
-        <Paper sx={{ p: 3, borderRadius: 2 }}>
-          <Typography variant="h6" gutterBottom>YouTube Embed Component</Typography>
-          <Typography variant="body2" color="text.secondary">
-            YouTube embed functionality will be implemented in future phases.
-          </Typography>
-          <pre style={{ marginTop: 16, fontSize: '0.75rem', backgroundColor: 'action.hover', padding: 16, borderRadius: 8 }}>
-            {JSON.stringify(block.data, null, 2)}
-          </pre>
-        </Paper>
-      );
-    case 'chart':
-      return <TableDisplay tableData={block.data} />;
-    default:
-      return (
-        <Paper sx={{ p: 3, borderRadius: 2 }}>
-          <Typography variant="h6" color="error" gutterBottom>
-            ⚠️ Unsupported content type: {block.type}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Block ID: {block.blockId}
-          </Typography>
-          <pre style={{ marginTop: 16, fontSize: '0.75rem', backgroundColor: 'action.hover', padding: 16, borderRadius: 8 }}>
-            {JSON.stringify(block.data, null, 2)}
-          </pre>
-        </Paper>
-      );
-  }
-};
-
-// Table component for displaying summary tables
-const TableDisplay = ({ tableData }) => {
-  const { title, headers, rows } = tableData;
-
-  return (
-    <Paper sx={{ maxWidth: '100%', mx: 'auto', borderRadius: 2 }}>
-      <Box sx={{ p: 3, textAlign: 'center' }}>
-        <Typography variant="h6" component="h3" color="text.secondary">
-          {title}
-        </Typography>
-      </Box>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {headers.map((header, index) => (
-                <TableCell key={index} sx={{ fontWeight: 'bold', backgroundColor: 'action.hover' }}>
-                  {header}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, rowIndex) => (
-              <TableRow key={rowIndex} sx={{ '&:nth-of-type(even)': { backgroundColor: 'action.hover' } }}>
-                {row.map((cell, cellIndex) => (
-                  <TableCell key={cellIndex} sx={{ py: 2 }}>
-                    <div dangerouslySetInnerHTML={{ __html: cell }} />
-                  </TableCell>
-                ))}
-              </TableRow>
+        <Box className="lesson-content-container">
+            {content.map((block) => (
+                <ContentBlockRenderer key={block.blockId} {...block} />
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
-  );
+        </Box>
+    );
 };
 
-export default ContentBlockRenderer;
+// Export the wrapper as the default export for use in lesson page templates
+export default LessonContentRenderer;

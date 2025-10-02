@@ -1,0 +1,18 @@
+---
+alwaysApply: true
+---
+# Principles: ESL Hub Architecture & Data Flow
+
+## 1. FULL-STACK ARCHITECTURE
+- **Frontend Scope:** UI rendering, presentation, and local state management (active tabs, dropdowns).
+- **Backend Scope:** All file I/O, external API proxy calls (DeepL, Google TTS), and CRUD operations.
+- **Communication Protocol:** All external API interaction MUST use defined service files (e.g., `@src/services/api.js`).
+
+## 2. DATA PRINCIPLES (Principle 1 & 2)
+- **Data Separation:** NEVER hard-code lesson content (titles, text, quiz questions, strings for buttons/lists) inside a component (`.jsx`). Data belongs in `@src/data/*.js`.
+- **Schema Adherence:** NEVER modify, add to, or remove properties from the canonical schema structure defined in `@src/data/schema.js`.
+- **Service Usage:** When processing data (quiz generation, fetching), ALWAYS utilize existing functions from `@src/services/vocabularyService.js` or `@src/services/api.js`.
+
+## 3. COMPONENT COMPOSITION (Principle 3: Compose, Don't Create)
+- **Reusable Components:** Before writing a new UI component, ALWAYS check for and utilize existing modular components in `@src/components/` first.
+- **Core Rendering:** Use `@src/components/ContentBlockRenderer.jsx` and `@src/components/ContentSelector.jsx` as the primary tools for organizing and displaying data-driven content.

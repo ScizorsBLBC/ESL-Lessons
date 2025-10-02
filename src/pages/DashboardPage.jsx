@@ -146,11 +146,11 @@ export default function DashboardPage() {
                 <Section title="Idiom Lesson Link Generator" instructions="Select a lesson to generate a direct shareable link for your student.">
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
                         <Select value={selectedIdiomLesson} onChange={handleIdiomSelectChange}>
-                            {idiomData.lessons.map((lesson) => (
+                            {idiomData.lessons?.map((lesson) => (
                                 <MenuItem key={lesson.lesson} value={lesson.lesson}>
-                                    Lesson {lesson.lesson}: {lesson.idioms[0].idiom}
+                                    Lesson {lesson.lesson}: {lesson.idioms?.[0]?.idiom || lesson.title}
                                 </MenuItem>
-                            ))}
+                            )) || []}
                         </Select>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <TextField fullWidth readOnly value={createShareLink('idioms', selectedIdiomLesson)} variant="outlined" size="small" />

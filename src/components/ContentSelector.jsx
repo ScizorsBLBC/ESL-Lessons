@@ -70,7 +70,7 @@ export default function ContentSelector({
             maxWidth: { xs: '100%', sm: '1100px' },
             mx: 'auto' // Center the entire grid on the page
         }}>
-            <Grid item xs={12} sx={{ width: '100%' }}>
+            <Grid size={12} sx={{ width: '100%' }}>
                 <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h4" component="h2" gutterBottom>{title}</Typography>
                     {description && <Typography sx={{ textAlign: 'center' }} dangerouslySetInnerHTML={{ __html: description }} />}
@@ -78,7 +78,7 @@ export default function ContentSelector({
             </Grid>
             
             {sortedData.length > 1 && (
-                <Grid item xs={12} sx={{
+                <Grid size={12} sx={{
                     width: '100%',
                     maxWidth: { xs: '100%', sm: '1100px' },
                     display: 'flex',
@@ -102,7 +102,7 @@ export default function ContentSelector({
 
             {/* Render internal DetailCard only if NOT in controlled/hidden mode */}
             {!hideDetailView && currentItem && detailRenderer && (
-              <Grid item xs={12} sx={{
+              <Grid size={12} sx={{
                   width: '100%',
                   maxWidth: { xs: '100%', sm: '1100px' },
                   flexGrow: 1,

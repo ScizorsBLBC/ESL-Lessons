@@ -38,9 +38,18 @@ const FlashcardRenderer = (item, theme) => {
         </Box>
     );
 
+    // Create data structure that Flashcard component expects
+    const flashcardData = {
+        title: `${item.word} Flashcard`,
+        cards: [{
+            front: item.word,
+            back: `Definition: ${item.definition}. Example: "${item.sampleSentence}"`
+        }]
+    };
+
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-            <Flashcard frontContent={frontContent} backContent={backContent} />
+            <Flashcard data={flashcardData} />
         </Box>
     );
 };
@@ -72,12 +81,12 @@ const ChallengeView = ({ lessonData, theme }) => {
         });
 
         return {
-            quizTitle: `Vocabulary Challenge: ${lessonData.lesson}`,
+            title: `Vocabulary Challenge: ${lessonData.lesson}`,
             questions: questions
         };
     }, [lessonData]);
 
-    return <QuizComponent quizData={quizData} />;
+    return <QuizComponent data={quizData} />;
 };
 
 // --- Main Page Component ---
@@ -88,7 +97,34 @@ export default function VocabularyPage() {
 
     const activeLesson = useMemo(() => {
         const id = parseInt(lessonId, 10);
-        return vocabularyData.lessons.find(l => l.lesson === id);
+        const lessonInfo = vocabularyData.lessons.find(l => l.lesson === id);
+
+        if (!lessonInfo) return null;
+
+        // Find the appropriate pack based on lesson info
+        const packSize = lessonInfo.packSize.toString();
+        const packs = vocabularyData.vocabularyPacks[packSize] || [];
+
+        // For now, use the first pack of the appropriate size
+        // In a real implementation, this would map lesson numbers to specific packs
+        const pack = packs.find(p => p.packId.includes(lessonInfo.lesson <= 3 ? '1' : '2')) || packs[0];
+
+        if (!pack) return null;
+
+        // Extract words from flashcard content
+        const flashcardBlock = pack.content.find(block => block.type === 'flashcard');
+        const words = flashcardBlock ? flashcardBlock.data.cards.map(card => ({
+            word: card.front,
+            definition: card.back.split('Definition: ')[1]?.split('.')[0] || card.back,
+            sampleSentence: card.back.split('Definition: ')[1]?.split('.')[1] || '',
+            challengeSentence: `Complete the sentence with the correct word: The word "${card.front}" means _______ in this context.`
+        })) : [];
+
+        return {
+            ...lessonInfo,
+            words: words,
+            pack: pack
+        };
     }, [lessonId]);
 
     const handleTabChange = (event, newValue) => {

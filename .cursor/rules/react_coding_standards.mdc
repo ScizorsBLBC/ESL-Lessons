@@ -1,0 +1,21 @@
+---
+alwaysApply: true
+---
+# Principles: React Clean Code & Modularity
+
+## 1. DRY Code & Modularity
+- **Refactoring Goal:** Actively extract all duplicated logic into reusable functions/hooks/components. Prioritize extraction immediately upon noticing repetition.
+- **Component Purpose:** Aim for components with a single, clear responsibility.
+
+## 2. Page Templates are Lean (Principle 4)
+- **Lesson Page Role:** Components in `@src/pages/lessons/` are strictly LEAN TEMPLATES.
+- **Allowed Logic:** Page components should ONLY handle:
+    - Importing data.
+    - Managing active tab state (`useState`).
+    - Filtering or transforming data arrays with `useMemo`.
+    - Passing the result to a core renderer.
+- **AVOID:** Placing complex data parsing (e.g., regex on HTML strings) or large `switch/case` rendering logic directly within page files. Extract this to a utility or specialized component.
+
+## 3. State & Memoization
+- **Minimal State:** Use `useState` only for minimal UI state (e.g., `activeTab`).
+- **Memoization:** Use `useMemo` for any complex or performance-sensitive data operation (filtering, sorting, calculating derived state) to ensure efficiency.

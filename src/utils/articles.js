@@ -90,13 +90,20 @@ export const transformArticleToCanonicalSchema = (article, level) => {
     // Add questions section
     if (questions && questions.trim()) {
       const unescapedQuestions = questions.replace(/\\n/g, '\n');
-      const formattedQuestions = unescapedQuestions.replace(/\n/g, '<br>');
+      const questionLines = unescapedQuestions.split('\n').filter(line => line.trim().length > 0);
+
+      // Determine numbering based on level
+      const maxQuestions = level === 1 ? 5 : 10;
+      const numberedQuestions = questionLines.slice(0, maxQuestions).map((question, index) =>
+        `${index + 1}. ${question.trim()}`
+      ).join('<br>');
+
       exercisesContent += `
 <div class="homework-email">
   <h3 style="margin-top: 0; color: inherit; text-align: center;">Comprehension Questions:</h3>
   <p style="margin-bottom: 1.5rem; color: inherit; text-align: center;"><strong>Write a full-sentence answer for each question below.</strong></p>
   <div style="text-align: left; display: inline-block; max-width: 600px;">
-    ${formattedQuestions.split('<br>').map(q => `<p style="margin-bottom: 1rem; color: inherit; text-align: left;">${q}</p>`).join('')}
+    <p style="margin-bottom: 1rem; color: inherit; text-align: left;">${numberedQuestions.replace(/<br>/g, '</p><p style="margin-bottom: 1rem; color: inherit; text-align: left;">')}</p>
   </div>
 </div>`;
     }

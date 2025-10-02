@@ -1,0 +1,19 @@
+---
+alwaysApply: true
+---
+# Principles: UI/UX & Styling Consistency
+
+## 1. MATERIAL-UI (MUI) USAGE
+- **NO Hardcoded Styles:** NEVER use inline `style` attributes (style={{...}}) or raw CSS values (e.g., `#FFFFFF`).
+- **THEME USAGE:** ALWAYS use the MUI `sx` prop for styling and refer to the theme properties defined in `@src/theme.js`.
+    - ✅ Correct: `sx={{ color: 'text.primary', backgroundColor: 'background.paper', p: 2 }}`
+    - ❌ Incorrect: `style={{ color: '#fff', padding: '16px' }}`
+- **Responsive Design:** ALWAYS use MUI's responsive syntax (`sx={{ px: { xs: 2, sm: 4 } }}`) for all spacing and layout to enforce a mobile-first design.
+
+## 2. GLASSMORPHISM DESIGN SYSTEM
+- **Interactive Elements:** All buttons, selectable menu items, or user-interactive wrappers MUST be enclosed by the `@src/components/GlassButtonWrapper.jsx` component.
+- **Containers:** Use MUI `Paper` or `Card` components for backgrounds to correctly inherit the global liquid glass backdrop style.
+
+## 3. Accessibility
+- **WCAG Compliance:** Ensure all buttons meet the 44px minimum accessible touch target size (which is handled by `GlassButtonWrapper`).
+- **Semantic HTML:** Use proper HTML structure and ARIA labels, especially within dynamic content blocks, to aid screen readers.

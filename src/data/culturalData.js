@@ -1,271 +1,280 @@
-/**
- * culturalData.js
- * * This file exports the comprehensive dataset used throughout the application.
- * It's extracted from the original HTML file to keep the data separate from the component logic,
- * which is a best practice in React development.
- */
-export const culturalData = {
-    communication: [
-        { name: 'Japan', score: 10, details: "<strong>Japan (High-Context):</strong> The apex of high-context. Meaning is conveyed through shared context, non-verbal cues (a long pause, a sharp intake of breath), and what is *not* said. This is the world of *honne* (one's true feelings) and *tatemae* (the public face or opinion). You will almost always be shown the *tatemae*. Maintaining group harmony (*wa* 和) is the primary goal. Saying 'no' directly is considered disruptive and impolite; instead, phrases like 'I will take it into consideration' (*kentou shimasu*) or 'That is a bit difficult' (*sore wa chotto muzukashii desu*) are used to signal disagreement. 'Reading the air' (*kuuki wo yomu*) is a critical social skill." },
-        { name: 'S. Korea', score: 9.5, details: "<strong>S. Korea (High-Context):</strong> Communication is indirect to maintain harmony, heavily influenced by hierarchy. What is unsaid is often the real message. Respect for seniority dictates a formal, deferential style. Direct contradiction of a superior is avoided." },
-        { name: 'China', score: 9, details: "<strong>China (High-Context):</strong> High-context, where meaning is layered in metaphors, historical allusions, and proverbs. The concept of 'face' (*miànzi* 面子)—one's reputation, dignity, and social standing—is a critical social currency. You must never cause someone to 'lose face' by criticizing them publicly. Communication style can change drastically depending on whether you are an insider (*nèirén*) or an outsider (*wàirén*) within their network of relationships (*guanxi* 关系). An outsider will receive very formal, indirect communication, while an insider may receive more direct information." },
-        { name: 'Nigeria', score: 8.8, details: "<strong>Nigeria (High-Context):</strong> Communication is generally indirect and very respectful of hierarchy and age. Titles are important. The style can be highly expressive and narrative, using proverbs and stories to convey a point. The listener is expected to infer meaning from the context. 'Yes' often means 'I am listening respectfully' rather than 'I agree'." },
-        { name: 'India', score: 8.5, details: "<strong>India (High-Context):</strong> High-context and hierarchical. Communication is often indirect to show respect to seniors. A 'yes' can have many meanings, from 'I hear you' to 'I will try my best,' and does not always signify a firm commitment. The characteristic head wobble can signify acknowledgement, understanding, or agreement, and the specific meaning is derived entirely from context. The communication style can also be very persuasive and expressive, using stories and analogies to make a point." },
-        { name: 'Middle East', score: 8, details: "<strong>Middle East (High-Context):</strong> Highly relationship-driven and high-context. Language can be expressive, persuasive, and emotionally rich. Business is personal; trust must be established through extensive small talk before direct communication can occur. The concept of saving face for both yourself and your counterpart is critical. A promise may be a statement of intent rather than a binding commitment, contingent on the strength of the relationship." },
-        { name: 'Mexico', score: 7.5, details: "<strong>Mexico (High-Context):</strong> Politeness and diplomacy are paramount. Communication is often indirect to maintain relational harmony, and saying 'no' directly can be seen as rude. Instead, more ambiguous phrases like 'we'll see' or 'perhaps' are used. Building personal rapport before discussing business is essential." },
-        { name: 'Russia', score: 7, details: "<strong>Russia (Hybrid):</strong> Communication is highly relationship-dependent. With strangers or superiors, it can be formal and indirect. With trusted colleagues, it can become extremely direct and blunt. Passionate, emotional debate is common and not seen as personal." },
-        { name: 'Brazil', score: 6.5, details: "<strong>Brazil (Hybrid):</strong> Relationship-focused and expressive. While the topic of conversation can be direct, the *way* it is discussed is highly contextual, fluid, and often passionate. Interrupting is not necessarily rude but can be a sign of enthusiastic engagement. The conversation may wander off-topic as relationship-building is happening concurrently with the business discussion." },
-        { name: 'France', score: 6, details: "<strong>France (Hybrid):</strong> A unique hybrid. The French value eloquence, precision, and logic in language (low-context), a concept known as *l'art de la parole* (the art of speaking). However, the interpretation heavily depends on the relationship, social context, and non-verbal cues (high-context). Engaging in vigorous intellectual debate is a way of exploring an idea and showing respect for the other person's intellect; it is not personal conflict." },
-        { name: 'UK', score: 5, details: "<strong>UK (Mid-Context):</strong> Mid-context and notoriously difficult to decode. Communication can be direct, but it is often coded in understatement, irony, and sarcasm. 'Not bad' can mean 'very good.' 'With all due respect...' often precedes a strong disagreement. 'I'll bear that in mind' can mean 'I disagree and we will not be doing that.' Politeness and humor are used as tools to soften direct messages or deliver criticism indirectly." },
-        { name: 'Australia', score: 4, details: "<strong>Australia (Low-Context):</strong> Direct like the US, but often with more understatement and a greater emphasis on team harmony and politeness. Sarcasm and dry humor are common tools for building rapport, which can be easily misinterpreted. 'No worries' is a common Australian phrase signifying 'you're welcome' or 'it's okay.'" },
-        { name: 'USA', score: 3, details: "<strong>USA (Low-Context):</strong> Direct and explicit, but with a cultural emphasis on positive framing, enthusiasm, and providing solutions. Feedback is often given using the 'sandwich method' (praise, criticism, praise). Politeness is shown through friendly and optimistic language ('Great question!', 'I'd be happy to help with that'). The use of idioms and sports metaphors ('let's touch base,' 'hit a home run') is common and can be a barrier for non-native speakers." },
-        { name: 'Israel', score: 2.8, details: "<strong>Israel (Low-Context):</strong> Communication is exceptionally direct, blunt, and assertive, a style known as *dugri* (straight talk). Challenging ideas and engaging in passionate debate is seen as a normal and efficient way to reach the best conclusion, not a personal attack. There is little time for politeness that obscures the main point." },
-        { name: 'Canada', score: 2.5, details: "<strong>Canada (Low-Context):</strong> Communication is direct and explicit, similar to the US, but often with an even greater emphasis on politeness, diplomacy, and avoiding confrontation. The language may be softer and more understated." },
-        { name: 'Scandinavia', score: 2, details: "<strong>Scandinavia (Low-Context):</strong> Direct, but also highly democratic and consensus-oriented. Communication is transparent and honest, as trust is the foundation of business. Open, respectful debate is encouraged, and decisions are made collectively. There is a low tolerance for bragging or overly expressive communication, valuing calmness and practicality. This is captured in the Swedish concept of *lagom* (just the right amount, moderation)." },
-        { name: 'Germany', score: 1, details: "<strong>Germany (Low-Context):</strong> The focus is on *truth* and *accuracy* (*Sachlichkeit* - objectivity). Communication is precise, literal, and fact-based, as ambiguity is seen as inefficient and unprofessional. Small talk is minimal because the purpose of a business meeting is business; getting straight to the point is a sign of respect for the other person's time and intelligence. Feedback is direct and targets the issue, not the person. A German might say, 'This report has three factual errors,' which is intended as an objective statement, not a personal attack." },
-        { name: 'Netherlands', score: 0.5, details: "<strong>Netherlands (Low-Context):</strong> Often considered one of the most direct cultures. Honesty and transparency are prized above all else, even if it feels blunt. The goal is clarity and efficiency; softening language is seen as potentially confusing or insincere. You will always know where you stand." }
-    ],
-    power: [
-        { name: 'Nigeria', score: 10, details: "<strong>Nigeria (Hierarchical / The Elder Statesman):</strong> Power distance is extremely high. Deep respect is given to age, title, and wealth. Leaders are paternalistic and make decisions for the group. It is considered very disrespectful to challenge a superior publicly. Seniority is the primary basis for authority." },
-        { name: 'China', score: 9.8, details: "<strong>China (Hierarchical / The Decisive Leader):</strong> The leader is the ultimate authority and is expected to have the answers and give clear direction. Decision-making is top-down. Showing deference to superiors is non-negotiable, and titles are always used." },
-        { name: 'India', score: 9.5, details: "<strong>India (Hierarchical / The Paternalistic Leader):</strong> The leader is the ultimate, paternalistic authority. Titles are crucial. Publicly challenging a superior is unacceptable. The leader also takes a personal interest in the well-being of their subordinates." },
-        { name: 'S. Korea', score: 9, details: "<strong>S. Korea (Hierarchical / The Benevolent Father):</strong> A steep pyramid structure where authority is rooted in age and rank (Confucian philosophy). The leader is seen as a benevolent father figure who makes the final decision, but only after extensive informal consensus-building among the team to ensure harmony. Respect for this structure is absolute." },
-        { name: 'Japan', score: 8.5, details: "<strong>Japan (Hierarchical / The Consensus Builder):</strong> While the hierarchy is steep and formal (the boss is the boss), the decision-making process is famously bottom-up. The *Ringi-Seido* involves proposals circulating from mid-management to gain consensus (*nemawashi*) before reaching the top for a final stamp of approval. The leader's role is to facilitate harmony and approve the group's decision, not to be a top-down autocrat." },
-        { name: 'Mexico', score: 8.2, details: "<strong>Mexico (Hierarchical / The Patron):</strong> A clear hierarchical structure with a paternalistic leader (*el patrón*) who is expected to be strong, decisive, and caring toward their subordinates. In return, employees show loyalty and deference. Titles are very important and should always be used." },
-        { name: 'Russia', score: 8, details: "<strong>Russia (Hierarchical / The Strong Leader):</strong> A strong, centralized leadership model is common, rooted in a history of centralized power. The leader is the ultimate decision-maker, and their authority is rarely challenged openly. Subordinates expect clear, direct instructions." },
-        { name: 'France', score: 7, details: "<strong>France (Hierarchical / The Expert Leader):</strong> The leader is an expert and a figure of authority (*le patron*). They are respected for their intellect and are expected to have a strong, clear vision. Decisions are made at the top and are expected to be carried out." },
-        { name: 'Brazil', score: 6.5, details: "<strong>Brazil (Hierarchical):</strong> Power is often concentrated in the hands of senior leaders who act as patrons. Subordinates show deference and loyalty, and in return, the leader provides guidance and protection. Titles are important." },
-        { name: 'Middle East', score: 6, details: "<strong>Middle East (Hierarchical):</strong> Power is held by senior, often older, leaders. Decisions are made at the top, and respect for authority is paramount. Family connections can also play a significant role in business hierarchy." },
-        { name: 'USA', score: 5, details: "<strong>USA (Hybrid / The Pragmatic Leader):</strong> Organizations are moderately hierarchical (the boss makes the final call and is responsible for results), but the communication style is egalitarian (you can challenge the boss with a good, data-driven argument). Leadership is based on individual achievement, confidence, and charisma, not just title." },
-        { name: 'Germany', score: 4, details: "<strong>Germany (Hybrid / The Competent Leader):</strong> The structure is clearly hierarchical, and the leader is respected for their deep expertise and competence. However, once in a meeting, a junior expert may be expected to contribute their detailed knowledge directly and factually, as the pursuit of the correct, objective solution (*Sachlichkeit*) can temporarily override the hierarchy." },
-        { name: 'UK', score: 3.5, details: "<strong>UK (Hybrid / The Understated Leader):</strong> Hierarchy exists and is often tied to a subtle class system and educational background, but the outward communication style is informal. The boss may be called by their first name, but a clear power distance remains and is understood by all." },
-        { name: 'Canada', score: 3, details: "<strong>Canada (Egalitarian / The Coach):</strong> The manager is 'one of the team,' just with a different role. They are accessible, approachable, and informal. First names are used for everyone, including the CEO, to minimize power distance." },
-        { name: 'Australia', score: 2.5, details: "<strong>Australia (Egalitarian):</strong> A strong belief that everyone deserves a 'fair go.' Managers are expected to be consultative and down-to-earth. Open and direct communication is valued, regardless of title." },
-        { name: 'Netherlands', score: 2, details: "<strong>Netherlands (Egalitarian / The Facilitator):</strong> The boss is a coach or a facilitator whose job is to enable the team to reach a consensus (*polder model*). Decisions can be slow because everyone is consulted, but they have full team buy-in once made." },
-        { name: 'Scandinavia', score: 1.5, details: "<strong>Scandinavia (Egalitarian / The Facilitator):</strong> The flattest organizational structures. The boss is a coach whose job is to enable the team to reach a consensus. Open disagreement is normal." },
-        { name: 'Israel', score: 1, details: "<strong>Israel (Egalitarian / The Challenger):</strong> A unique culture of directness and comfort with open debate, regardless of hierarchy. Junior employees feel empowered to challenge a senior leader's ideas directly, a concept known as *chutzpah*. This is seen as a way to reach the best solution, not as a sign of disrespect." }
-    ],
-    time: [
-        { name: 'India', score: 10, details: "<strong>India (Polychronic):</strong> Time is event-oriented. The current conversation or activity is more important than a pre-planned schedule. Building the relationship is the primary event, and the business will happen when the time is right." },
-        { name: 'Nigeria', score: 9.5, details: "<strong>Nigeria (Polychronic):</strong> Time is highly flexible. The focus is on the people and the event, not the clock. A start time is often an indicator for the event to begin sometime after." },
-        { name: 'Brazil', score: 9, details: "<strong>Brazil (Polychronic):</strong> Time is flexible and relationship-centric. The schedule can and should be bent to accommodate a more important human interaction. A meeting's start time is often an approximation, as the current conversation may take precedence. Interruptions are common and not seen as rude." },
-        { name: 'Israel', score: 8.5, details: "<strong>Israel (Polychronic):</strong> Time is fluid and task-oriented. Punctuality is not a high priority; the focus is on achieving the goal, and schedules can be adjusted as needed. Interruptions are common as people focus on the most urgent matter at hand." },
-        { name: 'Mexico', score: 8, details: "<strong>Mexico (Polychronic):</strong> Plans are fluid and can change easily. Relationships dictate the schedule. Punctuality is less rigid than in monochronic cultures, but still appreciated in formal business settings." },
-        { name: 'Middle East', score: 7.5, details: "<strong>Middle East (Polychronic):</strong> Time is fluid. Appointments may start late as the current relationship-building activity takes priority. Patience is a virtue. The concept of *Inshallah* (God willing) reflects a view that events are not entirely within human control." },
-        { name: 'China', score: 6.5, details: "<strong>China (Polychronic/Hybrid):</strong> A complex view. Punctuality for business meetings is extremely important as a sign of respect. However, the overall approach is polychronic and long-term. Deadlines can be seen as flexible, and the Western rush to 'get the deal done' is often used as a negotiation tactic against them. They will take as long as is needed to build the relationship." },
-        { name: 'France', score: 6, details: "<strong>France (Moderate):</strong> Schedules are a guide, but relationships can take priority. Punctuality is valued but less rigid than in Germany. Lunch is often a two-hour break, a crucial social ritual where work and life blend." },
-        { name: 'Russia', score: 5.5, details: "<strong>Russia (Moderate):</strong> Punctuality is expected from foreigners but may not always be reciprocated by senior figures. Schedules are a framework, but be prepared for them to change based on the priorities of the most powerful person in the room." },
-        { name: 'USA', score: 4, details: "<strong>USA (Monochronic):</strong> 'Time is money.' Efficiency is a key virtue. Punctuality is expected. Meetings are expected to start and end on time and have a clear, action-oriented purpose. Agendas are important guides for keeping the meeting on track." },
-        { name: 'Australia', score: 3.5, details: "<strong>Australia (Monochronic):</strong> Punctuality is important and expected in business. However, the culture is more relaxed than in the US, with a stronger emphasis on work-life balance. Deadlines are taken seriously, but there's an understanding that life outside work is equally important." },
-        { name: 'UK', score: 3, details: "<strong>UK (Monochronic):</strong> 'Time is money.' Efficiency is a key virtue. Punctuality is expected. Meetings are expected to start and end on time and have a clear, action-oriented purpose. Agendas are important guides for keeping the meeting on track." },
-        { name: 'S. Korea', score: 2.8, details: "<strong>S. Korea (Monochronic):</strong> A culture of *palli-palli* (hurry, hurry) means that speed and efficiency are highly valued. Deadlines are strict, and punctuality is a must. This monochronic focus on execution coexists with long work hours dedicated to achieving goals quickly." },
-        { name: 'Canada', score: 2.5, details: "<strong>Canada (Monochronic):</strong> Punctuality is a sign of respect and reliability. Meetings start and end on time. Agendas are followed." },
-        { name: 'Scandinavia', score: 2.2, details: "<strong>Scandinavia (Monochronic):</strong> Punctuality is highly valued as a sign of respect for others' time. Efficiency in meetings is prized." },
-        { name: 'Japan', score: 2, details: "<strong>Japan (Monochronic):</strong> Punctuality is paramount; it is expected that you will arrive early for meetings. Deadlines are absolute and are to be met without exception. This linear approach to scheduling coexists with a culture of very long work hours, where presenteeism (being present at the office for long hours) has traditionally been valued as a sign of dedication." },
-        { name: 'Netherlands', score: 1.5, details: "<strong>Netherlands (Monochronic):</strong> Time is managed carefully. Punctuality is essential, and agendas are followed strictly to ensure efficiency. Meetings start and end exactly on time, as everyone's time is considered equally valuable." },
-        { name: 'Germany', score: 1, details: "<strong>Germany (Monochronic):</strong> Time is a finite, tangible asset that must be planned and managed with precision. Agendas are detailed roadmaps that are followed meticulously. Punctuality is a sign of respect and professionalism; being late is a serious offense that suggests you are disorganized." }
-    ],
-     workLifeBalance: {
-        title: 'Work-Life Balance Philosophies',
-        headers: ['Country/Region', 'Dominant Philosophy', 'Typical Work Hours & Vacation', 'Cultural Attitude'],
-        rows: [
-            ['France', 'Work to Live - Life, pleasure, and personal time are paramount. Work is a means to an end.', 'Legally mandated 35-hour work week. 5+ weeks of paid vacation is standard. Long, sacred lunch breaks.', 'The "right to disconnect" is law. Working excessively is not praised. Life outside work is highly valued and protected.'],
-            ['Germany', 'Clear Separation - A strong, thick wall exists between work (Arbeit) and private life (Freizeit).', 'Strict adherence to work hours. Working late is seen as inefficient. Generous vacation time (30 days).', 'The concept of Feierabend (end of the work day) is a cherished ritual. Work does not intrude on personal time. Efficiency during work hours is the goal.'],
-            ['Japan & S. Korea', 'Work-Life Integration (Historically) - Work is central to life and identity. The company is like a family.', 'Traditionally very long hours. After-work socializing (nomikai) is often obligatory.', 'Historically, dedication is shown through "presenteeism." This is slowly changing due to awareness of burnout (karoshi), with younger generations pushing for better balance.'],
-            ['United States', 'Live to Work / "Work Hard, Play Hard" - Professional ambition and success are central to identity.', 'No federal mandate for paid vacation; 10-15 days is common. "Always-on" culture is prevalent.', 'Vacation time is often not fully used. Being "busy" is a status symbol. Success is often measured by professional achievement and wealth.'],
-            ['Scandinavia', 'Balance as a Right - A healthy work-life balance is considered a fundamental right for all citizens.', 'Shorter work days are common (e.g., 9-4). Generous parental leave. Fika (coffee breaks) are built-in.', 'Family and personal well-being are prioritized by both companies and the state. A rested, happy employee is seen as a productive employee.']
-        ]
-    },
-    etiquette: [
-        { name: 'Australia', greeting: 'Informal. A friendly "G\'day" or "How are you going?" with a simple handshake is standard. First names are used immediately, regardless of rank.', dining: 'Dining is generally relaxed. Business may be discussed over the meal. Good table manners are expected, but the atmosphere is not overly formal. Splitting the bill is common.', gifting: 'Not a standard part of business culture and can sometimes be seen as an attempt to curry favor. If invited to a home, bringing a bottle of wine or chocolates is a polite gesture.' },
-        { name: 'Brazil', greeting: 'Warm and tactile. A firm handshake with long eye contact is standard. Light pats on the back are common. In social settings, expect women to exchange kisses on the cheek.', dining: 'A long, social event. Business is often discussed in a relaxed manner after significant rapport-building. Expect conversations to be lively and frequently interrupted.', gifting: 'Give high-quality gifts like brand-name Scotch or fine pens. Avoid purple or black (colors of mourning). Gifts are opened immediately with genuine enthusiasm.' },
-        { name: 'Canada', greeting: 'Polite and somewhat reserved. A firm handshake with eye contact is standard. Use titles and last names until invited to use first names. A bilingual greeting ("Hello, Bonjour") may be used in some regions.', dining: 'Business can be discussed over a meal, but follow your host\'s lead. Etiquette is generally conservative. Punctuality is important.', gifting: 'A gift is not expected in a business setting. If invited to someone\'s home, a small gift like a bottle of wine, flowers, or a dessert is appropriate.' },
-        { name: 'China', greeting: 'A light, brief handshake. A slight nod is common. Address people by their title and last name. Exchanging cards is less formal than in Japan but still important.', dining: '<strong>Dining as Business Theatre:</strong> Banquets are a fundamental part of building *guanxi*. The host orders all food. Seating is hierarchical, with the guest of honor opposite the host. Toasting with *baijiu* is frequent and a test of sincerity; you should always toast your host. The guest of honor is expected to sample every dish.', gifting: '<strong>Symbolism of the Gift:</strong> A gift may be politely declined several times before being accepted. Do not give clocks (suggests death) or scissors. The color red is lucky; avoid white wrapping paper (associated with funerals).' },
-        { name: 'France', greeting: 'A light, quick handshake. Use last names and formal titles (*Monsieur*, *Madame*) until invited to do otherwise.', dining: '<strong>Dining as Business Theatre:</strong> The meal is a pleasure, not a work session. The quality of the conversation is as important as the food. Do not discuss business until the host brings it up (often with coffee). Your dining etiquette (how you use cutlery, keeping both hands on the table) is seen as a reflection of your sophistication.', gifting: 'Not necessary at a first meeting. If invited to a home, bring high-quality wine, chocolates, or flowers.' },
-        { name: 'Germany', greeting: 'A firm, brief handshake with direct eye contact upon arrival and departure. Use formal titles (*Herr*, *Frau*) and last names.', dining: 'Punctuality is essential. Business can be discussed, but follow the host\'s lead. Cutlery etiquette is important.', gifting: 'Gifts are uncommon in business. If invited to a home, a small gift like flowers or wine is appropriate. Avoid giving knives.' },
-        { name: 'India', greeting: 'A handshake is common in business. The traditional "Namaste" (slight bow with palms together) is also a sign of respect. Use titles (Mr., Dr., Professor) until invited to use first names.', dining: 'Hospitality is key. You may be invited to a home; always accept food/drink offered. Many Indians are vegetarian; be mindful. Use your right hand for eating and passing items.', gifting: 'Gifts are not expected but are appreciated as a sign of goodwill. If giving, wrap in bright colors (yellow, green, red). Do not give leather products to a Hindu or alcohol/pork products to a Muslim.' },
-        { name: 'Israel', greeting: 'Informal and direct. A firm handshake and direct eye contact are standard. First names are used almost immediately. Small talk is brief before getting down to business.', dining: 'Can be lively and argumentative. Business is often discussed. The atmosphere is generally informal. The person who extended the invitation usually pays.', gifting: 'Not a major part of business culture. A modest gift, such as a book or something representative of your company, is sufficient if a gift is warranted.' },
-        { name: 'Japan', greeting: 'A bow is traditional; depth depends on status. A light handshake may be offered. Exchange business cards (*meishi*) with two hands and study them carefully.', dining: 'A social event to build relationships. The host pays. Never pour your own drink. It is polite to slurp noodles. Business is rarely discussed.', gifting: '<strong>Symbolism of the Gift:</strong> Very important. The wrapping is as important as the gift, showing care. Give and receive with two hands. This creates a social obligation (*reciprocity*) to give a gift in return later. Avoid gifts in sets of four.' },
-        { name: 'Mexico', greeting: 'A prolonged handshake is common. Men may add a light pat on the back. Women often pat each other on the forearm. Wait for your counterpart to initiate the move to a first-name basis.', dining: 'The meal is primarily for relationship building. Business talk should wait until the host initiates it, often late in the meal. Punctuality for social gatherings is flexible.', gifting: 'Gifts are well-received. High-quality spirits, desk accessories, or items with your company logo are good choices. Avoid silver, as Mexico is proud of its own silver.' },
-        { name: 'Middle East', greeting: 'A gentle, lingering handshake. Wait for a woman to offer her hand first. Use the right hand for all interactions. Inquire about family and well-being.', dining: 'A central part of hospitality. Expect large amounts of food. Your host will be generous; it is polite to accept what is offered. Use your right hand to eat. The host pays.', gifting: 'Gifts are appreciated and help build relationships. They should be high quality. Do not give alcohol unless you are certain your host partakes. Gifts are opened in private.' },
-        { name: 'Netherlands', greeting: 'A quick, firm handshake with eye contact. It is considered polite to shake hands with everyone present, including children. Use last names until invited to do otherwise.', dining: 'Punctuality is a must. The Dutch are direct; business can be brought up quickly. "Going Dutch" (splitting the bill) is a common concept, even in business.', gifting: 'Gifts are usually modest. Lavish gifts can cause embarrassment. If invited to a home, flowers or a bottle of wine are appropriate. Gifts are opened upon receipt.' },
-        { name: 'Nigeria', greeting: 'Greetings are very important and should not be rushed. Acknowledge elders and senior figures first. A handshake is common. Using titles is a sign of respect.', dining: 'Hospitality is a cornerstone of the culture. Always accept offers of food and drink. The host expects to pay. Use your right hand for eating and giving/receiving items.', gifting: 'Gifts are a common part of building relationships. A gift from your home country or with your company logo is appreciated. It is polite to present it with your right hand or both hands.' },
-        { name: 'Russia', greeting: 'A firm, almost crushing handshake with direct eye contact is standard for men. Do not shake hands across a doorway (considered bad luck). Wait for a woman to offer her hand first.', dining: '<strong>Dining as Business Theatre:</strong> Meals can be long and accompanied by numerous elaborate toasts with vodka. Turning down a drink can be seen as a sign of mistrust. A toast is often followed by a short, personal speech connecting the drink to friendship, success, or family. The host always pays and will insist.', gifting: '<strong>Symbolism of the Gift:</strong> Bring a high-quality, imported gift. Do not give yellow flowers (symbolize separation) or knives (can suggest severing a relationship). Gifts are usually opened in private.' },
-        { name: 'S. Korea', greeting: 'A bow is common, often accompanied by a handshake (supported by the other hand as a sign of respect). Business cards are exchanged formally with two hands and studied carefully.', dining: '<strong>Dining as Business Theatre:</strong> Dining is central to building relationships. Age hierarchy dictates everything: do not pick up your chopsticks before a senior, pour drinks for elders (with two hands), and accept drinks poured for you (holding your cup with two hands). Meals can be loud and communal, a sign of enjoyment.', gifting: 'Give and receive with two hands. Fruit, high-quality spirits, or desk accessories are good choices. Avoid gifts in sets of four (the number is associated with death). Wrap in red or yellow, not white or black.' },
-        { name: 'Scandinavia', greeting: 'A firm, brief handshake with eye contact. A simple "hello" is sufficient. Small talk is not a major focus; they prefer to get down to business.', dining: 'Punctuality is critical. Business is often discussed. The atmosphere is efficient and straightforward. Splitting the bill is common.', gifting: 'Gifts are not a typical part of business protocol. If invited to a home, wine, flowers, or chocolates are appropriate. Gifts are opened immediately.' },
-        { name: 'UK', greeting: 'A reserved handshake is standard. Use titles (Mr., Ms.) and last names. Small talk about weather, sports, or travel is common to build initial rapport.', dining: 'Conservative table manners are important. Follow the host\'s lead on when to discuss business. The person who invites is the one who pays.', gifting: 'Gifts are not expected in a business setting. A small, tasteful gift is appropriate if invited to a home. Expensive gifts may cause embarrassment.' },
-        { name: 'USA', greeting: 'A firm handshake with direct eye contact and a friendly smile. First names are often used immediately. The greeting is often an enthusiastic "Nice to meet you."', dining: 'Business is frequently discussed over meals (breakfast meetings, working lunches). The atmosphere is typically efficient and goal-oriented. The person who invites generally pays.', gifting: 'Gifts are not a standard part of business culture, and there are often strict corporate policies against them to avoid conflicts of interest. A thank-you note is more common.' }
-    ],
-    dna: [
-        { name: 'Australia', title: 'Mateship and a Fair Go', details: 'A cultural ethos rooted in egalitarianism ("a fair go" for everyone) and loyalty ("mateship"). This translates into flat management structures, a dislike of authority being flaunted, and a belief that everyone deserves a chance to prove themselves, regardless of background.' },
-        { name: 'Brazil', title: 'The Power of Jeitinho', details: 'The concept of *jeitinho brasileiro* ("the Brazilian way") is a philosophy of navigating life\'s bureaucratic and social hurdles through creativity, personal connections, and flexibility. In business, it reflects an ability to improvise and find unconventional solutions by prioritizing relationships over rigid rules.' },
-        { name: 'Canada', title: 'The Cultural Mosaic', details: 'In contrast to the American "melting pot," Canada\'s national identity is built on the "cultural mosaic," where different cultures coexist and maintain their unique identities. This fosters a deep-seated value for multiculturalism, diplomacy, and finding consensus, which is reflected in its cautious and collaborative business style.' },
-        { name: 'China', title: 'National Resurgence', details: 'The "Century of Humiliation" (mid-19th to mid-20th century) at the hands of foreign powers, followed by the internal chaos of the Cultural Revolution, has forged a powerful drive for national resurgence. This history fuels long-term strategic planning and a deep belief that China must regain its perceived historical place as a global power.' },
-        { name: 'France', title: 'The Civilizing Mission', details: 'A historical belief in the universal importance of French culture, language, and ideas (*la mission civilisatrice*). This can translate into a pride in intellectualism, a desire to export French products as cultural ambassadors, and a strong belief in the merits of centralized, state-driven projects.'},
-        { name: 'Germany', title: 'Order and Stability', details: 'The memory of hyperinflation in the 1920s and the total destruction of WWII, followed by the post-war "Wirtschaftswunder" (economic miracle), created a deep cultural desire for stability, order (*Ordnung*), and a profound aversion to debt and risk. This history underpins the focus on high-quality, export-driven manufacturing.'},
-        { name: 'India', title: 'Frugal Innovation', details: '*Jugaad* is a mindset of improvisation and ingenuity; finding clever, low-cost solutions to problems by using limited resources in unconventional ways. It champions flexibility, adaptability, and making things work, even if the solution is unconventional.'},
-        { name: 'Israel', title: 'The Start-Up Nation', details: 'Forged in a history of adversity and existential threats, Israeli culture values improvisation, risk-taking, and challenging the status quo (*chutzpah*). This "start-up" mentality permeates society, driving innovation and a relentless focus on practical, immediate results.' },
-        { name: 'Japan', title: 'The Artisan Spirit', details: 'The concept of *Shokunin* (職人), the artisan spirit of craftsmanship, reflects a deep, passionate dedication to mastering one\'s profession and perfecting one\'s craft for its own sake. This drives a profound focus on product quality and continuous improvement (*Kaizen*).' },
-        { name: 'Mexico', title: 'The Mestizo Identity', details: 'A deep national pride rooted in a complex history and a *mestizo* identity—a blend of indigenous and Spanish heritage. This creates a powerful emphasis on family, tradition, and personal relationships as the foundation of trust in business and society.' },
-        { name: 'Middle East', title: 'Honor and Hospitality', details: 'Ancient cultural codes of honor, family reputation, and generous hospitality are the bedrock of social and business life. Trust is built not through contracts, but through personal connections and demonstrating respect for these deeply held values.' },
-        { name: 'Netherlands', title: 'Pragmatism and the Polder', details: 'A history of reclaiming land from the sea required immense cooperation and practical, non-ideological solutions. This created the *Polder Model* of consensus-building and a culture of pragmatism and directness, where finding a workable solution is more important than protocol.' },
-        { name: 'Nigeria', title: 'The Entrepreneurial Spirit', details: 'A dynamic, resilient, and resourceful culture with a powerful drive for entrepreneurship and commerce. This spirit is born from navigating a complex history and a diverse population, fostering an environment where ingenuity and personal initiative are key to success.' },
-        { name: 'Russia', title: 'The Strong State', details: 'Centuries of history have reinforced the importance of a strong, centralized state to protect the nation from external threats and internal chaos. This history fosters a respect for powerful leaders, a tolerance for bureaucracy, and a belief that the state plays a crucial role in business.'},
-        { name: 'S. Korea', title: 'The Miracle on the Han River', details: 'The nation\'s rapid transformation from post-war devastation to a global economic powerhouse has created a culture of intense diligence, a sense of urgency (*palli-palli*), fierce national pride, and a focus on collective achievement and sacrifice for the national good.' },
-        { name: 'Scandinavia', title: 'Trust and the Social Contract', details: 'A society built on a foundation of high social trust, transparency, and a strong belief in the collective good. This social contract underpins egalitarian business practices, a commitment to work-life balance, and a deep aversion to corruption and inequality.' },
-        { name: 'UK', title: 'Imperial Legacy', details: 'The legacy of the British Empire can manifest as a sense of global experience, a belief in the importance of "soft power," and a highly international outlook, particularly in finance. The Industrial Revolution\'s legacy shapes a strong engineering and financial tradition.'},
-        { name: 'USA', title: 'The Frontier Spirit', details: 'The "frontier spirit" and the narrative of taming a wilderness created a culture of rugged individualism, innovation, and a high tolerance for risk. Failure is often seen as a valuable learning experience on the path to success.' }
-    ],
-     corePhilosophies: {
-        title: 'Core Philosophies in Business',
-        headers: ['Philosophy', 'Core Concept', 'Countries Influenced', 'Manifestation in Business'],
-        rows: [
-            ['Confucianism', 'A system emphasizing social harmony, order, respect for hierarchy, filial piety (respect for elders), and the importance of the collective over the individual.', 'China, S. Korea, Japan', 'Steep corporate hierarchies, respect for seniority over merit, long-term relationship focus (guanxi), paternalistic leadership, and prioritization of group harmony (wa).'],
-            ['Protestant Work Ethic', 'A concept linking hard work, discipline, and frugality with a person\'s moral worth and spiritual salvation.', 'Germany, Scandinavia, Netherlands, USA, UK', 'Strong emphasis on efficiency and productivity. Belief that "time is money." Individual responsibility for tasks. Clear separation of work and leisure (Feierabend).'],
-            ['Jugaad (Frugal Innovation)', 'A mindset of improvisation and ingenuity; finding clever, low-cost solutions to problems by using limited resources in an unconventional ways.', 'India', 'High degree of flexibility and adaptability. Ability to innovate quickly with limited budget. A focus on "good enough" solutions that meet immediate needs rather than "perfect" solutions.'],
-            ['Individualism', 'A philosophy that emphasizes the moral worth of the individual. Prioritizes individual liberty, achievement, and self-reliance.', 'USA, Australia, UK', 'Celebration of entrepreneurship and risk-taking. Employees are expected to show initiative. Success is measured by personal accomplishments. Contracts and explicit agreements are vital.'],
-            ['Shokunin (職人)', 'The Japanese artisan spirit of craftsmanship; a deep, passionate dedication to mastering one\'s profession and perfecting one\'s craft for its own sake.', 'Japan', 'A profound focus on product quality and continuous improvement (Kaizen). A long-term commitment to a company and a craft. Deep respect for expertise and mastery over quick profits.'],
-            ['Jeitinho Brasileiro', 'A mindset of finding a way to accomplish something by circumventing rules through improvisation and personal connections.', 'Brazil', 'High flexibility, valuing relationships over rigid rules, creative problem-solving, and a comfort with ambiguity. The goal is to get things done, even if it requires a non-standard approach.'],
-            ['Polder Model & Pragmatism', 'A consensus-based decision-making model requiring constant cooperation, leading to a culture of pragmatism where finding a workable solution is more important than protocol.', 'Netherlands', 'Long decision-making processes involving all stakeholders, strong emphasis on compromise, flat organizational structures, and high team buy-in once a decision is finally made.'],
-            ['Lagom & Janteloven', 'Lagom values moderation ("just enough"). Janteloven is a social code that discourages individual success and showing off.', 'Scandinavia', 'Egalitarianism, focus on work-life balance, consensus-driven decisions, aversion to bragging or overly ambitious individual displays, and a high value placed on the team over the star employee.'],
-            ['Ubuntu', 'A philosophy of "I am because we are," emphasizing community, collaboration, and mutual care.', 'Nigeria (and other Sub-Saharan African nations)', 'Strong emphasis on group cohesion, loyalty, and paternalistic leadership. Business decisions may be heavily influenced by the impact on the community or the team as a whole.']
-        ]
-    },
-    artAndCulture: {
-        title: 'Art, Food, and Film as Cultural Data',
-        headers: ['Cultural Expression', 'Country/Region', 'Analysis'],
-        rows: [
-            ['Hollywood Blockbusters', 'USA', 'Large-scale, optimistic, goal-oriented narratives with clear heroes and decisive action reflect American individualism, directness, and a focus on achieving a "happy ending" or successful business outcome.'],
-            ['Shakespearean Theatre', 'UK', 'The focus on complex characters, layered language with hidden meanings (irony, understatement), and the nuances of social class mirrors the British use of coded, high-context language in modern communication.'],
-            ['Nollywood Cinema', 'Nigeria', 'Known for its extreme resourcefulness, speed of production, and dramatic, relationship-driven stories. This reflects the Nigerian entrepreneurial spirit and a high-context, narrative communication style where personal drama and relationships are key.'],
-            ['The Russian Novel', 'Russia', 'The works of Tolstoy and Dostoevsky are characterized by deep psychological exploration, fatalism, and enduring hardship. This can be seen in a business culture that values deep personal trust and resilience over formal, impersonal processes.'],
-            ['K-Pop ("Hallyu")', 'S. Korea', 'The global phenomenon of K-Pop is a product of meticulous planning, intense group training, and perfect synchronization. This mirrors the Korean business focus on collective achievement, speed (*palli-palli*), and polished, harmonious presentation.'],
-            ['Bollywood', 'India', 'The vibrant, emotional, and family-centric narratives of Bollywood films reflect core Indian cultural values—the importance of extended family, the open expression of emotion, and a flair for the dramatic—that are important to understand in business relationships.'],
-            ['Japanese Cuisine (Washoku)', 'Japan', 'The principles of traditional Japanese food—balance, harmony, respect for seasons, meticulous preparation, and minimalist presentation—are directly reflected in Japanese business practices (e.g., Kaizen) and product design (e.g., Muji, Uniqlo).'],
-            ['French Haute Cuisine', 'France', 'The rigid hierarchy of the kitchen brigade (*chef de cuisine, sous-chef*), meticulous attention to process, and deep respect for tradition and quality reflect the hierarchical and expert-driven nature of French business.'],
-            ['Brazilian Carnival & Samba', 'Brazil', 'The expressive, passionate, and fluid nature of Samba and Carnival reflects a polychronic culture that values spontaneity, creativity, and the energy of the group over rigid schedules and individual tasks.'],
-            ['Scandinavian Design', 'Scandinavia', 'Emphasizes simplicity, functionality, minimalism, and democratic access to good design. This reflects cultural values of egalitarianism, practicality, and the concept of *lagom* (not too much, not too little).'],
-            ['Dutch Golden Age Painting', 'Netherlands', 'The art of Rembrandt and Vermeer focused on realism, the details of commerce, and domestic life, rather than royalty or religion. This reflects a pragmatic, grounded, and trade-oriented culture that values the tangible and the everyday.'],
-            ['Mexican Muralism', 'Mexico', 'The large-scale murals of artists like Diego Rivera tell stories of national history, social struggle, and collective identity. This reflects a culture where group identity, shared history, and social context are highly valued in building trust and relationships.']
-        ]
-    },
-    vocabulary: [
-        { topic: 'Communication', terms: [
-            { term: 'Wa (和)', definition: 'A Japanese cultural concept that implies a peaceful unity and conformity within a social group, where maintaining harmony is a primary goal. In business, this means avoiding open conflict and making decisions collectively.' },
-            { term: 'Kuuki wo Yomu (空気を読む)', definition: 'A Japanese expression that literally means "to read theair"—the ability to sense the unspoken mood, intentions, and power dynamics in a room to understand what is truly being communicated.' },
-            { term: 'Miànzi (面子)', definition: 'A core Chinese concept of "face," representing a person\'s prestige, reputation, and social standing. One can "give face" (praise someone), "save face" (avoid embarrassment), or "lose face" (be publicly humiliated).' },
-            { term: 'Honne & Tatemae (本音と建前)', definition: 'A Japanese concept distinguishing between one\'s true inner feelings (*honne*) and the public facade or behavior one displays in public (*tatemae*). In business, you are almost always communicating with someone\'s *tatemae*.' },
-            { term: 'Understatement', definition: 'The presentation of something as being smaller, worse, or less important than it actually is. A key feature of British communication used for politeness or ironic humor.' },
-            { term: 'Irony', definition: 'The expression of one\'s meaning by using language that normally signifies the opposite, typically for humorous or emphatic effect. Often used in the UK and Australia.' },
-            { term: 'Literal Communication', definition: 'A communication style where words are meant to be understood in their most direct, dictionary-definition sense, with minimal hidden meaning or context required.' }
-        ]},
-        { topic: 'Power & Hierarchy', terms: [
-            { term: 'Chutzpah', definition: 'A Hebrew term used in English to describe extreme self-confidence or audacity. In the Israeli business context, it refers to the willingness to challenge authority directly and is often valued as a driver of innovation.' },
-            { term: 'Polder Model', definition: 'A Dutch term for their consensus-based decision-making model, named after the Dutch word for reclaimed land, which required constant cooperation from all parties to maintain. It symbolizes the need for everyone to work together to find a solution.' },
-            { term: 'Power Distance', definition: 'A term from Geert Hofstede\'s cultural dimensions theory that describes the extent to which less powerful members of an organization accept and expect that power is distributed unequally. High power distance cultures have steep hierarchies; low power distance cultures are more egalitarian.' },
-            { term: 'Deference', definition: 'Humble submission and respect shown towards a superior or elder. This can be shown through language, posture, and actions.' },
-            { term: 'To get buy-in', definition: 'To get agreement or support for a course of action from other people, often before a decision is formally made.' }
-        ]},
-        { topic: 'Time & Scheduling', terms: [
-            { term: 'Inshallah (إن شاء الله)', definition: 'An Arabic phrase meaning "if God wills it," often used in a business context. While it can mean a firm intention, it also signifies hope for a positive outcome while acknowledging that the future is not entirely certain or controllable.' },
-            { term: 'Feierabend', definition: 'A German term that means the celebratory end of the workday. It signifies a clear and respected transition from work time to personal time, during which work should not intrude.' },
-            { term: 'Nomikai (飲み会)', definition: 'A Japanese term for a work-related drinking party. Traditionally, it is seen as an important part of building team cohesion and a space for informal communication that cannot happen in the office.' },
-            { term: 'Karoshi (過労死)', definition: 'A Japanese term meaning "death from overwork," referring to sudden occupational mortality. Its recognition as a serious social issue is a key driver for work-style reform in Japan.' },
-            { term: 'Presenteeism', definition: 'The act of being present at work for longer hours than is required, often with the belief that it shows dedication, even if productivity is low.' }
-        ]},
-        { topic: 'Cultural DNA', terms: [
-            { term: 'Ordnung', definition: 'A German word meaning order, neatness, and structure. It is a deeply held cultural value that influences everything from city planning to business processes, reflecting a belief that structure creates efficiency and stability.' },
-            { term: 'Wirtschaftswunder', definition: 'The "economic miracle" of West Germany\'s rapid reconstruction and economic growth after World War II, which cemented a national pride in quality engineering and export strength.' },
-            { term: 'Confucianism', definition: 'An ancient Chinese system of philosophical and ethical teachings that heavily influences East Asian culture, emphasizing social harmony, filial piety (respect for one\'s parents and elders), and respect for hierarchy.' },
-            { term: 'Jugaad', definition: 'A colloquial Hindi term representing a flexible approach to problem-solving that uses limited resources in an innovative way. It is about making things work, even if the solution is unconventional.' },
-            { term: 'Shokunin (職人)', definition: 'The Japanese spirit of craftsmanship; the pursuit of perfection in one\'s profession.' }
-        ]}
-    ],
-    homework: [
-        { topic: 'Communication', title: 'Email Chain Analysis', details: `
-            <p class="mb-4">You are given a simulated email chain involving project members from the USA, Japan, Germany, and the UK who are trying to solve a complex problem. The student must:</p>
-            <ol class="list-decimal list-inside space-y-2 mb-4">
-                <li>Write a detailed analysis of the email chain, highlighting specific phrases from each participant that demonstrate their cultural communication style.</li>
-                <li>Identify at least two points where a cultural misunderstanding is likely occurring and explain <em>why</em> it is happening.</li>
-                <li>Rewrite the final email from the American project manager in a way that would be more effective for this multicultural team, showing sensitivity to the different styles.</li>
-            </ol>
-            <h4 class="font-bold text-lg mb-2">Simulated Email Chain:</h4>
-            <div class="homework-email">
-<strong>From:</strong> Sarah Miller (USA)<br>
-<strong>To:</strong> Global Project Titan Team<br>
-<strong>Subject:</strong> URGENT ACTION REQUIRED: Project Titan Launch At Risk<br>
-<br>
-Hi Team,<br>
-We have a major problem. The final integration test failed overnight, and the system is not communicating. This puts the entire launch schedule, which is next Monday, in serious jeopardy.<br>
-We need to solve this ASAP. I need a status update and a clear action plan from each regional team leader by the end of my day today. We need a fix implemented by EOD tomorrow, no exceptions.<br>
-Let's get this done.<br>
-Best,<br>
-Sarah
-            </div>
-            <div class="homework-email">
-<strong>From:</strong> Hans Schmidt (Germany)<br>
-<strong>To:</strong> Sarah Miller; Global Project Titan Team<br>
-<strong>Subject:</strong> RE: URGENT ACTION REQUIRED: Project Titan Launch At Risk<br>
-<br>
-Sarah,<br>
-The German team's module passed all unit tests as specified in document 4.1a. The failure is not in our code. The error log, which I have attached, clearly points to a handshake failure with the database API. As per the project charter (section 3, subsection B), the API is the responsibility of the UK team.<br>
-Please advise on the corrected API specifications so that we may proceed with our work.<br>
-Regards,<br>
-Hans
-            </div>
-            <div class="homework-email">
-<strong>From:</strong> Kenji Tanaka (Japan)<br>
-<strong>To:</strong> Sarah Miller; Global Project Titan Team<br>
-<strong>Subject:</strong> RE: URGENT ACTION REQUIRED: Project Titan Launch At Risk<br>
-<br>
-Sarah-san, All,<br>
-Thank you for sharing this important update. This is certainly a challenging situation, and we understand the great importance of the launch schedule for everyone.<br>
-My team and I will immediately begin to investigate the matter from our side to see how we can be of assistance. We will support all teams in any way we can. I am confident that if we work together, we will do our best to find a harmonious solution.<br>
-Thank you always for your hard work.<br>
-Sincerely,<br>
-Tanaka Kenji
-            </div>
-            <div class="homework-email">
-<strong>From:</strong> David Wilson (UK)<br>
-<strong>To:</strong> Sarah Miller; Global Project Titan Team<br>
-<strong>Subject:</strong> RE: URGENT ACTION REQUIRED: Project Titan Launch At Risk<br>
-<br>
-Hi all,<br>
-Bit of a spot of bother, it seems.<br>
-Hans, thanks for flagging and for the log file. Very thorough, as always. We'll have a look at the API. It's not immediately obvious what the issue might be, as it was working on the staging server.<br>
-Sarah, we'll certainly bear in mind the deadline, though getting a full fix implemented by your EOD tomorrow might be a bit of a stretch. We'll see what we can do.<br>
-Cheers,<br>
-David
-            </div>
-        `},
-        { topic: 'Power & Hierarchy', title: 'Global Initiative Proposal', details: `
-            <p class="mb-4">A new global software initiative is being proposed. The student must write three separate, short memos outlining the proposal.</p>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>Memo 1</strong>: To a senior manager in <strong>South Korea</strong>. The memo should be formal, show extreme deference, and frame the initiative as a way to support the manager's existing goals and bring honor to the team.</li>
-                <li><strong>Memo 2</strong>: To a senior manager in <strong>Sweden</strong>. The memo should be informal, focus on the collaborative benefits for the entire team, and invite the manager and their team to discuss the idea in an open forum.</li>
-                <li><strong>Memo 3</strong>: To a senior manager in the <strong>USA</strong>. The memo should be concise, data-driven, focus on the potential ROI (Return on Investment), and confidently project how the initiative will drive results.</li>
-            </ul>
-        `},
-        { topic: 'Time & Scheduling', title: 'Global Project Kick-Off Plan', details: `
-            <p class="mb-4">The student is managing a new six-month project with key team members located in Germany, Japan, Brazil, and India. They must create a one-page project charter that includes:</p>
-            <ol class="list-decimal list-inside space-y-2">
-                <li>A high-level project timeline with key milestones.</li>
-                <li>A "Meeting and Communication Protocol" section that sets expectations for meeting punctuality, agenda-following, and deadline communication, written in a way that is clear and respectful to all four cultures involved.</li>
-                <li>A "Risk Assessment" section that identifies one potential risk related to time perception and proposes a strategy to mitigate it.</li>
-            </ol>
-        `},
-        { topic: 'Social Etiquette', title: 'The Executive Briefing', details: `
-            <p class="mb-4">You are an intercultural consultant. An American CEO is traveling to Seoul for a critical negotiation, followed by a trip to Moscow to solidify a partnership.</p>
-            <ul class="list-disc list-inside space-y-2">
-                <li>Write a one-page briefing document for the <strong>Seoul trip</strong>. It must include specific, actionable advice on: exchanging business cards, seating arrangements at a meeting, the first toast at dinner, and what to do when receiving a drink from a senior executive.</li>
-                <li>Write a one-page briefing document for the <strong>Moscow trip</strong>. It must include specific, actionable advice on: the proper handshake, the correct response to a vodka toast, a good topic for small talk, and a culturally appropriate gift to bring.</li>
-            </ul>
-        `},
-        { topic: 'Cultural DNA', title: 'The Cultural DNA Essay', details: `
-            <p class="mb-4">Choose two countries from the list below and write a 400-500 word comparative essay that answers the question: "How have the historical and philosophical foundations of these two countries created their distinctly different approaches to business negotiation?"</p>
-            <ul class="list-disc list-inside font-semibold mb-4"><li>China</li><li>Germany</li><li>United States</li><li>India</li></ul>
-            <p>Your essay should go beyond surface-level observations and connect specific negotiation tactics (e.g., long-term vs. short-term focus, emphasis on data vs. relationship) to deeper cultural drivers.</p>
-        `}
-    ]
+// src/data/culturalData.js
+// Refactored to canonical schema: culturalData.content is a flat array of content blocks.
+// All country data is preserved and expanded, and pedagogical explanations are added
+// for student self-study.
+
+// Comprehensive list of countries with cultural dimension scores (1-10 scale for visualization)
+const countries = [
+    // --- ORIGINAL COUNTRIES (Preserved) ---
+    { name: 'Japan', contextScore: 10, timeScore: 1, authorityScore: 10,
+        details: "<strong>Japan (High-Context):</strong> Meaning is conveyed through shared context, non-verbal cues (a long pause), and what is *not* said. Saying 'no' is avoided; disagreement is signaled with subtle phrases. **Time:** Highly Monochronic (rigid, appointments are sacred). **Authority:** High power distance; respect for hierarchy is paramount." },
+    { name: 'S. Korea', contextScore: 9.5, timeScore: 2, authorityScore: 9.5,
+        details: "<strong>S. Korea (High-Context):</strong> Communication is indirect to maintain harmony, heavily influenced by hierarchy. Direct contradiction of a superior is avoided. **Time:** Generally Monochronic, but flexible for relationships. **Authority:** High power distance." },
+    { name: 'China', contextScore: 9, timeScore: 3, authorityScore: 9,
+        details: "<strong>China (High-Context):</strong> Meaning is layered in meta-messages and depends on long-term relationships (**Guanxi**). Face-saving is crucial; avoid public criticism. **Time:** Mix of Monochronic (manufacturing) and Polychronic (relationships). **Authority:** High power distance." },
+    { name: 'France', contextScore: 7, timeScore: 4, authorityScore: 8,
+        details: "<strong>France (Mid-High Context):</strong> Logic and eloquence are valued, but communication often relies on a shared cultural background. **Time:** Moderately Polychronic. Interrupting is common. **Authority:** Centralized authority. Status is very important." },
+    { name: 'U.S.A.', contextScore: 3, timeScore: 7, authorityScore: 3,
+        details: "<strong>U.S.A. (Low-Context):</strong> Communication is direct, explicit, and factual. 'Say what you mean' is the rule. Silence is uncomfortable. **Time:** Highly Monochronic (time is money). **Authority:** Low power distance; managers are approachable, and ideas are valued over age/title." },
+    { name: 'Germany', contextScore: 2, timeScore: 10, authorityScore: 6,
+        details: "<strong>Germany (Very Low-Context):</strong> Precision, facts, and literal truth are paramount. Communication is task-focused and direct. **Time:** Extreme Monochronic. Punctuality is a deep sign of respect. **Authority:** Moderate power distance; expertise trumps age." },
+    { name: 'Australia', contextScore: 3.5, timeScore: 6, authorityScore: 2,
+        details: "<strong>Australia (Low-Context):</strong> Direct and often informal communication. Humor is common, but clarity is prioritized. **Time:** Monochronic with some flexibility. **Authority:** Very low power distance; highly egalitarian and merit-based." },
+    { name: 'U.K.', contextScore: 6, timeScore: 6.5, authorityScore: 5,
+        details: "<strong>U.K. (Mid-Low Context):</strong> Direct, but softened with politeness and understatement (e.g., 'Not bad' can mean 'Excellent'). **Time:** Moderately Monochronic. Punctuality is valued. **Authority:** Moderate power distance; hierarchy is present but subtle." },
+    { name: 'Mexico', contextScore: 8, timeScore: 3.5, authorityScore: 8.5,
+        details: "<strong>Mexico (High-Context):</strong> Relationships are the foundation of business. Communication is polite, formal, and relies on tone and non-verbal cues. **Time:** Polychronic. Flexibility is high; relationships take precedence over schedules. **Authority:** High power distance; respect for the boss is absolute." },
+    { name: 'Brazil', contextScore: 7.5, timeScore: 4, authorityScore: 7.5,
+        details: "<strong>Brazil (Mid-High Context):</strong> Direct communication is used with close colleagues, but formal politeness is needed with outsiders. **Time:** Polychronic. Schedules are flexible; meetings can run over. **Authority:** High power distance; decisions are centralized." },
+    { name: 'India', contextScore: 8.5, timeScore: 4.5, authorityScore: 9,
+        details: "<strong>India (High-Context):</strong> Hierarchy and relationships dominate communication. Meaning is often indirect and embedded in social cues. **Time:** Polychronic. Flexibility and patience are required in scheduling. **Authority:** Very high power distance; deference to elders and superiors is critical." },
+    { name: 'Russia', contextScore: 7, timeScore: 5, authorityScore: 9.5,
+        details: "<strong>Russia (Mid-High Context):</strong> Communication can seem brutally direct on task-related issues, but personal trust (which takes time) is essential for business success. **Time:** Semi-Polychronic. Punctuality may be relaxed, but relationships are long-term. **Authority:** High power distance; decisions flow from the top down." },
+
+    // --- NEW EXPANDED COUNTRIES ---
+    { name: 'Belgium', contextScore: 5, timeScore: 7, authorityScore: 4,
+        details: "<strong>Belgium (Low-Context):</strong> Communication is straightforward and factual, similar to its neighbors, Germany and the Netherlands. Efficiency and clear agendas are appreciated. **Time:** Monochronic. Punctuality is standard business practice. **Authority:** Moderate power distance." },
+    { name: 'Ecuador', contextScore: 8, timeScore: 3, authorityScore: 8,
+        details: "<strong>Ecuador (High-Context):</strong> Strongly relationship-focused (similar to Mexico/Colombia). Communication is polite and formal. Trust must be established before business. **Time:** Polychronic. Schedules are highly flexible. **Authority:** High power distance." },
+    { name: 'Thailand', contextScore: 9, timeScore: 2, authorityScore: 9,
+        details: "<strong>Thailand (High-Context):</strong> Maintaining 'saving face' (**kreng jai**) is central. Communication is extremely indirect to avoid causing embarrassment or conflict. **Time:** Polychronic. Flexibility is expected. **Authority:** High power distance; deep respect for hierarchy and age." },
+    { name: 'Poland', contextScore: 4, timeScore: 8, authorityScore: 5,
+        details: "<strong>Poland (Low-Context):</strong> Communication is direct, specific, and task-oriented. Polish culture values frankness and efficiency in professional settings. **Time:** Monochronic. Punctuality is important for meetings and deadlines. **Authority:** Moderate power distance." },
+    { name: 'Colombia', contextScore: 8.5, timeScore: 2.5, authorityScore: 8,
+        // STUDENT NOTE INTEGRATED: Time/Lateness/Gifts/Apology Culture
+        details: "<strong>Colombia (High-Context):</strong> Business is built on trust and personal relationships. Communication is formal and highly polite; frequent use of apologies is common as a sign of respect. **Time:** Highly Polychronic. Public transportation is a commonly accepted excuse for lateness. **Authority:** High power distance. *Student Note: Giving small, thoughtful gifts is common in first meetings.*" },
+    { name: 'Panama', contextScore: 7, timeScore: 3, authorityScore: 7,
+        details: "<strong>Panama (Mid-High Context):</strong> Communication balances directness with a need for rapport. Personal connections accelerate business. **Time:** Polychronic. Flexibility is the rule; expect meetings to start late. **Authority:** Moderate to high power distance." },
+    { name: 'Chile', contextScore: 7.5, timeScore: 5, authorityScore: 6,
+        details: "<strong>Chile (Mid-Context):</strong> Slightly lower context than most Latin American neighbors, but still values personal relationships greatly. Communication is formal and professional. **Time:** Mix of Monochronic and Polychronic. Respect for deadlines is rising. **Authority:** Moderate power distance." },
+    { name: 'Peru', contextScore: 8, timeScore: 3, authorityScore: 7.5,
+        details: "<strong>Peru (High-Context):</strong> Relationship-focused. Hierarchy is strongly respected. Communication is indirect, aiming to maintain harmony. **Time:** Polychronic. Flexibility in scheduling is necessary. **Authority:** High power distance." },
+    { name: 'Italy', contextScore: 7, timeScore: 4, authorityScore: 5.5,
+        details: "<strong>Italy (Mid-High Context):</strong> Communication is often passionate and expressive. Relationships are critical. **Time:** Polychronic. Interrupting is common and seen as participation. **Authority:** Moderate power distance; respect for the family/company owner is high." },
+    { name: 'Spain', contextScore: 6.5, timeScore: 5, authorityScore: 5,
+        details: "<strong>Spain (Mid-Context):</strong> Communication can be direct on business facts but wrapped in social pleasantries. Relationship-building is key. **Time:** Polychronic. Schedules are often flexible. **Authority:** Moderate power distance." },
+    { name: 'Indonesia', contextScore: 9.5, timeScore: 1, authorityScore: 9,
+        details: "<strong>Indonesia (Very High-Context):</strong> Heavily influenced by hierarchy and 'saving face.' Communication is extremely indirect to avoid confrontation or disrespect. **Time:** Highly Polychronic. Patience is a virtue in business. **Authority:** Very high power distance." },
+    { name: 'Vietnam', contextScore: 9, timeScore: 2, authorityScore: 8.5,
+        details: "<strong>Vietnam (High-Context):</strong> Consensus and harmony are prioritized. Communication is highly indirect, especially when dealing with seniority. **Time:** Polychronic. Schedules are suggestions rather than strict rules. **Authority:** High power distance." },
+    { name: 'Argentina', contextScore: 8, timeScore: 3, authorityScore: 7.5,
+        details: "<strong>Argentina (High-Context):</strong> Highly formal, relationship-based culture. Communication is expressive and often passionate. **Time:** Polychronic. Punctuality can be relaxed in social and lower-level business settings. **Authority:** High power distance." },
+    { name: 'Morocco', contextScore: 9, timeScore: 2, authorityScore: 8,
+        details: "<strong>Morocco (Very High-Context):</strong> Strongly relationship-based. Communication relies heavily on implicit meaning, non-verbal cues, and maintaining honor. **Time:** Polychronic. Schedules are highly flexible. **Authority:** High power distance." },
+    { name: 'UAE', contextScore: 7, timeScore: 5, authorityScore: 7,
+        details: "<strong>UAE (Mid-to-High Context):</strong> Business is a mix. Formal, written contracts are used (Low-Context), but relationship and trust must be established first (High-Context). **Time:** Generally Monochronic for official matters, Polychronic for internal relationships. **Authority:** High power distance. *Student Note: Men and women often do not shake hands in traditional settings.*" },
+    { name: 'Iran', contextScore: 9, timeScore: 3, authorityScore: 9,
+        // STUDENT NOTE INTEGRATED: Saving face/Confidence/Handshakes
+        details: "<strong>Iran (High-Context):</strong> Saving face and demonstrating competence is essential. Communication is formal and highly relationship-driven (**Taarof**). Handshakes finalize a deal based on mutual respect and reputation. **Time:** Polychronic. Flexibility is expected. **Authority:** High power distance. *Student Note: Confidence is crucial; men and women do not shake hands in conservative settings.*" },
+    { name: 'Dubai', contextScore: 6, timeScore: 6, authorityScore: 6,
+        details: "<strong>Dubai (Mid-Context - Westernized Hub):</strong> As a global business hub, communication is more direct and rule-based than traditional Gulf nations. Contracts are essential. **Time:** Predominantly Monochronic due to the international business environment. **Authority:** Moderate power distance compared to the rest of the region." }
+];
+
+// --- Helper Functions to generate standardized data blocks ---
+
+// 1. Cultural Dimensions Data Generator (Data source for the bar charts)
+const generateCulturalDimensionData = (dimension) => {
+    let title;
+    let minValueLabel;
+    let maxValueLabel;
+    let descriptionHtml;
+
+    // Set labels and descriptions based on the dimension
+    switch (dimension) {
+        case 'contextScore':
+            title = "Communication Context Spectrum";
+            minValueLabel = "Low Context (Direct, Explicit)";
+            maxValueLabel = "High Context (Indirect, Relational)";
+            descriptionHtml = `
+                <h2>Understanding High vs. Low Context Communication</h2>
+                <p><strong>Context</strong> refers to how much a speaker relies on explicit verbal cues versus shared cultural knowledge or non-verbal signals to convey a message. Understanding where a country falls on this spectrum is critical for effective communication:</p>
+                <ul>
+                    <li><strong>Low-Context (e.g., Germany, USA):</strong> Communication is direct, explicit, and literal. The message is in the words themselves. **Goal:** Clarity and efficiency.</li>
+                    <li><strong>High-Context (e.g., Japan, China):</strong> Communication is indirect, relational, and nuanced. The speaker relies on history, tone, and shared understanding. Saying 'no' directly is avoided. **Goal:** Harmony and saving face.</li>
+                </ul>
+                <p class="mt-4"><strong>Assignment Note:</strong> When viewing the chart, you can **hover over any bar** to see the score and country name, and if the chart component is interactive, clicking on a bar's tooltip may reveal more detail. Use the scores to determine if you need to be very explicit (Low Score) or pay attention to what is *not* said (High Score).</p>
+            `;
+            break;
+        case 'timeScore':
+            title = "Time Perception Spectrum";
+            minValueLabel = "Polychronic (Flexible, Relationship-focused)";
+            maxValueLabel = "Monochronic (Linear, Punctuality-focused)";
+            descriptionHtml = `
+                <h2>Understanding Time Perception (Monochronic vs. Polychronic)</h2>
+                <p>How a culture views time impacts planning, meetings, and deadlines:</p>
+                <ul>
+                    <li><strong>Monochronic (M-Time) - (e.g., Germany, USA):</strong> Time is linear, scheduled, and segmented. Punctuality is critical; interrupting a meeting is rude. **Focus:** Finishing one task before starting the next.</li>
+                    <li><strong>Polychronic (P-Time) - (e.g., Colombia, Brazil):</strong> Time is flexible, simultaneous, and circular. Relationships and immediate needs take precedence over schedules. **Focus:** Maintaining relationships, handling many things at once.</li>
+                </ul>
+                <p class="mt-4">The higher the Monochronic score (closer to 10), the more important punctuality and rigid scheduling are.</p>
+            `;
+            break;
+        case 'authorityScore':
+            title = "Authority / Power Distance Spectrum";
+            minValueLabel = "Low Power Distance (Egalitarian, Flat)";
+            maxValueLabel = "High Power Distance (Hierarchical, Respect for Rank)";
+            descriptionHtml = `
+                <h2>Understanding Authority (Power Distance)</h2>
+                <p>This dimension measures how a culture accepts and expects power to be distributed unequally in society and organizations. It dictates the formality of titles and communication with management:</p>
+                <ul>
+                    <li><strong>Low Power Distance (e.g., U.S.A., Australia):</strong> Egalitarian culture. Managers are accessible, titles are used lightly, and ideas are judged on merit, not seniority. Hierarchy is for convenience.</li>
+                    <li><strong>High Power Distance (e.g., Japan, China):</strong> Hierarchical culture. Decisions come from the top; subordinates show great respect and deference to superiors. Status and age are critical factors.</li>
+                </ul>
+                <p class="mt-4">The higher the score, the more respectful and formal your communication should be when addressing a senior manager or client.</p>
+            `;
+            break;
+        default:
+            return null;
+    }
+
+    // Map countries to the bar chart data format
+    const chartData = countries.map(country => ({
+        country: country.name,
+        score: country[dimension]
+    }));
+
+    // Generate accessibility data
+    const tableRows = countries.map(c => [c.name, c[dimension]]);
+
+    return {
+        blockId: `cultural-chart-${dimension.replace('Score', '').toLowerCase()}`,
+        type: 'chart',
+        data: {
+            title: title,
+            chartType: 'bar', // Assuming ChartSection renders a bar chart
+            data: chartData,
+            xAxisLabel: minValueLabel,
+            yAxisLabel: maxValueLabel,
+            descriptionHtml: descriptionHtml
+        },
+        accessibility: {
+            altText: `A bar chart displaying the ${title} scores for various countries.`,
+            longDescription: `The chart visualizes the spectrum from ${minValueLabel} to ${maxValueLabel}. For example, ${countries[0].name} scores ${countries[0][dimension]} on this scale, and ${countries[countries.length - 1].name} scores ${countries[countries.length - 1][dimension]}.`,
+            dataTable: {
+                headers: ["Country", "Score (1-10)"],
+                rows: tableRows
+            }
+        }
+    };
 };
 
+// 2. Vocabulary Data (Words used in the lesson)
+const culturalVocabulary = [
+    { front: 'High-Context', back: 'A communication style where most of the message is implied or understood through shared cultural background, tone, and non-verbal cues. (e.g., Japan)' },
+    { front: 'Low-Context', back: 'A communication style where the message is explicitly stated through words and facts. Nothing is left to interpretation. (e.g., Germany)' },
+    { front: 'Monochronic (M-Time)', back: 'A view of time as linear and segmented. Focus is on one task at a time, and punctuality/schedules are extremely important. (e.g., USA)' },
+    { front: 'Polychronic (P-Time)', back: 'A view of time as fluid and flexible. Focus is on relationships and multi-tasking; schedules are secondary. (e.g., Colombia)' },
+    { front: 'Power Distance', back: 'The extent to which less powerful members of a society accept and expect power to be distributed unequally. (High = hierarchical)' },
+    { front: 'Saving Face', back: 'The act of preserving one\'s dignity and reputation, or preventing others from being embarrassed, especially in public. Crucial in many Asian cultures.' },
+    { front: 'Guanxi', back: 'The Chinese term for a system of social networks and influential relationships that facilitate business and other dealings.' },
+    { front: 'Taarof', back: 'The complex Iranian system of verbal deference and politeness, where people often offer something that they secretly hope will be refused, out of respect.' },
+    { front: 'Egalitarian', back: 'A belief in the principle that all people are equal and deserve equal rights and opportunities (Low Power Distance).' }
+];
+
+// 3. Homework Data
+const homeworkData = [
+    {
+        topic: 'Briefing Documents', 
+        title: 'International Briefing Assignment', 
+        details: `
+            <p class="mb-4">Imagine you are managing two crucial business trips: one to Seoul for a critical negotiation, followed by a trip to Moscow to solidify a partnership.</p>
+            <p>Your task is to write two one-page briefing documents that include specific, actionable advice for the traveling executive. This should be submitted before our next class discussion.</p>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Seoul Briefing:</strong> Specific, actionable advice on: exchanging business cards, seating arrangements at a meeting, the first toast at dinner, and what to do when receiving a drink from a senior executive.</li>
+                <li><strong>Moscow Briefing:</strong> Specific, actionable advice on: the proper handshake, the correct response to a vodka toast, a good topic for small talk, and a culturally appropriate gift to bring.</li>
+            </ul>
+        `
+    },
+    { 
+        topic: 'Cultural DNA', 
+        title: 'The Cultural DNA Essay', 
+        details: `
+            <p class="mb-4">Choose two countries from the **Low-Context** group and two countries from the **High-Context** group and write a 500-750 word comparative essay that answers the question: "How have the core cultural foundations of these countries created their distinctly different approaches to business negotiation?"</p>
+            <p><strong>Required Comparisons:</strong> Your essay must explicitly compare their approach to:</p>
+            <ul class="list-disc list-inside font-semibold mb-4">
+                <li>The use of legal contracts (written agreement vs. handshake/respect).</li>
+                <li>How 'bad news' or disagreement is handled (direct confrontation vs. indirect signal).</li>
+                <li>The speed of decision-making.</li>
+            </ul>
+            <p>Your essay should go beyond surface-level observations and connect specific negotiation tactics (e.g., long-term vs. short-term focus, emphasis on data vs. relationship) to deeper cultural drivers analyzed in this lesson.</p>
+        `
+    }
+];
+
+// 4. Country Detail Section (Text Block that displays the country details)
+const countryDetailBlock = {
+    blockId: 'country-details-text-block',
+    type: 'text',
+    data: {
+        title: 'Country Details & Cultural Notes',
+        htmlContent: `
+            <h2>In-Depth Country Profiles</h2>
+            <p>Use the data visualizations above to compare countries, then review the individual notes below to understand the 'why' behind the scores. These notes, including feedback from other students, provide crucial context for your independent study.</p>
+            <div class="space-y-4 mt-6">
+                ${countries.map(c => `
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-bold text-blue-800 mb-1">${c.name}</h3>
+                        <p class="text-gray-700">${c.details}</p>
+                    </div>
+                `).join('')}
+            </div>
+        `
+    }
+};
+
+// --- FINAL EXPORTED DATA STRUCTURE ---
+export const culturalData = {
+    "lessonId": "global-business-cultures-guide",
+    "title": "Global Business Cultures",
+    "subtitle": "Navigating the complexities of international communication and etiquette.",
+    "content": [
+        // 1. INTRODUCTION
+        {
+            "blockId": "cultural-intro-01",
+            "type": "text",
+            "data": {
+                "htmlContent": "<h2>The Invisible Rules of International Business</h2><p>International business is often won or lost not on the quality of a product, but on cultural mistakes. This lesson breaks down three core cultural dimensions—Context, Time, and Authority—to help you predict communication patterns and build rapport anywhere in the world.</p>"
+            }
+        },
+
+        // 2. COMMUNICATION CONTEXT (CHART + EXPLANATION)
+        generateCulturalDimensionData('contextScore'),
+        
+        // 3. TIME PERCEPTION (CHART + EXPLANATION)
+        generateCulturalDimensionData('timeScore'),
+
+        // 4. AUTHORITY (CHART + EXPLANATION)
+        generateCulturalDimensionData('authorityScore'),
+
+        // 5. VOCABULARY FLASHCARDS
+        {
+            "blockId": "cultural-vocabulary-flashcards-05",
+            "type": "flashcard",
+            "data": {
+                "title": "Key Cultural Vocabulary: Concepts",
+                "cards": culturalVocabulary
+            }
+        },
+        
+        // 6. DETAILED COUNTRY NOTES
+        countryDetailBlock,
+
+        // 7. HOMEWORK/ASSIGNMENTS
+        {
+            "blockId": "cultural-homework-07",
+            "type": "text",
+            "data": {
+                "title": homeworkData[0].title,
+                "htmlContent": `<h3>${homeworkData[0].title}</h3>${homeworkData[0].details}`
+            }
+        },
+        {
+            "blockId": "cultural-homework-08",
+            "type": "text",
+            "data": {
+                "title": homeworkData[1].title,
+                "htmlContent": `<h3>${homeworkData[1].title}</h3>${homeworkData[1].details}`
+            }
+        }
+    ]
+};

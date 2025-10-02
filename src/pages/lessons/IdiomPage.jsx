@@ -1,201 +1,131 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import { Box, Typography, Fade, useTheme, Button, Stack } from '@mui/material';
-import { idiomData } from '../../data/idiomData.js';
-import ContentSelector from '../../components/ContentSelector';
-import LessonTabs from '../../components/LessonTabs';
-import DetailCard from '../../components/DetailCard';
-import QuizComponent from '../../components/Quiz';
-import GlassButtonWrapper from '../../components/GlassButtonWrapper';
+/**
+ * @fileoverview IdiomPage.jsx - React component for the "Idioms" lesson.
+ * Content is structured into Flashcard and Quiz blocks for focused learning
+ * to manage the non-compositional meaning inherent in idioms.
+ */
 
-// --- Helper Components ---
-const Header = ({ lessonNumber }) => (
-  <Box sx={{ textAlign: 'center', mb: 4 }}>
-    <Typography variant="h3" component="h1" gutterBottom sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
-      Idioms: Lesson {lessonNumber}
-    </Typography>
-    <Typography variant="h6" sx={{ color: 'text.primary' }}>
-      Learn the stories behind common English idioms.
-    </Typography>
-  </Box>
-);
+import React from 'react';
+import LessonContentRenderer from '../../components/ContentBlockRenderer';
 
-const FlashcardRenderer = (item, theme) => `
-    <div style="text-align: center;">
-      <h3 style="font-size: 1.5em; font-weight: bold; color: ${theme.palette.text.primary};">${item.idiom}</h3>
-      <p style="color: ${theme.palette.text.secondary};"><strong>Meaning:</strong> ${item.meaning}</p>
-      <div style="margin-top: 1.5em; padding-top: 1em; border-top: 1px solid ${theme.palette.divider};">
-        <h4 style="margin-bottom: 0.5em; color: ${theme.palette.text.primary};">Example Sentence:</h4>
-        <p style="margin-top: 0; color: ${theme.palette.text.secondary};"><em>"${item.example}"</em></p>
-      </div>
-    </div>
-`;
-
-const StoryRenderer = (item, theme) => `
-    <div style="text-align: center;">
-      <h3 style="font-size: 1.5em; font-weight: bold; color: ${theme.palette.text.primary};">${item.idiom}</h3>
-      <p style="color: ${theme.palette.text.secondary};"><strong>The Story Behind It:</strong> ${item.story}</p>
-    </div>
-`;
-
-// --- Challenge View Component ---
-const ChallengeView = ({ lessonData, theme }) => {
-    // Create quiz data for all idioms in the lesson
-    const quizData = useMemo(() => {
-        const challengeSentences = [
-            `I know he made a mistake, but it's his first day. Let's _______.`,
-            `In this tourist town, souvenir shops are _______.`,
-            `The weather is perfect for outdoor work, so we should _______ and finish the project.`
-        ];
-
-        // Create questions for all idioms
-        const questions = lessonData.idioms.map((idiom, index) => {
-            const currentSentence = challengeSentences[index] || challengeSentences[0];
-
-            // Get 3 distractor idioms (excluding the correct one)
-            const distractorIdioms = lessonData.idioms
-                .filter(id => id.idiom !== idiom.idiom)
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 3)
-                .map(id => id.idiom);
-
-            // Create shuffled answers array (4 options total)
-            const allAnswers = [idiom.idiom, ...distractorIdioms].sort(() => 0.5 - Math.random());
-
-            // Find the 1-indexed position of the correct answer
-            const correctAnswerIndex = allAnswers.indexOf(idiom.idiom) + 1;
-
-            return {
-                question: currentSentence.replace('_______', '________'),
-                answers: allAnswers,
-                correctAnswer: correctAnswerIndex.toString(),
-                messageForCorrectAnswer: `Correct! "${idiom.idiom}" is the right idiom for this context.`,
-                messageForIncorrectAnswer: `Not quite. The correct idiom is "${idiom.idiom}".`
-            };
-        });
-
-        return {
-            quizTitle: `Complete All Conversations`,
-            questions: questions
-        };
-    }, [lessonData]);
-
-    return <QuizComponent quizData={quizData} />;
-};
-
-
-// --- Main Page Component ---
-export default function IdiomPage() {
-    const { lessonId } = useParams();
-    const [selectedIdiomIndex, setSelectedIdiomIndex] = useState(0);
-    const [activeView, setActiveView] = useState(0);
-    const theme = useTheme();
-
-    const activeLesson = useMemo(() => {
-        const id = parseInt(lessonId, 10);
-        return idiomData.lessons.find(l => l.lesson === id);
-    }, [lessonId]);
-
-    const selectedIdiom = activeLesson?.idioms[selectedIdiomIndex];
-
-    const handleIdiomSelect = (index) => {
-        setSelectedIdiomIndex(index);
-        setActiveView(0); // Reset to first view when changing idiom
-    };
-
-    const handleViewChange = (viewIndex) => {
-        setActiveView(viewIndex);
-    };
-
-    useEffect(() => {
-        if (activeLesson) {
-            document.title = `Idioms ${activeLesson.lesson} | ESL Lessons Hub`;
+export const idiomData = {
+    "lessonId": "english-idioms-packs",
+    "title": "Essential English Idioms",
+    "subtitle": "Learning common phrases that don't mean what they literally say.",
+    "content": [
+      // --- INTRODUCTORY CONTENT BLOCK ---
+      {
+        "blockId": "idioms-intro-01",
+        "type": "text",
+        "data": {
+          "htmlContent": "<h2>The Beauty and Challenge of Idioms</h2><p>Idioms are phrases whose meaning cannot be understood from the ordinary meanings of the individual words. For example, **'piece of cake'** does not mean a slice of dessert; it means something is easy. Mastering idioms is crucial for natural conversation!</p><h3>Pedagogical Tip: Learn the Story</h3><p>To reduce cognitive load, try to learn the **story or origin** behind the idiom. This connects the abstract meaning to a concrete narrative, making it much easier to remember. We use **flashcards** for quick memorization and **quizzes** for contextual practice.</p>"
         }
-    }, [activeLesson]);
+      },
+  
+      // --- IDIOM PACK 1 ---
+      {
+        "blockId": "idioms-pack-1-flashcards-02",
+        "type": "flashcard",
+        "data": {
+          "title": "Idiom Pack 1: Common English Idioms (Flashcards)",
+          "cards": [
+            { "front": "Cut somebody some slack", "back": "Meaning: To be less critical of someone. Story: From sailors loosening a rope (slack) to ease tension. Example: *Let's cut him some slack, he's new.*" },
+            { "front": "A dime a dozen", "back": "Meaning: Something very common and of little value. Story: From the late 1800s when many goods cost ten cents (a dime) for twelve items (a dozen)." },
+            { "front": "Make hay while the sun shines", "back": "Meaning: To take advantage of a favorable opportunity. Story: Farmers must harvest hay when it's dry before rain ruins it." }
+          ]
+        },
+        "accessibility": {
+          "altText": "Flashcards for three idioms: 'Cut somebody some slack', 'A dime a dozen', and 'Make hay while the sun shines'.",
+          "longDescription": "Three flashcards for Idiom Pack 1 are available for review.",
+          "dataTable": {
+              "headers": ["Idiom", "Meaning", "Origin/Story"],
+              "rows": [
+                  ["Cut somebody some slack", "To be less critical of someone.", "From sailors loosening a rope (slack) to ease tension."],
+                  ["A dime a dozen", "Something very common and of little value.", "From common goods costing ten cents (a dime) for twelve (a dozen)."],
+                  ["Make hay while the sun shines", "To take advantage of a favorable opportunity.", "Farmers harvesting dry hay before it rains."]
+              ]
+          }
+        }
+      },
+      {
+        "blockId": "idioms-pack-1-quiz-03",
+        "type": "quiz",
+        "data": {
+          "title": "Quiz: Idiom Pack 1 Challenge",
+          "questions": [
+            {
+              "text": "The CEO is always late, but we should _______ because he works 70 hours a week.",
+              "answers": ["make hay", "cut him some slack", "call it a day"],
+              "correctAnswer": "2",
+              "messageForCorrectAnswer": "Correct! You're telling people to be less critical.",
+              "messageForIncorrectAnswer": "The phrase 'cut him some slack' means to be more forgiving."
+            },
+            {
+              "text": "Don't worry about losing your phone charger; those cables are _______ these days.",
+              "answers": ["a dime a dozen", "cost an arm and a leg", "the best of both worlds"],
+              "correctAnswer": "1",
+              "messageForCorrectAnswer": "Exactly! They are common and inexpensive.",
+              "messageForIncorrectAnswer": "'A dime a dozen' is used for items that are easily found and cheap."
+            }
+          ]
+        }
+      },
+  
+      // --- IDIOM PACK 2 ---
+      {
+        "blockId": "idioms-pack-2-flashcards-04",
+        "type": "flashcard",
+        "data": {
+          "title": "Idiom Pack 2: Idioms of the Body (Flashcards)",
+          "cards": [
+            { "front": "Cost an arm and a leg", "back": "Meaning: To be extremely expensive. Story: Likely from battlefield descriptions or high-stakes bargaining, where the loss of a limb was a high price." },
+            { "front": "Read the riot act", "back": "Meaning: To scold someone angrily for bad behavior. Story: From the 1714 British 'Riot Act' read to unruly crowds before arrests were made." },
+            { "front": "Put a sock in it", "back": "Meaning: A rude way to tell someone to be quiet. Story: Comes from literally putting a sock into the horn of an early gramophone to muffle the loud sound." }
+          ]
+        },
+        "accessibility": {
+          "altText": "Flashcards for three body-related idioms: 'Cost an arm and a leg', 'Read the riot act', and 'Put a sock in it'.",
+          "longDescription": "Three flashcards for Idiom Pack 2 are available for review.",
+          "dataTable": {
+              "headers": ["Idiom", "Meaning", "Origin/Story"],
+              "rows": [
+                  ["Cost an arm and a leg", "To be extremely expensive.", "Likely related to high cost or sacrifice."],
+                  ["Read the riot act", "To scold someone angrily for bad behavior.", "From a 1714 law read to crowds before arrests."],
+                  ["Put a sock in it", "To tell someone to be quiet.", "From putting a sock in a gramophone horn to quiet it."]
+              ]
+          }
+        }
+      },
+      {
+        "blockId": "idioms-pack-2-quiz-05",
+        "type": "quiz",
+        "data": {
+          "title": "Quiz: Idiom Pack 2 Challenge",
+          "questions": [
+            {
+              "text": "I can't afford that luxury car; it would ______.",
+              "answers": ["break the ice", "cost an arm and a leg", "hit the nail on the head"],
+              "correctAnswer": "2",
+              "messageForCorrectAnswer": "Correct! It means it's extremely expensive.",
+              "messageForIncorrectAnswer": "The idiom 'cost an arm and a leg' means it is very expensive."
+            },
+            {
+              "text": "The noise in the library was terrible, so the librarian finally came and ______ to the students.",
+              "answers": ["made hay", "put a sock in it", "read the riot act"],
+              "correctAnswer": "3",
+              "messageForCorrectAnswer": "Excellent! She gave them a stern, angry warning.",
+              "messageForIncorrectAnswer": "'Read the riot act' means to give a severe scolding or warning."
+            }
+          ]
+        }
+      }
+    ]
+  };
 
-    if (!activeLesson) {
-        return <Navigate to="/" replace />;
-    }
-
-    const idiomTabs = [...activeLesson.idioms.map((idiom, index) => `Idiom ${index + 1}`), "Challenge"];
-    const viewModes = ["Meaning", "Story"];
-
-    return (
-        <Box sx={{ width: '100%' }}>
-            <Header lessonNumber={activeLesson.lesson} />
-
-            {/* Idiom/Challenge Selection Tabs */}
-            <LessonTabs
-                activeTab={selectedIdiomIndex}
-                handleTabChange={(e, newValue) => handleIdiomSelect(newValue)}
-                sections={idiomTabs}
-            />
-
-            {/* Only show view buttons if not on Challenge tab */}
-            {selectedIdiomIndex < activeLesson.idioms.length && (
-                <Box sx={{ mt: 4, mb: 3, textAlign: 'center' }}>
-                    <Typography variant="h6" sx={{ mb: 3, color: 'text.secondary' }}>
-                        Choose a view for "{selectedIdiom?.idiom}":
-                    </Typography>
-                    <Stack
-                        direction="row"
-                        spacing={2}
-                        justifyContent="center"
-                        flexWrap="wrap"
-                        sx={{ maxWidth: '600px', mx: 'auto' }}
-                    >
-                        {viewModes.map((view, index) => (
-                            <GlassButtonWrapper key={view} isActive={activeView === index}>
-                                <Button onClick={() => handleViewChange(index)}>
-                                    {view}
-                                </Button>
-                            </GlassButtonWrapper>
-                        ))}
-                    </Stack>
-                </Box>
-            )}
-
-            <Box sx={{ mt: 4 }}>
-                {/* Show content for individual idioms */}
-                {selectedIdiomIndex < activeLesson.idioms.length && (
-                    <>
-                        {activeView === 0 && selectedIdiom && (
-                            <Fade in={true}>
-                                <div>
-                                    <DetailCard content={`
-                                        <div style="text-align: center;">
-                                            <h3 style="font-size: 1.5em; font-weight: bold; color: ${theme.palette.text.primary};">${selectedIdiom.idiom}</h3>
-                                            <p style="color: ${theme.palette.text.secondary};"><strong>Meaning:</strong> ${selectedIdiom.meaning}</p>
-                                        </div>
-                                    `} />
-                                </div>
-                            </Fade>
-                        )}
-
-                        {activeView === 1 && selectedIdiom && (
-                            <Fade in={true}>
-                                <div>
-                                    <DetailCard content={`
-                                        <div style="text-align: center;">
-                                            <h3 style="font-size: 1.5em; font-weight: bold; color: ${theme.palette.text.primary};">${selectedIdiom.idiom}</h3>
-                                            <p style="color: ${theme.palette.text.secondary};"><strong>Story:</strong> ${selectedIdiom.story}</p>
-                                        </div>
-                                    `} />
-                                </div>
-                            </Fade>
-                        )}
-                    </>
-                )}
-
-                {/* Show challenge for all idioms */}
-                {selectedIdiomIndex === activeLesson.idioms.length && (
-                    <Fade in={true}>
-                        <div>
-                            <ChallengeView lessonData={activeLesson} theme={theme} />
-                        </div>
-                    </Fade>
-                )}
-            </Box>
-        </Box>
-    );
+/**
+ * IdiomPage - React component for displaying the Idioms lesson
+ * @returns {JSX.Element} The rendered idioms lesson page
+ */
+export default function IdiomPage() {
+    return <LessonContentRenderer content={idiomData.content} />;
 }
+  
