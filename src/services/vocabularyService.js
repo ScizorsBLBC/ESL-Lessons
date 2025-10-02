@@ -57,8 +57,56 @@ const parseVocabulary = (contentBlocks) => {
 
 /**
  * Parses structured vocabulary data from vocabularyData.js format.
- * @param {Object} vocabularyData - The vocabularyData object with lessons array.
- * @returns {Array} An array of vocabulary objects, e.g., [{ term, definition, example }].
+ *
+ * This function extracts vocabulary items from the structured vocabulary data format
+ * used in vocabulary lessons. It handles the specific data structure where lessons
+ * contain arrays of word objects with standardized properties.
+ *
+ * Data Structure Expected:
+ * ```javascript
+ * {
+ *   lessons: [
+ *     {
+ *       lesson: 1,
+ *       words: [
+ *         {
+ *           word: "hierarchy",
+ *           definition: "A system of organization...",
+ *           sampleSentence: "The company has a clear hierarchy..."
+ *         }
+ *       ]
+ *     }
+ *   ]
+ * }
+ * ```
+ *
+ * Processing Algorithm:
+ * 1. Validate input structure (lessons array exists)
+ * 2. Iterate through each lesson in the lessons array
+ * 3. Extract words from each lesson's words array
+ * 4. Normalize word objects to standard format
+ * 5. Remove duplicate terms across all lessons
+ * 6. Return flattened vocabulary array
+ *
+ * Error Handling:
+ * - Returns empty array if input is invalid or missing required properties
+ * - Continues processing if individual lessons have malformed data
+ * - Preserves data integrity by avoiding mutations
+ *
+ * @function parseVocabularyData
+ * @param {object} vocabularyData - The vocabularyData object with lessons array
+ * @param {Array} vocabularyData.lessons - Array of lesson objects
+ * @returns {Array} Array of vocabulary objects with term, definition, example properties
+ *
+ * @example
+ * ```javascript
+ * // Parse vocabulary data from vocabularyData.js
+ * import { vocabularyData } from '../data/vocabularyData.js';
+ * const vocabulary = parseVocabularyData(vocabularyData);
+ *
+ * // Result: [{ term: "hierarchy", definition: "...", example: "..." }]
+ * console.log(`Parsed ${vocabulary.length} vocabulary items`);
+ * ```
  */
 const parseVocabularyData = (vocabularyData) => {
   const vocabulary = [];
@@ -87,8 +135,61 @@ const parseVocabularyData = (vocabularyData) => {
 
 /**
  * Parses structured idiom data from idiomData.js format.
- * @param {Object} idiomData - The idiomData object with lessons array.
- * @returns {Array} An array of vocabulary objects, e.g., [{ term, definition, example }].
+ *
+ * This function processes idiom lesson data to extract idiomatic expressions
+ * and their meanings for use in flashcards, quizzes, and other exercises.
+ * It handles the specific structure where idioms are organized by lessons
+ * with additional context like stories and examples.
+ *
+ * Data Structure Expected:
+ * ```javascript
+ * {
+ *   lessons: [
+ *     {
+ *       lessonId: "idioms-1",
+ *       idioms: [
+ *         {
+ *           idiom: "break the ice",
+ *           meaning: "To initiate conversation in a social setting",
+ *           example: "John told a joke to break the ice at the party.",
+ *           story: "This idiom comes from breaking ice to allow ships to pass..."
+ *         }
+ *       ]
+ *     }
+ *   ]
+ * }
+ * ```
+ *
+ * Processing Features:
+ * - Extracts idiom, meaning, example, and story from each idiom object
+ * - Handles optional fields (example, story) gracefully
+ * - Normalizes data to standard vocabulary format
+ * - Removes duplicate idioms across lessons
+ * - Preserves rich context information for enhanced learning
+ *
+ * Use Cases:
+ * - Generate idiom flashcards with meanings and examples
+ * - Create idiom usage quizzes with contextual distractors
+ * - Build idiom story comprehension exercises
+ * - Support idiom lookup and reference features
+ *
+ * @function parseIdiomData
+ * @param {object} idiomData - The idiomData object with lessons array
+ * @param {Array} idiomData.lessons - Array of idiom lesson objects
+ * @returns {Array} Array of vocabulary objects with term, definition, example, story properties
+ *
+ * @example
+ * ```javascript
+ * // Parse idiom data for flashcard generation
+ * import { idiomData } from '../data/idiomData.js';
+ * const idioms = parseIdiomData(idiomData);
+ *
+ * // Use in flashcard component
+ * const flashcards = idioms.map(idiom => ({
+ *   front: idiom.term,
+ *   back: `${idiom.definition}\n\nExample: ${idiom.example}`
+ * }));
+ * ```
  */
 const parseIdiomData = (idiomData) => {
   const vocabulary = [];

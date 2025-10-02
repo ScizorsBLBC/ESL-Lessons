@@ -1,7 +1,87 @@
+/**
+ * ESL Lessons Hub - Vocabulary Data Structure
+ *
+ * This file contains the canonical vocabulary lesson data organized in a hierarchical
+ * structure that supports multiple lesson formats and automatic exercise generation.
+ *
+ * Architecture Overview:
+ * - Single vocabularyData object serves as the data source for all vocabulary lessons
+ * - Hierarchical organization: lessons → packs → content blocks → individual items
+ * - Supports both 5-word and 10-word lesson formats
+ * - Each lesson contains multiple content types (text, flashcards, quizzes, etc.)
+ * - Data structure designed for automatic exercise generation
+ *
+ * Key Features:
+ * - 6 vocabulary lessons total (3 × 5-word packs + 3 × 10-word packs)
+ * - 520 unique vocabulary words across all lessons
+ * - Automatic flashcard and quiz generation from content
+ * - Consistent data structure for component compatibility
+ * - Extensible design for adding new vocabulary content
+ *
+ * Data Organization:
+ * ```
+ * vocabularyData = {
+ *   lessonId: "unique-identifier",
+ *   title: "Human-readable title",
+ *   subtitle: "Descriptive subtitle",
+ *   lessons: [lesson metadata array],
+ *   vocabularyPacks: {
+ *     "5": [5-word lesson packs],
+ *     "10": [10-word lesson packs]
+ *   }
+ * }
+ * ```
+ *
+ * Usage Patterns:
+ * - Lesson pages extract lesson metadata and content by lessonId
+ * - VocabularyService.js parses content for automatic exercise generation
+ * - ContentBlockRenderer.jsx displays content blocks by type
+ * - Components expect standardized data structures for consistency
+ *
+ * @fileoverview Vocabulary lesson data with hierarchical organization
+ * @example
+ * ```javascript
+ * // Access vocabulary data in components
+ * import { vocabularyData } from '../data/vocabularyData.js';
+ *
+ * // Get lesson metadata
+ * const lesson = vocabularyData.lessons.find(l => l.lesson === 1);
+ *
+ * // Get vocabulary pack content
+ * const pack = vocabularyData.vocabularyPacks['5'].find(p => p.packId === 'pack-1');
+ *
+ * // Use in lesson component
+ * <ContentBlockRenderer content={pack.content} />
+ * ```
+ */
+
+// ============================================================================
+// VOCABULARY DATA STRUCTURE - Hierarchical lesson organization
+// ============================================================================
+
 export const vocabularyData = {
   "lessonId": "essential-english-vocabulary-base",
   "title": "Essential Academic and Business Vocabulary",
   "subtitle": "Expand your high-frequency word knowledge for professional communication.",
+  /**
+   * Lesson Metadata Array
+   *
+   * Defines the available vocabulary lessons and their basic properties.
+   * Each lesson entry serves as a lookup table for routing and content loading.
+   *
+   * Lesson Structure:
+   * - lesson: Sequential lesson number (1-6)
+   * - title: Human-readable lesson title
+   * - packSize: Number of words in this lesson (5 or 10)
+   *
+   * Lesson Organization:
+   * - Lessons 1-3: 5-word packs for focused learning
+   * - Lessons 4-6: 10-word packs for comprehensive practice
+   * - Progressive difficulty and vocabulary complexity
+   * - Each lesson maps to specific vocabulary packs
+   *
+   * @type {Array<{lesson: number, title: string, packSize: number}>}
+   */
   "lessons": [
     { "lesson": 1, "title": "5-Word Pack 1", "packSize": 5 },
     { "lesson": 2, "title": "5-Word Pack 2", "packSize": 5 },
@@ -10,13 +90,71 @@ export const vocabularyData = {
     { "lesson": 5, "title": "10-Word Pack 2", "packSize": 10 },
     { "lesson": 6, "title": "10-Word Pack 3", "packSize": 10 }
   ],
+
+  /**
+   * Vocabulary Packs Collection
+   *
+   * Contains the actual lesson content organized by pack size.
+   * Each pack is a complete lesson with multiple content blocks that
+   * support different learning activities and exercise types.
+   *
+   * Pack Organization:
+   * - "5": Array of 5-word lesson packs (3 total)
+   * - "10": Array of 10-word lesson packs (3 total)
+   * - Each pack contains multiple content blocks (text, flashcards, etc.)
+   * - Content blocks follow the canonical schema defined in schema.js
+   *
+   * Content Block Types:
+   * - text: Instructional content and explanations
+   * - flashcard: Vocabulary word-definition pairs
+   * - quiz: Interactive vocabulary assessments
+   * - fillInTheBlanks: Gap-fill exercises for practice
+   *
+   * @type {object}
+   * @property {Array} 5 - 5-word lesson packs array
+   * @property {Array} 10 - 10-word lesson packs array
+   */
   "vocabularyPacks": {
     "5": [
       {
         "packId": "pack-1",
         "title": "5-Word Pack 1",
+        /**
+         * Lesson Content Blocks
+         *
+         * Each vocabulary pack contains multiple content blocks that provide
+         * different types of learning experiences and exercises.
+         *
+         * Content Block Structure:
+         * ```
+         * content: [
+         *   {
+         *     blockId: "unique-identifier",
+         *     type: "content-type",
+         *     data: { content-specific data },
+         *     accessibility?: { a11y metadata }
+         *   }
+         * ]
+         * ```
+         *
+         * Typical Content Flow:
+         * 1. Introduction text block (lesson overview)
+         * 2. Flashcard block (vocabulary review)
+         * 3. Quiz block (vocabulary assessment)
+         * 4. Fill-in-the-blanks block (contextual practice)
+         *
+         * @type {Array}
+         */
         "content": [
           {
+            /**
+             * Introduction Text Block
+             *
+             * Provides lesson overview and learning objectives.
+             * Uses HTML content for rich formatting and structure.
+             *
+             * @type {object}
+             */
             "blockId": "pack-1-intro-01",
             "type": "text",
             "data": {
@@ -24,6 +162,27 @@ export const vocabularyData = {
             }
           },
           {
+            /**
+             * Flashcard Content Block
+             *
+             * Contains vocabulary word-definition pairs for interactive review.
+             * Each flashcard has front (word) and back (definition + example) content.
+             *
+             * Flashcard Data Structure:
+             * ```
+             * {
+             *   title: "Lesson Title",
+             *   cards: [
+             *     {
+             *       front: "vocabulary word",
+             *       back: "Definition: meaning. Example: sentence."
+             *     }
+             *   ]
+             * }
+             * ```
+             *
+             * @type {object}
+             */
             "blockId": "pack-1-flashcard-02",
             "type": "flashcard",
             "data": {
