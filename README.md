@@ -910,6 +910,7 @@ export const useVocabularyExercises = (lessonData, options) => {
 };
 ```
 
+
 #### **Theme Management Hook**
 
 ```javascript
