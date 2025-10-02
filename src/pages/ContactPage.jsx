@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Button, TextField, Link } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import GlassButtonWrapper from '../components/GlassButtonWrapper';
+import { getLiquidGlassShadow } from '../utils/stylingUtils';
 
 // --- Contact Form Content (Remains the same) ---
 const ContactFormContent = () => {
@@ -118,7 +119,15 @@ const ContactPage = () => {
       </Typography>
 
       {/* --- Floating Liquid Glass Pane for the Form --- */}
-      <Paper elevation={3} sx={{ p: { xs: 3, sm: 4 }, mb: 4, borderRadius: '12px' }}>
+      <Paper elevation={0} sx={{
+        p: { xs: 3, sm: 4 },
+        mb: 4,
+        borderRadius: '12px',
+        backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+        boxShadow: (theme) => getLiquidGlassShadow('active', theme)
+      }}>
         <ContactFormContent />
       </Paper>
       

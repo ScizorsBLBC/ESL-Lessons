@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography, Paper, Step, StepLabel, Stepper, useTheme } from '@mui/material';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
+import { getLiquidGlassShadow } from '../utils/stylingUtils';
 
 /**
  * Component to display a Flowchart, visualizing procedural or conditional logic.
@@ -69,7 +70,16 @@ const FlowchartVisualization = ({ data, accessibility }) => {
                             <StepLabel icon={
                                 step.type === 'decision' ? <CallSplitIcon sx={{ color: visualizationColors.secondary }} /> : null
                             }>
-                                <Paper elevation={2} sx={{ p: 1.5, bgcolor: visualizationColors.secondary + '.light', color: 'text.primary', borderRadius: 2 }}>
+                                <Paper elevation={0} sx={{
+                                    p: 1.5,
+                                    bgcolor: visualizationColors.secondary + '.light',
+                                    color: 'text.primary',
+                                    borderRadius: 2,
+                                    backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+                                    backdropFilter: 'blur(12px) saturate(180%)',
+                                    border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+                                    boxShadow: (theme) => getLiquidGlassShadow('base', theme)
+                                }}>
                                     <Typography variant="body1" sx={{ fontWeight: 'bold' }}>{step.label} ({step.type})</Typography>
                                     <Typography variant="caption">{step.content.substring(0, 80)}...</Typography>
                                 </Paper>
@@ -104,7 +114,17 @@ const FlowchartVisualization = ({ data, accessibility }) => {
     );
 
     return (
-        <Paper elevation={4} sx={{ p: 3, mb: 4, borderRadius: 3, borderLeft: '8px solid', borderColor: visualizationColors.border }}>
+        <Paper elevation={0} sx={{
+            p: 3,
+            mb: 4,
+            borderRadius: 3,
+            borderLeft: '8px solid',
+            borderColor: visualizationColors.border,
+            backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+            backdropFilter: 'blur(12px) saturate(180%)',
+            border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+            boxShadow: (theme) => getLiquidGlassShadow('active', theme)
+        }}>
             <Typography variant="h4" component="h2" gutterBottom sx={{ color: visualizationColors.icon, fontWeight: 'bold' }}>
                 Flowchart: {title}
             </Typography>

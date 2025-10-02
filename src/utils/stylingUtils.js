@@ -14,6 +14,174 @@ const hexToRgba = (hex, alpha) => {
 };
 
 // =============================================================================
+// CENTRALIZED SHADOW SYSTEM - Apple's Liquid Glass Aesthetic
+// =============================================================================
+
+/**
+ * Creates the refined liquid glass shadow system used throughout the application
+ * This single source of truth ensures consistent, elegant shadows across all components
+ * @param {object} theme - MUI theme object
+ * @returns {object} Object containing all shadow variants
+ */
+export const createLiquidGlassShadows = (theme) => {
+  return {
+    // Base shadow - elegant, dark tone, minimal glow like a floating glass pane
+    base: `0px 2px 6px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+           0px 3px 12px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+           0px 1px 18px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Hover shadow - enhanced depth for interactions
+    hover: `0px 3px 8px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+            0px 5px 16px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+            0px 1px 24px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Active shadow - maximum depth for pressed states
+    active: `0px 4px 10px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+             0px 7px 20px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+             0px 1px 32px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Visualization container - slightly more pronounced for data displays
+    visualization: `0px 3px 10px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+                    0px 6px 18px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+                    0px 1px 28px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Button specific - optimized for interactive elements
+    button: `0px 2px 6px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+             0px 3px 12px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+             0px 1px 18px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Button hover - enhanced for button interactions
+    buttonHover: `0px 3px 8px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+                  0px 5px 16px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+                  0px 1px 24px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Button active - pressed state for buttons
+    buttonActive: `0px 4px 10px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+                   0px 7px 20px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+                   0px 1px 32px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Card shadows - for lesson cards and content containers
+    card: `0px 2px 6px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+           0px 3px 12px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+           0px 1px 18px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Modal/Dialog shadows - for overlays and popups
+    modal: `0px 5px 12px -2px ${hexToRgba(theme.palette.text.primary, 0.08)},
+            0px 8px 22px -1px ${hexToRgba(theme.palette.text.primary, 0.06)},
+            0px 1px 36px 0px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+
+    // Tooltip shadows - very subtle for information overlays
+    tooltip: `0px 2px 6px -2px ${hexToRgba(theme.palette.text.primary, 0.06)},
+              0px 3px 12px -1px ${hexToRgba(theme.palette.text.primary, 0.04)}`,
+  };
+};
+
+/**
+ * Gets the appropriate shadow for a component type
+ * @param {string} type - The type of shadow needed ('base', 'hover', 'active', 'card', 'modal', etc.)
+ * @param {object} theme - MUI theme object
+ * @returns {string} CSS box-shadow value
+ */
+export const getLiquidGlassShadow = (type = 'base', theme) => {
+  const shadows = createLiquidGlassShadows(theme);
+  return shadows[type] || shadows.base;
+};
+
+// =============================================================================
+// CENTRALIZED BORDER SYSTEM - Liquid Glass Edges
+// =============================================================================
+
+/**
+ * Creates the refined liquid glass border system used throughout the application
+ * This single source of truth ensures consistent, elegant borders across all components
+ * @param {object} theme - MUI theme object
+ * @returns {object} Object containing all border variants
+ */
+export const createLiquidGlassBorders = (theme) => {
+  const borderColor = hexToRgba(theme.palette.text.primary, 0.08); // Darker, more elegant
+
+  return {
+    // Main container borders - for cards, papers, dialogs
+    container: {
+      border: `1px solid ${borderColor}`,
+      borderRadius: '16px', // Primary glass pane edges
+    },
+
+    // Secondary container borders - for smaller cards, sections
+    secondary: {
+      border: `1px solid ${borderColor}`,
+      borderRadius: '12px', // Secondary glass edges
+    },
+
+    // Button borders - for interactive elements
+    button: {
+      border: `1px solid ${borderColor}`,
+      borderRadius: '8px', // Interactive glass edges
+    },
+
+    // Accent borders - for special highlights, left borders, etc.
+    accent: {
+      border: `1px solid ${borderColor}`,
+      borderRadius: '16px',
+    },
+
+    // Tooltip borders - very subtle for information overlays
+    tooltip: {
+      border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.06)}`,
+      borderRadius: '6px',
+    },
+
+    // Table borders - for data tables and structured content
+    table: {
+      border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.06)}`,
+      borderRadius: '8px',
+    },
+
+    // Input borders - for form elements
+    input: {
+      border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.10)}`,
+      borderRadius: '6px',
+    },
+
+    // Card accent borders - for left accent borders on lesson cards
+    cardAccent: {
+      borderLeft: `8px solid ${theme.palette.primary.main}`,
+      borderRadius: '16px',
+    },
+  };
+};
+
+/**
+ * Gets the appropriate border styling for a component type
+ * @param {string} type - The type of border needed ('container', 'secondary', 'button', etc.)
+ * @param {object} theme - MUI theme object
+ * @returns {object} CSS border styling object
+ */
+export const getLiquidGlassBorder = (type = 'container', theme) => {
+  const borders = createLiquidGlassBorders(theme);
+  return borders[type] || borders.container;
+};
+
+/**
+ * Creates a complete liquid glass container style with borders and shadows
+ * @param {string} accentColor - Theme color for accent borders (e.g., 'primary.main')
+ * @param {string} borderType - Type of border styling ('container', 'secondary', etc.)
+ * @returns {function} Function that takes theme and returns styling object
+ */
+export const createLiquidGlassContainer = (accentColor = 'primary.main', borderType = 'container') => {
+  return (theme) => ({
+    ...getLiquidGlassBorder(borderType, theme),
+    backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
+    backdropFilter: 'blur(12px) saturate(180%)',
+    boxShadow: getLiquidGlassShadow('base', theme),
+    opacity: 0.95,
+    ...(borderType === 'container' && accentColor && {
+      borderLeft: `8px solid ${accentColor}`,
+    }),
+  });
+};
+
+// =============================================================================
 // CARD & CONTAINER UTILITIES
 // =============================================================================
 
@@ -25,35 +193,33 @@ const hexToRgba = (hex, alpha) => {
 export const createLessonCard = (accentColor = 'primary.main') => {
   // Return a function that takes theme and returns the styling
   return (theme) => {
-    // Use the same liquid glass styling pattern as defined in theme.js
-    const liquidGlassStyle = {
-      backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
-      backdropFilter: 'blur(12px) saturate(180%)',
-      border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
-      borderRadius: 3,
-      borderLeft: '8px solid',
-      borderColor: accentColor,
-    };
+    // Use centralized liquid glass styling system
+    const containerStyle = createLiquidGlassContainer(accentColor, 'container')(theme);
 
     return {
-      ...liquidGlassStyle,
+      ...containerStyle,
       p: { xs: 2, md: 4 },
       my: 4,
-      // Override MUI Paper elevation defaults that might add colored borders
+      // Use centralized liquid glass shadow system for elevation variants
       '&.MuiPaper-elevation1': {
-        boxShadow: `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+        boxShadow: getLiquidGlassShadow('base', theme),
+        '--Paper-shadow': getLiquidGlassShadow('base', theme),
       },
       '&.MuiPaper-elevation2': {
-        boxShadow: `0px 3px 6px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 6px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 18px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+        boxShadow: getLiquidGlassShadow('hover', theme),
+        '--Paper-shadow': getLiquidGlassShadow('hover', theme),
       },
       '&.MuiPaper-elevation3': {
-        boxShadow: `0px 3px 8px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 8px 14px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 24px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+        boxShadow: getLiquidGlassShadow('active', theme),
+        '--Paper-shadow': getLiquidGlassShadow('active', theme),
       },
       '&.MuiPaper-elevation4': {
-        boxShadow: `0px 4px 10px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 10px 18px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 32px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+        boxShadow: getLiquidGlassShadow('modal', theme),
+        '--Paper-shadow': getLiquidGlassShadow('modal', theme),
       },
       '&.MuiPaper-elevation6': {
-        boxShadow: `0px 6px 14px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 14px 26px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 48px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`
+        boxShadow: getLiquidGlassShadow('modal', theme),
+        '--Paper-shadow': getLiquidGlassShadow('modal', theme),
       },
     };
   };
@@ -65,13 +231,14 @@ export const createLessonCard = (accentColor = 'primary.main') => {
  */
 export const createVisualizationWrapper = () => {
   return (theme) => ({
+    ...getLiquidGlassBorder('secondary', theme),
     my: 4,
     p: { xs: 2, md: 4 },
-    borderRadius: 4,
     backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
     backdropFilter: 'blur(12px) saturate(180%)',
-    border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
-    boxShadow: theme.shadows[6],
+    opacity: 0.95, // Ensure proper transparency for glass effect
+    // Use centralized liquid glass shadow system for visualizations
+    boxShadow: getLiquidGlassShadow('visualization', theme),
   });
 };
 
@@ -187,11 +354,21 @@ export const createResponsiveFontSize = (sizes = { xs: '0.875rem', sm: '1rem', m
  * @param {string} maxWidth - Max width value ('xs', 'sm', 'md', 'lg', 'xl')
  * @returns {object} sx-compatible style object
  */
-export const createResponsiveContainer = (maxWidth = 'lg') => ({
-  maxWidth: { xs: '100%', sm: '600px', md: '800px', lg: '1100px' },
-  mx: 'auto',
-  px: { xs: 2, sm: 3 },
-});
+export const createResponsiveContainer = (maxWidth = 'lg') => {
+  const widthMap = {
+    xs: '100%',
+    sm: '600px',
+    md: '800px',
+    lg: '1100px',
+    xl: '1200px'
+  };
+
+  return {
+    maxWidth: { xs: '100%', sm: widthMap[maxWidth] || '1100px' },
+    mx: 'auto',
+    px: { xs: 2, sm: 3 },
+  };
+};
 
 // =============================================================================
 // ANIMATION & TRANSITION UTILITIES
@@ -199,14 +376,12 @@ export const createResponsiveContainer = (maxWidth = 'lg') => ({
 
 /**
  * Creates smooth hover effects for interactive elements
- * @param {object} theme - MUI theme object
  * @returns {object} sx-compatible style object
  */
-export const createHoverEffect = (theme) => ({
+export const createHoverEffect = () => ({
   transition: 'all 0.3s ease',
   '&:hover': {
     transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[4],
   },
 });
 

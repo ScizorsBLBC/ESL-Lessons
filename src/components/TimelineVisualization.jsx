@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Typography, Paper, Tooltip, Collapse, useTheme } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { createLessonCard, createLessonTitle, createAccessibilityTable } from '../utils/stylingUtils';
+import { createLessonCard, createLessonTitle, createAccessibilityTable, getLiquidGlassShadow } from '../utils/stylingUtils';
 
 /**
  * Component to display a Timeline, visualizing temporal relationships.
@@ -47,7 +47,16 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
 
     // --- Core Visualization Rendering ---
     const renderCoreVisualization = () => (
-        <Box sx={{ mt: 3, p: 3, bgcolor: visualizationColors.background, borderRadius: 2, boxShadow: 3 }}>
+        <Box sx={{
+            mt: 3,
+            p: 3,
+            bgcolor: visualizationColors.background,
+            borderRadius: 16,
+            backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
+            backdropFilter: 'blur(12px) saturate(180%)',
+            border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
+            boxShadow: getLiquidGlassShadow('visualization', theme)
+        }}>
             <Typography variant="body2" sx={{ color: visualizationColors.text, mb: 2, textAlign: 'center' }}>{description}</Typography>
 
             {/* Timeline Axis Container */}
@@ -113,9 +122,11 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
                                     transform: isSelected ? 'translate(-50%, -50%) scale(1.2)' : 'translate(-50%, -50%)',
                                     transition: 'all 0.3s',
                                     cursor: 'pointer',
-                                    boxShadow: isSelected || isHovered ? '0 0 10px' : 'none',
+                                    boxShadow: isSelected || isHovered ?
+                                        `0px 3px 10px -2px ${hexToRgba(theme.palette.text.primary, 0.12)},
+                                         0px 6px 20px -1px ${hexToRgba(theme.palette.text.primary, 0.08)}` : 'none',
                                     '&:hover': {
-                                        boxShadow: '0 0 10px',
+                                        boxShadow:                                         getLiquidGlassShadow('hover', theme),
                                     },
                                 }}
                             >
@@ -160,9 +171,11 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
                                     cursor: 'pointer',
                                     transition: 'all 0.3s',
                                     transform: isSelected ? 'scaleY(1.5)' : 'scaleY(1)',
-                                    boxShadow: isSelected || isHovered ? '0 0 10px' : 'none',
+                                    boxShadow: isSelected || isHovered ?
+                                        `0px 3px 10px -2px ${hexToRgba(theme.palette.text.primary, 0.12)},
+                                         0px 6px 20px -1px ${hexToRgba(theme.palette.text.primary, 0.08)}` : 'none',
                                     '&:hover': {
-                                        boxShadow: '0 0 10px',
+                                        boxShadow:                                         getLiquidGlassShadow('hover', theme),
                                     },
                                 }}
                             >
@@ -185,7 +198,7 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
 
             {/* Detailed Content Popout (Below the Timeline) */}
             <Collapse in={!!currentEvent} sx={{ mt: 2 }}>
-                <Paper elevation={6} sx={{
+                <Paper elevation={0} sx={{
                     p: 2,
                     bgcolor: visualizationColors.primary + '.light',
                     border: '1px solid',
@@ -265,8 +278,8 @@ const TimelineVisualization = ({ data, accessibility, selectedId, onSelectId }) 
     );
 
     return (
-        <Paper elevation={4} sx={createLessonCard('success.main')(theme)}>
-            <Typography variant="h4" component="h2" sx={createLessonTitle('success.dark')(theme)}>
+        <Paper elevation={0} sx={createLessonCard('primary.main')(theme)}>
+            <Typography variant="h4" component="h2" sx={createLessonTitle('primary.dark')(theme)}>
                 <AccessTimeIcon sx={{ verticalAlign: 'middle', mr: 1, color: 'inherit' }} /> {title}
             </Typography>
             {renderCoreVisualization()}

@@ -3,7 +3,7 @@ import { Box, Typography, Paper, IconButton, useTheme } from '@mui/material';
 import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import GlassButtonWrapper from './GlassButtonWrapper';
-import { createLessonCard, createLessonTitle, createIconButton } from '../utils/stylingUtils';
+import { createLessonCard, createLessonTitle, createIconButton, getLiquidGlassShadow } from '../utils/stylingUtils';
 
 /**
  * Component for a Flashcard set.
@@ -46,7 +46,7 @@ const Flashcard = ({ data }) => {
     };
 
     return (
-        <Paper elevation={4} sx={createLessonCard('secondary.main')(theme)}>
+        <Paper elevation={0} sx={createLessonCard('secondary.main')(theme)}>
             <Typography variant="h5" component="h3" sx={createLessonTitle('secondary.dark')(theme)}>
                 {title || "Flashcards"}
             </Typography>
@@ -65,12 +65,12 @@ const Flashcard = ({ data }) => {
                     justifyContent: 'center',
                     bgcolor: 'action.hover',
                     borderRadius: 2,
-                    boxShadow: 3,
+                    boxShadow: getLiquidGlassShadow('base', theme),
                     cursor: 'pointer',
                     transition: 'transform 0.6s',
                     transformStyle: 'preserve-3d',
                     '&:hover': {
-                        boxShadow: 6,
+                        boxShadow: getLiquidGlassShadow('hover', theme),
                     },
                 }}
             >

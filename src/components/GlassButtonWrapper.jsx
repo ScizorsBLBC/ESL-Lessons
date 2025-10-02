@@ -1,5 +1,6 @@
 import React from 'react';
 import { Paper, useTheme, Button } from '@mui/material';
+import { getLiquidGlassShadow, getLiquidGlassBorder } from '../utils/stylingUtils';
 
 const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, color = 'secondary', ...props }, ref) => {
     const theme = useTheme();
@@ -11,21 +12,32 @@ const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, color
         return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     };
 
+    // Use centralized liquid glass systems for consistent styling
+    const liquidGlassButtonShadow = getLiquidGlassShadow('button', theme);
+    const liquidGlassButtonShadowHover = getLiquidGlassShadow('buttonHover', theme);
+    const liquidGlassButtonShadowActive = getLiquidGlassShadow('buttonActive', theme);
+    const liquidGlassButtonBorder = getLiquidGlassBorder('button', theme);
+
     const baseStyles = {
         position: 'relative',
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '2px',
-        borderRadius: '12px',
+        ...liquidGlassButtonBorder, // Use centralized border system
         overflow: 'hidden',
         transition: 'all 0.3s ease',
-        boxShadow: theme.shadows[4],
+        boxShadow: liquidGlassButtonShadow,
+        // Use centralized glass background styling
         background: `linear-gradient(135deg, ${hexToRgba(theme.palette.background.paper, 0.1)}, ${hexToRgba(theme.palette.background.paper, 0)})`,
         backdropFilter: 'blur(10px)',
-        border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.18)}`,
+        // Ensure proper pointer events and layering
+        pointerEvents: 'none', // Let child elements handle pointer events
+        '& > *': {
+            pointerEvents: 'auto', // Re-enable pointer events for children
+        },
         '&:hover': {
-            boxShadow: theme.shadows[8],
+            boxShadow: liquidGlassButtonShadowHover,
             background: `linear-gradient(135deg, ${hexToRgba(theme.palette.background.paper, 0.2)}, ${hexToRgba(theme.palette.background.paper, 0.1)})`,
             backgroundColor: theme.palette.action.hover,
             transform: 'scale(1.05)',
@@ -34,7 +46,11 @@ const GlassButtonWrapper = React.forwardRef(({ children, isActive = false, color
 
     const activeStyles = isActive ? {
         background: `linear-gradient(135deg, ${hexToRgba(theme.palette.background.paper, 0.3)}, ${hexToRgba(theme.palette.background.paper, 0.15)})`,
-        boxShadow: theme.shadows[12],
+        boxShadow: liquidGlassButtonShadowActive,
+        pointerEvents: 'none', // Maintain pointer event handling for active state
+        '& > *': {
+            pointerEvents: 'auto',
+        },
     } : {};
 
     // Apply theme colors and typography to Button children

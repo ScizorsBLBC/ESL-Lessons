@@ -1,6 +1,7 @@
 // src/theme.js
 
 import { createTheme } from '@mui/material/styles';
+import { getLiquidGlassShadow, getLiquidGlassBorder } from './utils/stylingUtils';
 
 const hexToRgba = (hex, alpha) => {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -14,8 +15,11 @@ const baseOverrides = (theme) => {
     backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
     backdropFilter: 'blur(12px) saturate(180%)',
     border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
-    boxShadow: theme.shadows[4],
+    // Use centralized liquid glass shadow system
+    boxShadow: getLiquidGlassShadow('base', theme),
     borderRadius: 16,
+    // Ensure proper transparency for glass effect
+    opacity: 0.95,
   };
 
   return {
@@ -32,6 +36,58 @@ const baseOverrides = (theme) => {
               backgroundImage: `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.035"/%3E%3C/svg%3E')`,
               animation: 'grain 8s steps(10) infinite', zIndex: -1,
             },
+          },
+          // Global CSS overrides to ensure all MUI elements use liquid glass styling
+          '.MuiPaper-root': {
+            backgroundColor: `${hexToRgba(theme.palette.background.paper, 0.1)} !important`,
+            backdropFilter: 'blur(12px) saturate(180%) !important',
+            border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)} !important`,
+            borderRadius: '16px !important',
+            boxShadow: getLiquidGlassShadow('base', theme),
+            '--Paper-shadow': getLiquidGlassShadow('base', theme),
+            '--Paper-overlay': `linear-gradient(${hexToRgba(theme.palette.background.paper, 0.092)}, ${hexToRgba(theme.palette.background.paper, 0.092)}) !important`,
+          },
+          // More specific overrides for elevation classes to ensure CSS custom properties are overridden
+          '.MuiPaper-elevation1': {
+            '--Paper-shadow': `${getLiquidGlassShadow('base', theme)} !important`,
+          },
+          '.MuiPaper-elevation2': {
+            '--Paper-shadow': `${getLiquidGlassShadow('hover', theme)} !important`,
+          },
+          '.MuiPaper-elevation3': {
+            '--Paper-shadow': `${getLiquidGlassShadow('active', theme)} !important`,
+          },
+          '.MuiPaper-elevation4': {
+            '--Paper-shadow': `${getLiquidGlassShadow('modal', theme)} !important`,
+          },
+          '.MuiPaper-elevation6': {
+            '--Paper-shadow': `${getLiquidGlassShadow('modal', theme)} !important`,
+          },
+          '.MuiCard-root': {
+            backgroundColor: `${hexToRgba(theme.palette.background.paper, 0.1)} !important`,
+            backdropFilter: 'blur(12px) saturate(180%) !important',
+            border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)} !important`,
+            borderRadius: '16px !important',
+            boxShadow: getLiquidGlassShadow('base', theme),
+          },
+          '.MuiChip-root': {
+            backgroundColor: `${hexToRgba(theme.palette.background.paper, 0.15)} !important`,
+            backdropFilter: 'blur(8px) saturate(150%) !important',
+            border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)} !important`,
+            borderRadius: '12px !important',
+            boxShadow: getLiquidGlassShadow('base', theme),
+          },
+          '.MuiButton-root': {
+            backgroundColor: `${hexToRgba(theme.palette.background.paper, 0.15)} !important`,
+            backdropFilter: 'blur(8px) saturate(150%) !important',
+            ...getLiquidGlassBorder('button', theme),
+            boxShadow: getLiquidGlassShadow('base', theme),
+          },
+          '.MuiIconButton-root': {
+            backgroundColor: `${hexToRgba(theme.palette.background.paper, 0.15)} !important`,
+            backdropFilter: 'blur(8px) saturate(150%) !important',
+            ...getLiquidGlassBorder('button', theme),
+            boxShadow: getLiquidGlassShadow('base', theme),
           },
         },
       },
@@ -65,19 +121,40 @@ const baseOverrides = (theme) => {
           root: ({ theme }) => ({
             ...liquidGlassStyle,
             borderRadius: 12,
-            // Override MUI's CSS custom properties that contain hardcoded colors
-            '--Paper-shadow': `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}`,
+            // Enhanced liquid glass CSS custom properties for better browser compatibility
+            '--Paper-shadow': getLiquidGlassShadow('base', theme),
             '--Paper-overlay': `linear-gradient(${hexToRgba(theme.palette.background.paper, 0.092)}, ${hexToRgba(theme.palette.background.paper, 0.092)})`,
+          }),
+          // Ensure all elevation variants use liquid glass styling
+          elevation1: ({ theme }) => ({
+            boxShadow: getLiquidGlassShadow('base', theme),
+            '--Paper-shadow': getLiquidGlassShadow('base', theme),
+          }),
+          elevation2: ({ theme }) => ({
+            boxShadow: getLiquidGlassShadow('hover', theme),
+            '--Paper-shadow': getLiquidGlassShadow('hover', theme),
+          }),
+          elevation3: ({ theme }) => ({
+            boxShadow: getLiquidGlassShadow('active', theme),
+            '--Paper-shadow': getLiquidGlassShadow('active', theme),
+          }),
+          elevation4: ({ theme }) => ({
+            boxShadow: getLiquidGlassShadow('modal', theme),
+            '--Paper-shadow': getLiquidGlassShadow('modal', theme),
+          }),
+          elevation6: ({ theme }) => ({
+            boxShadow: getLiquidGlassShadow('modal', theme),
+            '--Paper-shadow': getLiquidGlassShadow('modal', theme),
           }),
         }
       },
-      MuiCard: { styleOverrides: { root: ({ theme }) => ({ ...liquidGlassStyle, borderRadius: 12, '--Paper-shadow': `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}` }) } },
-      MuiMenu: { styleOverrides: { paper: ({ theme }) => ({ ...liquidGlassStyle, '--Paper-shadow': `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}` }) } },
-      MuiAccordion: { styleOverrides: { root: ({ theme }) => ({ ...liquidGlassStyle, '&:before': { display: 'none' }, '--Paper-shadow': `0px 2px 4px -1px ${hexToRgba(theme.palette.text.primary, 0.1)}, 0px 4px 5px 0px ${hexToRgba(theme.palette.text.primary, 0.05)}, 0px 1px 10px 0px ${hexToRgba(theme.palette.text.primary, 0.02)}` }) } },
+      MuiCard: { styleOverrides: { root: ({ theme }) => ({ ...liquidGlassStyle, '--Paper-shadow': getLiquidGlassShadow('base', theme) }) } },
+      MuiMenu: { styleOverrides: { paper: ({ theme }) => ({ ...liquidGlassStyle, '--Paper-shadow': getLiquidGlassShadow('base', theme) }) } },
+      MuiAccordion: { styleOverrides: { root: ({ theme }) => ({ ...liquidGlassStyle, '&:before': { display: 'none' }, '--Paper-shadow': getLiquidGlassShadow('base', theme) }) } },
       MuiButton: {
         styleOverrides: {
           root: {
-            borderRadius: 8,
+            ...getLiquidGlassBorder('button', theme),
             textTransform: 'none',
             transition: 'transform 0.2s ease-in-out',
             '&:hover': { transform: 'scale(1.05)' },
@@ -95,7 +172,7 @@ const baseOverrides = (theme) => {
             color: theme.palette.secondary.main,
             backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
             backdropFilter: 'blur(12px) saturate(180%)',
-            border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
+            ...getLiquidGlassBorder('secondary', theme),
             // This '& *' selector will force the color onto ALL child elements inside the tooltip.
             '& *': {
               color: theme.palette.secondary.main,
@@ -104,10 +181,64 @@ const baseOverrides = (theme) => {
           arrow: {
             color: hexToRgba(theme.palette.background.paper, 0.1),
             '&::before': {
-              border: `1px solid ${hexToRgba(theme.palette.text.primary, 0.1)}`,
+              ...getLiquidGlassBorder('secondary', theme),
               backdropFilter: 'blur(12px) saturate(180%)',
             }
           }
+        }
+      },
+      // Ensure popover and dialog components also use liquid glass styling
+      MuiPopover: {
+        styleOverrides: {
+          paper: ({ theme }) => ({
+            ...liquidGlassStyle,
+            '--Paper-shadow': getLiquidGlassShadow('modal', theme),
+          })
+        }
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: ({ theme }) => ({
+            ...liquidGlassStyle,
+            '--Paper-shadow': getLiquidGlassShadow('modal', theme),
+          })
+        }
+      },
+      MuiModal: {
+        styleOverrides: {
+          backdrop: ({ theme }) => ({
+            backgroundColor: hexToRgba(theme.palette.background.paper, 0.1),
+            backdropFilter: 'blur(8px) saturate(150%)',
+          })
+        }
+      },
+      // Ensure chips and floating action buttons use liquid glass styling
+      MuiChip: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            backgroundColor: hexToRgba(theme.palette.background.paper, 0.15),
+            backdropFilter: 'blur(8px) saturate(150%)',
+            ...getLiquidGlassBorder('secondary', theme),
+            boxShadow: getLiquidGlassShadow('tooltip', theme),
+            '&:hover': {
+              backgroundColor: hexToRgba(theme.palette.background.paper, 0.2),
+              boxShadow: getLiquidGlassShadow('tooltip', theme),
+            }
+          })
+        }
+      },
+      MuiFab: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            backgroundColor: hexToRgba(theme.palette.background.paper, 0.15),
+            backdropFilter: 'blur(8px) saturate(150%)',
+            ...getLiquidGlassBorder('button', theme),
+            boxShadow: getLiquidGlassShadow('buttonActive', theme),
+            '&:hover': {
+              backgroundColor: hexToRgba(theme.palette.background.paper, 0.2),
+              boxShadow: getLiquidGlassShadow('modal', theme),
+            }
+          })
         }
       }
     },

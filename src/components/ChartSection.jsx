@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Paper, useTheme } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import { createLessonCard, createLessonTitle, createAccessibilityTable } from '../utils/stylingUtils';
+import { createLessonCard, createLessonTitle } from '../utils/stylingUtils';
 
 /**
  * Component to display a Chart (Bar, Pie, or Line).
@@ -17,7 +17,7 @@ const ChartSection = ({ data, accessibility }) => {
     const theme = useTheme();
 
     // Handle both schema format and cultural data format
-    const { title, chartType, labels, datasets, data: chartData, xAxisLabel, yAxisLabel, descriptionHtml } = data;
+    const { title, chartType, labels, datasets, data: chartData, yAxisLabel, descriptionHtml } = data;
 
     // Theme-aware colors for monochrome compatibility
     const isMonochrome = theme.palette.mode === 'light'
@@ -143,8 +143,8 @@ const ChartSection = ({ data, accessibility }) => {
 
 
     return (
-        <Paper elevation={4} sx={createLessonCard('warning.main')(theme)}>
-            <Typography variant="h4" component="h2" sx={createLessonTitle('warning.dark')(theme)}>
+        <Paper elevation={0} sx={createLessonCard('secondary.main')(theme)}>
+            <Typography variant="h4" component="h2" sx={createLessonTitle('secondary.dark')(theme)}>
                 Chart: {title}
             </Typography>
             {renderPlaceholderVisualization()}

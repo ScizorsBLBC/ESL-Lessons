@@ -4,6 +4,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import TranslateIcon from '@mui/icons-material/Translate';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import { getLiquidGlassShadow } from '../utils/stylingUtils';
 
 const AboutPage = () => {
   useEffect(() => {
@@ -27,7 +28,15 @@ const AboutPage = () => {
       </Typography>
 
       {/* --- Main Bio Section (Uses Paper for Liquid Glass Effect) --- */}
-      <Paper elevation={3} sx={{ p: { xs: 3, sm: 4 }, mb: 4, borderRadius: '12px' }}>
+      <Paper elevation={0} sx={{
+        p: { xs: 3, sm: 4 },
+        mb: 4,
+        borderRadius: '12px',
+        backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+        boxShadow: (theme) => getLiquidGlassShadow('active', theme)
+      }}>
         <Typography variant="h5" component="h2" gutterBottom sx={{ color: 'primary.main', mb: 2 }}>
           American English Teacher | Patient & Personalized
         </Typography>
@@ -50,7 +59,14 @@ const AboutPage = () => {
         <List sx={{ display: 'grid', gap: 2 }}>
             
             {/* Subject Expertise */}
-            <Paper elevation={1} sx={{ p: 3, borderRadius: '12px' }}>
+            <Paper elevation={0} sx={{
+              p: 3,
+              borderRadius: '12px',
+              backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+              backdropFilter: 'blur(12px) saturate(180%)',
+              border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+              boxShadow: (theme) => getLiquidGlassShadow('base', theme)
+            }}>
                 <ListItem>
                     <ListItemIcon sx={{ color: 'secondary.main' }}><WorkspacePremiumIcon /></ListItemIcon>
                     <ListItemText 
@@ -61,7 +77,14 @@ const AboutPage = () => {
             </Paper>
 
             {/* Teaching Experience */}
-            <Paper elevation={1} sx={{ p: 3, borderRadius: '12px' }}>
+            <Paper elevation={0} sx={{
+              p: 3,
+              borderRadius: '12px',
+              backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+              backdropFilter: 'blur(12px) saturate(180%)',
+              border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+              boxShadow: (theme) => getLiquidGlassShadow('base', theme)
+            }}>
                 <ListItem>
                     <ListItemIcon sx={{ color: 'secondary.main' }}><SchoolIcon /></ListItemIcon>
                     <ListItemText 
@@ -72,7 +95,14 @@ const AboutPage = () => {
             </Paper>
 
             {/* Spanish Support */}
-            <Paper elevation={1} sx={{ p: 3, borderRadius: '12px' }}>
+            <Paper elevation={0} sx={{
+              p: 3,
+              borderRadius: '12px',
+              backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+              backdropFilter: 'blur(12px) saturate(180%)',
+              border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+              boxShadow: (theme) => getLiquidGlassShadow('base', theme)
+            }}>
                 <ListItem>
                     <ListItemIcon sx={{ color: 'secondary.main' }}><TranslateIcon /></ListItemIcon>
                     <ListItemText 
@@ -83,7 +113,14 @@ const AboutPage = () => {
             </Paper>
 
             {/* Achievment Focus */}
-            <Paper elevation={1} sx={{ p: 3, borderRadius: '12px' }}>
+            <Paper elevation={0} sx={{
+              p: 3,
+              borderRadius: '12px',
+              backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+              backdropFilter: 'blur(12px) saturate(180%)',
+              border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+              boxShadow: (theme) => getLiquidGlassShadow('base', theme)
+            }}>
                 <ListItem>
                     <ListItemIcon sx={{ color: 'secondary.main' }}><DirectionsRunIcon /></ListItemIcon>
                     <ListItemText 

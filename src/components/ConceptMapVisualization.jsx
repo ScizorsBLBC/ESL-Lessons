@@ -65,7 +65,7 @@ const ConceptMapVisualization = ({ data, accessibility }) => {
             <Grid container spacing={2}>
                 {nodes.slice(0, 3).map((node) => (
                     <Grid size={{ xs: 12, sm: 4 }} key={node.id}>
-                        <Paper elevation={3} sx={{
+                        <Paper elevation={0} sx={{
                             p: 2,
                             bgcolor: visualizationColors.nodeBg,
                             color: 'text.primary',
@@ -156,7 +156,7 @@ const ConceptMapVisualization = ({ data, accessibility }) => {
     );
 
     return (
-        <Paper elevation={4} sx={createLessonCard('secondary.main')(theme)}>
+        <Paper elevation={0} sx={createLessonCard('secondary.main')(theme)}>
             <Typography variant="h4" component="h2" sx={createLessonTitle('secondary.dark')(theme)}>
                 Concept Map: {title}
             </Typography>

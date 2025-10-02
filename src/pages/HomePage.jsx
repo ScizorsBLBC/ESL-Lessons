@@ -4,6 +4,7 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import SendIcon from '@mui/icons-material/Send';
 import LanguageIcon from '@mui/icons-material/Language';
 import GlassButtonWrapper from '../components/GlassButtonWrapper'; // IMPORT a reusable component
+import { getLiquidGlassShadow } from '../utils/stylingUtils';
 
 // --- Contact Form Component (Serverless Submission Ready & Styled) ---
 const ContactForm = ({ onCancel }) => {
@@ -213,10 +214,14 @@ const HomePage = () => {
       }}
     >
       <Paper
-        elevation={3}
+        elevation={0}
         sx={{
-          p: { xs: 3, sm: 4 }, 
+          p: { xs: 3, sm: 4 },
           borderRadius: '12px',
+          backgroundColor: (theme) => `${theme.palette.background.paper}1A`,
+          backdropFilter: 'blur(12px) saturate(180%)',
+          border: (theme) => `1px solid ${theme.palette.text.primary}1A`,
+          boxShadow: (theme) => getLiquidGlassShadow('active', theme),
           maxWidth: '500px',
           width: '100%',
           display: 'flex',

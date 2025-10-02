@@ -21,10 +21,20 @@ const FillInTheBlanks = ({ data }) => {
     const [userAnswers, setUserAnswers] = useState(Array(words.length).fill(''));
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    if (!sentence || !words || blanks.length - 1 !== words.length) {
+    if (!sentence || !words || words.length === 0) {
         return (
             <Paper sx={createErrorState()(theme)}>
                 <Typography>Error: Invalid Fill-in-the-Blanks data structure.</Typography>
+            </Paper>
+        );
+    }
+
+    // Count actual blanks in the sentence (number of '_' characters)
+    const blankCount = (sentence.match(/_/g) || []).length;
+    if (blankCount !== words.length) {
+        return (
+            <Paper sx={createErrorState()(theme)}>
+                <Typography>Error: Invalid Fill-in-the-Blanks data structure. Expected {words.length} blanks but found {blankCount}.</Typography>
             </Paper>
         );
     }
@@ -127,7 +137,7 @@ const FillInTheBlanks = ({ data }) => {
     };
 
     return (
-        <Paper elevation={4} sx={createLessonCard('primary.main')(theme)}>
+        <Paper elevation={0} sx={createLessonCard('primary.main')(theme)}>
             <Typography variant="h5" component="h3" sx={createLessonTitle('primary.dark')(theme)}>
                 {title || "Fill in the Blanks"}
             </Typography>
