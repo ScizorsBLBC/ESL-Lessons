@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, Link, Select, MenuItem, TextField, Button, Stack } from '@mui/material';
 import { vocabularyData } from '../data/vocabularyData.js';
 import { idiomData } from '../data/idiomData.js';
+import { entrepreneurVocabularyData } from '../data/bainurData.js';
 import { lessonRoutes } from '../LessonRoutes.jsx';
 import LessonTabs from '../components/LessonTabs';
 import GlassButtonWrapper from '../components/GlassButtonWrapper';
@@ -80,15 +81,17 @@ export default function DashboardPage() {
     const [activeTab, setActiveTab] = useState(0);
     const [selectedVocabLesson, setSelectedVocabLesson] = useState(1);
     const [selectedIdiomLesson, setSelectedIdiomLesson] = useState(1);
+    const [selectedBainurLesson, setSelectedBainurLesson] = useState(1);
     const [copySuccess, setCopySuccess] = useState('');
 
-    const sections = ["Lesson Navigation", "Curated News", "Article Manager", "Vocabulary", "Idioms"];
+    const sections = ["Lesson Navigation", "Curated News", "Article Manager", "Vocabulary", "Idioms", "Bainur's Vocab"];
 
 
     // --- Event Handlers ---
     const handleTabChange = (event, newValue) => setActiveTab(newValue);
     const handleVocabSelectChange = (event) => setSelectedVocabLesson(event.target.value);
     const handleIdiomSelectChange = (event) => setSelectedIdiomLesson(event.target.value);
+    const handleBainurSelectChange = (event) => setSelectedBainurLesson(event.target.value);
 
     const copyToClipboard = (type, id) => {
         const link = createShareLink(type, id);
@@ -156,6 +159,27 @@ export default function DashboardPage() {
                             <TextField fullWidth readOnly value={createShareLink('idioms', selectedIdiomLesson)} variant="outlined" size="small" />
                             <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
                                 <Button variant="text" onClick={() => copyToClipboard('idioms', selectedIdiomLesson)} startIcon={<ContentCopyIcon />}>Copy</Button>
+                            </GlassButtonWrapper>
+                        </Box>
+                        {copySuccess && <Typography color="secondary.main" sx={{ textAlign: 'center' }}>{copySuccess}</Typography>}
+                    </Box>
+                </Section>
+            )}
+
+            {activeTab === 5 && (
+                <Section title="Bainur's Vocabulary Lesson Link Generator" instructions="Select a lesson to generate a direct shareable link for your student.">
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+                        <Select value={selectedBainurLesson} onChange={handleBainurSelectChange}>
+                            {entrepreneurVocabularyData.lessons.map((lesson) => (
+                                <MenuItem key={lesson.lesson} value={lesson.lesson}>
+                                    Lesson {lesson.lesson}: {lesson.title}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <TextField fullWidth readOnly value={createShareLink('bainur-vocabulary', selectedBainurLesson)} variant="outlined" size="small" />
+                            <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
+                                <Button variant="text" onClick={() => copyToClipboard('bainur-vocabulary', selectedBainurLesson)} startIcon={<ContentCopyIcon />}>Copy</Button>
                             </GlassButtonWrapper>
                         </Box>
                         {copySuccess && <Typography color="secondary.main" sx={{ textAlign: 'center' }}>{copySuccess}</Typography>}

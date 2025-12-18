@@ -326,6 +326,7 @@ The ESL Lessons Hub includes comprehensive lessons covering essential English la
 
 ### 📖 Vocabulary & Communication
 - **Vocabulary Building**: Interactive vocabulary lessons with flashcards and context-aware quizzes
+- **Bainur's Vocabulary**: Specialized entrepreneur-focused vocabulary covering business, modern culture, and LA-specific terms (12 comprehensive lessons)
 - **Idioms & Expressions**: Common English idioms with usage examples and practice exercises
 - **Phrasal Verbs**: Essential phrasal verbs with interactive exercises and real-world contexts
 
@@ -339,6 +340,28 @@ The ESL Lessons Hub includes comprehensive lessons covering essential English la
 - **Sound Recognition**: Practice distinguishing English sounds and intonation patterns
 
 Each lesson includes interactive exercises, quizzes, and multimedia content designed to maximize learning retention and engagement.
+
+### 🎯 Bainur's Vocabulary - Specialized Entrepreneur Content
+A comprehensive vocabulary system designed specifically for entrepreneurs and modern professionals, featuring 12 themed lessons covering essential business, cultural, and Los Angeles-specific terminology.
+
+**Key Features:**
+- **12 Comprehensive Lessons**: From apartment management to LA entrepreneur culture
+- **Interactive Learning Tools**: Flashcards, quizzes, and homework assignments
+- **Teacher Dashboard Integration**: Easy link generation for sharing lessons with students
+- **Modern Vocabulary**: Contemporary terms for dating apps, LGBTQ+ culture, social media marketing, and more
+- **Business-Focused Content**: Entrepreneurship, finance, negotiation, and product development terminology
+- **LA-Specific Terms**: Geography, transportation, and local culture vocabulary
+
+**Access:**
+- **Student URL Pattern**: `/bainur-vocabulary/:lessonId` (e.g., `/bainur-vocabulary/1`)
+- **Teacher Dashboard**: Navigate to "Bainur's Vocab" tab to generate shareable links
+- **Route Configuration**: Fully integrated into main application routing
+
+**Technical Details:**
+- **Data Source**: `src/data/bainurData.js` - Enterprise-grade vocabulary database
+- **Page Component**: `src/pages/lessons/BainurVocabularyPage.jsx` - Standard lesson architecture
+- **Schema Compliance**: Follows canonical vocabulary schema for consistency
+- **Component Reusability**: Uses established Flashcard, Quiz, and ContentSelector components
 
 ## Content Schema Guide
 
@@ -357,6 +380,24 @@ The lesson schema is designed for maximum flexibility while maintaining the stri
 ```
 
 ## Recent Enhancements
+
+### Bainur's Vocabulary - Specialized Entrepreneur Vocabulary System
+- **New Feature**: Comprehensive vocabulary lesson system designed specifically for entrepreneurs and modern professionals
+- **12 Themed Lessons**: Covering essential topics from apartment management to LA entrepreneur culture
+- **Teacher Dashboard Integration**: New "Bainur's Vocab" tab in teacher portal for easy link generation
+- **Standard Architecture**: Follows established lesson page pattern for consistency and maintainability
+- **Interactive Learning**: Full flashcard, quiz, and homework functionality matching standard vocabulary lessons
+- **Route Configuration**: Accessible via `/bainur-vocabulary/:lessonId` URL pattern
+- **Data Structure**: Enterprise-grade data organization in `src/data/bainurData.js` with comprehensive documentation
+- **Component Reusability**: Leverages existing Flashcard, Quiz, and ContentSelector components
+- **Documentation**: Enterprise-grade JSDoc documentation for all new files and components
+
+**Technical Implementation:**
+- **Data File**: `src/data/bainurData.js` - Comprehensive vocabulary database with enterprise documentation
+- **Page Component**: `src/pages/lessons/BainurVocabularyPage.jsx` - Full-featured lesson page with tabs
+- **Route Integration**: Added to `src/App.jsx` with proper URL parameter handling
+- **Dashboard Integration**: New tab in `src/pages/DashboardPage.jsx` for teacher link generation
+- **Schema Compliance**: Follows canonical vocabulary schema for consistency
 
 ### Advanced Search System & Component Consolidation
 - **Sophisticated Search Algorithm**: Implemented advanced search with tokenization, fuzzy matching, and relevance scoring across multiple fields (headlines, slugs, content)
