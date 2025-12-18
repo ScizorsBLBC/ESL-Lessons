@@ -1,0 +1,26 @@
+TODO: add this video to our main page of pronunciation guide: https://www.youtube.com/watch?v=KDK9Xmmui1w&t=1s
+TODO: Add a lesson on final consonants to pronunciation guide, with a special note to spanish speakers that they need to focus on this more than anything other than the gringo 'r' lol (See PDF file in google docs I made for a beginning to give to gemini gem)
+TODO: Add Screen REader to flashcards.
+TODO: Add a return button to pages to bring you back if you go to contact page, basically a back button built into the site (Aleksander)
+
+TODO: Add lvl 4 lessons so I can have a similar lesson to lvl 3 for students to get to read the other interesting articles who are at lvl 3
+
+OR
+
+TODO: consider renaming form lvl 1 lvl 3 and lvl 6 to basic, intermediate, advanced and use both level 3 and 4 articles for intermediate?
+
+TODO: look into using more of the type of homework for news articles they have multiple choice and gap fill exercises ready to go?
+
+TODO: make the success banner last a lot longer on article manager for adding or editing anew article. 
+
+TODO: Consider making the images work for articles that have them, need to be sure it doesn't break the site if it doesn't have an image
+
+TODO: Can I add some sort of map functionality
+
+TODO: add a backend server free hosting, students cold login and I could track their progress etc, I could revoke access if they stop taking classes, they can have their own dashboard where I add lessons to instead of sending links in a chat:
+
+- https://render.com - backend - cold starts use a robot that ssends requests on the endpoint:
+
+    - uptime robot: https://uptimerobot.com/?gad_source=1&gad_campaignid=11706541826&gclid=CjwKCAjwmNLHBhA4EiwA3ts3mXLNnacbDkUGPYVQF8rbTfvNOmeh0iaHpLg7xKjGllIhWsEN4gwABhoCDAEQAvD_BwE
+
+- https://neon.com - database
