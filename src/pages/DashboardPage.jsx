@@ -4,6 +4,7 @@ import { Box, Typography, Paper, Link, Select, MenuItem, TextField, Button, Stac
 import { vocabularyData } from '../data/vocabularyData.js';
 import { idiomData } from '../data/idiomData.js';
 import { entrepreneurVocabularyData } from '../data/bainurData.js';
+import { getStudentNames, getLessonsByStudent } from '../data/studentLessonsData.js';
 import { lessonRoutes } from '../LessonRoutes.jsx';
 import LessonTabs from '../components/LessonTabs';
 import GlassButtonWrapper from '../components/GlassButtonWrapper';
@@ -82,9 +83,11 @@ export default function DashboardPage() {
     const [selectedVocabLesson, setSelectedVocabLesson] = useState(1);
     const [selectedIdiomLesson, setSelectedIdiomLesson] = useState(1);
     const [selectedBainurLesson, setSelectedBainurLesson] = useState(1);
+    const [selectedStudent, setSelectedStudent] = useState('');
+    const [selectedLesson, setSelectedLesson] = useState('');
     const [copySuccess, setCopySuccess] = useState('');
 
-    const sections = ["Lesson Navigation", "Curated News", "Article Manager", "Vocabulary", "Idioms", "Bainur's Vocab"];
+    const sections = ["Lesson Navigation", "Curated News", "Article Manager", "Vocabulary", "Idioms", "Bainur's Vocab", "Student Lessons"];
 
 
     // --- Event Handlers ---
@@ -92,9 +95,34 @@ export default function DashboardPage() {
     const handleVocabSelectChange = (event) => setSelectedVocabLesson(event.target.value);
     const handleIdiomSelectChange = (event) => setSelectedIdiomLesson(event.target.value);
     const handleBainurSelectChange = (event) => setSelectedBainurLesson(event.target.value);
+    const handleStudentSelectChange = (event) => {
+        const student = event.target.value;
+        setSelectedStudent(student);
+        setSelectedLesson(''); // Reset lesson selection when student changes
+    };
+    const handleLessonSelectChange = (event) => setSelectedLesson(event.target.value);
 
     const copyToClipboard = (type, id) => {
         const link = createShareLink(type, id);
+        navigator.clipboard.writeText(link).then(() => {
+            setCopySuccess('Link copied to clipboard!');
+            setTimeout(() => setCopySuccess(''), 2000);
+        }, (err) => {
+            setCopySuccess('Failed to copy!');
+            console.error('Could not copy text: ', err);
+        });
+    };
+
+    const createStudentLessonLink = (filename) => {
+        const baseUrl = window.location.origin;
+        return new URL(`/student-lessons/${filename}`, baseUrl).href;
+    };
+
+    const copyStudentLessonLink = () => {
+        if (!selectedLesson) return;
+        const lesson = getLessonsByStudent(selectedStudent).find(l => l.date === selectedLesson);
+        if (!lesson) return;
+        const link = createStudentLessonLink(lesson.filename);
         navigator.clipboard.writeText(link).then(() => {
             setCopySuccess('Link copied to clipboard!');
             setTimeout(() => setCopySuccess(''), 2000);
@@ -183,6 +211,131 @@ export default function DashboardPage() {
                             </GlassButtonWrapper>
                         </Box>
                         {copySuccess && <Typography color="secondary.main" sx={{ textAlign: 'center' }}>{copySuccess}</Typography>}
+                    </Box>
+                </Section>
+            )}
+
+            {activeTab === 6 && (
+                <Section title="Student Lessons" instructions="Select a student and lesson date to access custom lesson files.">
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 2 }}>
+                        {/* Student Selector */}
+                        <Box>
+                            <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>Select Student</Typography>
+                            <Select 
+                                value={selectedStudent} 
+                                onChange={handleStudentSelectChange}
+                                fullWidth
+                                displayEmpty
+                            >
+                                <MenuItem value="" disabled>
+                                    <em>Choose a student...</em>
+                                </MenuItem>
+                                {getStudentNames().map((name) => (
+                                    <MenuItem key={name} value={name}>
+                                        {name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </Box>
+
+                        {/* Lesson Selector - Only show if student is selected */}
+                        {selectedStudent && (
+                            <Box>
+                                <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>Select Lesson Date</Typography>
+                                <Select 
+                                    value={selectedLesson} 
+                                    onChange={handleLessonSelectChange}
+                                    fullWidth
+                                    displayEmpty
+                                >
+                                    <MenuItem value="" disabled>
+                                        <em>Choose a lesson...</em>
+                                    </MenuItem>
+                                    {getLessonsByStudent(selectedStudent).map((lesson) => (
+                                        <MenuItem key={lesson.date} value={lesson.date}>
+                                            {lesson.date} {lesson.title ? `- ${lesson.title}` : ''}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </Box>
+                        )}
+
+                        {/* Lesson Display and Actions */}
+                        {selectedStudent && selectedLesson && (() => {
+                            const lesson = getLessonsByStudent(selectedStudent).find(l => l.date === selectedLesson);
+                            if (!lesson) return null;
+                            const lessonUrl = createStudentLessonLink(lesson.filename);
+                            
+                            return (
+                                <Box sx={{ mt: 2 }}>
+                                    {lesson.description && (
+                                        <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
+                                            {lesson.description}
+                                        </Typography>
+                                    )}
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                            <TextField 
+                                                fullWidth 
+                                                readOnly 
+                                                value={lessonUrl} 
+                                                variant="outlined" 
+                                                size="small" 
+                                            />
+                                            <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
+                                                <Button 
+                                                    variant="text" 
+                                                    onClick={copyStudentLessonLink} 
+                                                    startIcon={<ContentCopyIcon />}
+                                                >
+                                                    Copy
+                                                </Button>
+                                            </GlassButtonWrapper>
+                                            <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
+                                                <Button 
+                                                    variant="text" 
+                                                    href={lessonUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    startIcon={<OpenInNewIcon />}
+                                                >
+                                                    Open
+                                                </Button>
+                                            </GlassButtonWrapper>
+                                        </Box>
+                                        {copySuccess && (
+                                            <Typography color="secondary.main" sx={{ textAlign: 'center' }}>
+                                                {copySuccess}
+                                            </Typography>
+                                        )}
+                                        {/* Lesson Preview in iframe */}
+                                        <Box sx={{ mt: 2, border: '1px solid', borderColor: 'divider', borderRadius: 1, overflow: 'hidden' }}>
+                                            <iframe
+                                                src={lessonUrl}
+                                                title={lesson.title || `Lesson for ${selectedStudent}`}
+                                                style={{
+                                                    width: '100%',
+                                                    height: '600px',
+                                                    border: 'none'
+                                                }}
+                                            />
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            );
+                        })()}
+
+                        {/* Empty State */}
+                        {!selectedStudent && (
+                            <Typography variant="body2" sx={{ textAlign: 'center', color: 'text.secondary', py: 4 }}>
+                                Select a student to view their lessons
+                            </Typography>
+                        )}
+                        {selectedStudent && !selectedLesson && (
+                            <Typography variant="body2" sx={{ textAlign: 'center', color: 'text.secondary', py: 4 }}>
+                                Select a lesson date to view the lesson
+                            </Typography>
+                        )}
                     </Box>
                 </Section>
             )}

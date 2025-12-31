@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mobile Engineer's Communication Toolkit</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Custom Font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Slate 100 */
+        }
+
+        /* Chart Container Styling - Mandatory Requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Utility for hiding sections */
+        .hidden-section {
+            display: none;
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .active-nav {
+            background-color: #2563eb; /* Blue 600 */
+            color: white;
+            border-bottom: 4px solid #1e40af; /* Blue 800 */
+        }
+        
+        .inactive-nav {
+            background-color: white;
+            color: #4b5563; /* Gray 600 */
+            border-bottom: 4px solid transparent;
+        }
+
+        .inactive-nav:hover {
+            background-color: #eff6ff; /* Blue 50 */
+        }
+    </style>
+    <!-- Chosen Palette: Corporate Tech Blue & Slate (Trust, Professionalism, Calm) -->
+    <!-- Application Structure Plan: 
+         - Dashboard Layout: A central hub with three distinct "Modes" (tabs) corresponding to the student's learning options.
+         - Mode 1 (Trade-Off): Focus on Strategy/Conflict. Uses a split layout: Scenario/Vocab on left, "Yes, But, So" Builder + Chart on right. 
+         - Mode 2 (Gauntlet): Focus on Clarity/Analogies. Uses a minimalist "Flashcard" style interface with a timer and randomizer.
+         - Mode 3 (Sabbatical): Focus on Narrative. Uses a "Mad Libs" style form builder with real-time preview to construct the story.
+         - Why: This structure minimizes cognitive load by isolating the tasks. It transforms static text into active tools (builders, timers, visualizers).
+    -->
+    <!-- Visualization & Content Choices:
+         - Mode 1 Chart: "Diminishing Returns Curve" (Line Chart). Goal: Visually reinforce the vocab concept "Diminishing Returns". Interaction: Static illustration of the concept.
+         - Mode 2 Timer: Canvas-based Countdown. Goal: Add pressure to the "Gauntlet" task.
+         - Mode 3 Interactive Text: Real-time string concatenation. Goal: Immediate feedback on narrative flow.
+         - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+</head>
+<body class="text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">📱</span>
+                <h1 class="text-xl font-bold text-slate-900 tracking-tight">Mobile Engineer's <span class="text-blue-600">Communication Toolkit</span></h1>
+            </div>
+            <div class="text-sm text-slate-500 hidden sm:block">
+                For Yusuke K. | Lead Engineer Strategy
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation / Mode Selection -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button onclick="switchMode('mode1')" id="btn-mode1" class="active-nav p-4 rounded-lg shadow-sm transition-all text-left group">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-lg">⚖️ The Trade-Off</span>
+                    <span class="text-xs bg-white/20 px-2 py-1 rounded">Conflict & Strategy</span>
+                </div>
+                <p class="text-sm opacity-90">Negotiate technical debt vs. new features.</p>
+            </button>
+            
+            <button onclick="switchMode('mode2')" id="btn-mode2" class="inactive-nav p-4 rounded-lg shadow-sm transition-all text-left group">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-lg">💡 The Gauntlet</span>
+                    <span class="text-xs bg-slate-200 text-slate-700 px-2 py-1 rounded">Clarity & Analogies</span>
+                </div>
+                <p class="text-sm opacity-90">Explain complex tech to a non-tech CEO.</p>
+            </button>
+
+            <button onclick="switchMode('mode3')" id="btn-mode3" class="inactive-nav p-4 rounded-lg shadow-sm transition-all text-left group">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-lg">☕ Sabbatical Story</span>
+                    <span class="text-xs bg-slate-200 text-slate-700 px-2 py-1 rounded">Networking</span>
+                </div>
+                <p class="text-sm opacity-90">Frame your break as a strategic pause.</p>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[60vh]">
+
+        <!-- MODE 1: THE TRADE-OFF CHALLENGE -->
+        <section id="mode1" class="fade-in space-y-8">
+            <div class="bg-white rounded-xl shadow p-6 border-l-4 border-blue-600">
+                <h2 class="text-2xl font-bold mb-2">The Scenario: Christmas Launch Crisis</h2>
+                <p class="text-slate-600 mb-4">You are the <strong>Lead Mobile Engineer</strong>. The <strong>Product Manager (PM)</strong> demands "Live Video Backgrounds" for the Christmas sale launch. Your app is already unstable.</p>
+                <div class="bg-red-50 text-red-800 p-4 rounded-lg text-sm">
+                    <strong>The Problem:</strong> Adding this will increase crash rates (Technical Debt).<br>
+                    <strong>The Goal:</strong> Convince the PM to drop it without saying "No". Use the "Yes, But, So" method.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left: Vocab & Concept -->
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">🛡️ Strategic Vocabulary</h3>
+                        <div class="space-y-4">
+                            <div class="border-b pb-3">
+                                <p class="font-semibold text-blue-700">Diminishing returns</p>
+                                <p class="text-sm text-slate-600">When effort put in doesn't equal value gained.</p>
+                                <p class="text-xs italic text-slate-500 mt-1">"Adding this feature offers diminishing returns..."</p>
+                            </div>
+                            <div class="border-b pb-3">
+                                <p class="font-semibold text-blue-700">Opportunity cost</p>
+                                <p class="text-sm text-slate-600">What we lose by choosing this option.</p>
+                                <p class="text-xs italic text-slate-500 mt-1">"The opportunity cost is that we won't fix the login bug."</p>
+                            </div>
+                            <div class="border-b pb-3">
+                                <p class="font-semibold text-blue-700">To manage expectations</p>
+                                <p class="text-sm text-slate-600">To tell the realistic truth gently.</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-blue-700">A non-starter</p>
+                                <p class="text-sm text-slate-600">Impossible to consider.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-bold mb-2">Visualizing the Logic</h3>
+                        <p class="text-xs text-slate-500 mb-4">Use this concept to explain why more features != better product right now.</p>
+                        <div class="chart-container">
+                            <canvas id="diminishingReturnsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Builder -->
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col h-full">
+                    <h3 class="text-lg font-bold mb-4">🛠️ The "Yes, But, So" Builder</h3>
+                    <p class="text-sm text-slate-600 mb-6">Draft your response to the PM below. We will review it for tone.</p>
+
+                    <div class="space-y-4 flex-grow">
+                        <div>
+                            <label class="block text-sm font-semibold text-green-700 mb-1">1. YES (Validate)</label>
+                            <p class="text-xs text-slate-500 mb-2">Acknowledge their goal (Visuals/Sales).</p>
+                            <textarea id="input-yes" class="w-full p-3 border rounded focus:ring-2 focus:ring-green-200 outline-none text-sm" rows="2" placeholder="I understand why Marketing wants this..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-amber-700 mb-1">2. BUT (The Risk)</label>
+                            <p class="text-xs text-slate-500 mb-2">Explain the Technical Debt / Business Risk.</p>
+                            <textarea id="input-but" class="w-full p-3 border rounded focus:ring-2 focus:ring-amber-200 outline-none text-sm" rows="2" placeholder="However, our current codebase has..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-blue-700 mb-1">3. SO (The Trade-Off)</label>
+                            <p class="text-xs text-slate-500 mb-2">Offer a strategic choice.</p>
+                            <textarea id="input-so" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-200 outline-none text-sm" rows="2" placeholder="So, we can either delay launch or..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t">
+                        <h4 class="font-bold text-sm text-slate-900 mb-2">Your Strategic Response:</h4>
+                        <div id="response-output" class="bg-slate-50 p-4 rounded text-slate-700 italic text-sm min-h-[80px]">
+                            Start typing above to see your complete response here...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODE 2: THE LAYMAN'S GAUNTLET -->
+        <section id="mode2" class="hidden-section fade-in">
+             <div class="bg-white rounded-xl shadow p-6 mb-8 border-l-4 border-amber-500">
+                <h2 class="text-2xl font-bold mb-2">The Challenge: No Jargon Allowed</h2>
+                <p class="text-slate-600">Explain the technical term below to a <strong>Non-Technical CEO</strong>.</p>
+                <div class="flex flex-wrap gap-4 mt-4 text-sm text-slate-700">
+                    <span class="bg-amber-100 px-3 py-1 rounded-full">🚫 No "API" or "Stack"</span>
+                    <span class="bg-amber-100 px-3 py-1 rounded-full">🏘️ Use an Analogy</span>
+                    <span class="bg-amber-100 px-3 py-1 rounded-full">⏸️ Use the "Download Pause"</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <!-- Card Drawer -->
+                <div class="bg-slate-800 rounded-xl shadow-lg p-8 text-center text-white flex flex-col items-center justify-center min-h-[400px] relative overflow-hidden">
+                    <div id="card-content" class="z-10 w-full">
+                        <h3 class="text-slate-400 text-sm uppercase tracking-widest mb-4">Current Term</h3>
+                        <p id="term-display" class="text-4xl md:text-5xl font-extrabold mb-8 min-h-[3.5rem]">Ready?</p>
+                        
+                        <button onclick="drawCard()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all">
+                            Draw New Card
+                        </button>
+                    </div>
+                    <!-- Background Decoration -->
+                    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                        <div class="w-64 h-64 bg-amber-500 rounded-full blur-3xl absolute -top-20 -left-20"></div>
+                        <div class="w-64 h-64 bg-blue-500 rounded-full blur-3xl absolute -bottom-20 -right-20"></div>
+                    </div>
+                </div>
+
+                <!-- Tools & Hints -->
+                <div class="space-y-6">
+                    <!-- Timer -->
+                    <div class="bg-white rounded-xl shadow p-6 flex items-center justify-between">
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-700">Prep Timer</h4>
+                            <p class="text-xs text-slate-500">Take 30 seconds to think.</p>
+                        </div>
+                        <div class="text-4xl font-mono font-bold text-slate-800" id="timer-display">30</div>
+                        <button onclick="startTimer()" class="text-blue-600 hover:text-blue-800 text-sm font-semibold">Restart</button>
+                    </div>
+
+                    <!-- Analogy Cheat Sheet -->
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <div class="flex justify-between items-center mb-4 cursor-pointer" onclick="toggleHints()">
+                            <h3 class="text-lg font-bold">🧠 Analogy Cheat Sheet</h3>
+                            <span id="hint-toggle-icon">▼</span>
+                        </div>
+                        <div id="hints-container" class="hidden-section space-y-4">
+                            <div class="p-3 bg-slate-50 rounded border-l-4 border-blue-400">
+                                <span class="font-bold block text-sm">Construction 🏗️</span>
+                                <span class="text-xs text-slate-600">"Building an app is like building a skyscraper. Backend is the foundation, UI is the paint."</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded border-l-4 border-green-400">
+                                <span class="font-bold block text-sm">Traffic 🚗</span>
+                                <span class="text-xs text-slate-600">"Data is like cars. Adding servers is like adding lanes to a highway."</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded border-l-4 border-amber-400">
+                                <span class="font-bold block text-sm">Kitchen 👨‍🍳</span>
+                                <span class="text-xs text-slate-600">"The server is the chef. If too many orders come in, the chef slows down."</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded border-l-4 border-red-400">
+                                <span class="font-bold block text-sm">Debt 💳</span>
+                                <span class="text-xs text-slate-600">"Bad code is like credit card debt. Fast now, huge interest later."</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-6">
+                         <h4 class="font-bold text-blue-800 mb-2">Self-Assessment</h4>
+                         <p class="text-sm text-blue-700 mb-4">After your explanation, ask yourself:</p>
+                         <ul class="list-disc pl-5 text-sm text-blue-700 space-y-1">
+                             <li>Did I pause for 1 second between sentences?</li>
+                             <li>Did I use any words like "Stack" or "Latency"?</li>
+                             <li>Did the "CEO" (Tutor) look confused?</li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODE 3: THE SABBATICAL STORY -->
+        <section id="mode3" class="hidden-section fade-in">
+            <div class="bg-white rounded-xl shadow p-6 mb-8 border-l-4 border-indigo-600">
+                <h2 class="text-2xl font-bold mb-2">The Networking Polish</h2>
+                <p class="text-slate-600">Scenario: You are at a tech meetup. A potential partner asks, <em>"So, what are you working on these days?"</em></p>
+                <div class="mt-4 bg-indigo-50 text-indigo-800 p-3 rounded-lg text-sm inline-block">
+                    <strong>Goal:</strong> Frame your sabbatical as a time of <strong>growth</strong>, not just resting.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Left: The Builder Form -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="text-lg font-bold mb-4">Story Builder</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Positive Adjective</label>
+                                <input type="text" id="ml-adj" class="w-full p-2 border rounded text-sm" placeholder="e.g. refreshing, much-needed" oninput="updateStory()">
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    <button onclick="fillInput('ml-adj', 'strategic')" class="text-xs bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded">strategic</button>
+                                    <button onclick="fillInput('ml-adj', 'productive')" class="text-xs bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded">productive</button>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Your Tech Stack</label>
+                                <input type="text" id="ml-stack" class="w-full p-2 border rounded text-sm" placeholder="e.g. mobile architecture" value="mobile architecture for iOS and Android" oninput="updateStory()">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Timeframe</label>
+                                <input type="text" id="ml-time" class="w-full p-2 border rounded text-sm" placeholder="e.g. a few months" oninput="updateStory()">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Active Verb (What are you doing?)</label>
+                                <input type="text" id="ml-verb" class="w-full p-2 border rounded text-sm" placeholder="e.g. step back, gain perspective" oninput="updateStory()">
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    <button onclick="fillInput('ml-verb', 'recharge my batteries')" class="text-xs bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded">recharge my batteries</button>
+                                    <button onclick="fillInput('ml-verb', 'upskill')" class="text-xs bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded">upskill</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Current Interest</label>
+                                <input type="text" id="ml-interest" class="w-full p-2 border rounded text-sm" placeholder="e.g. English communication" oninput="updateStory()">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Future Goal</label>
+                                <input type="text" id="ml-goal" class="w-full p-2 border rounded text-sm" placeholder="e.g. my next leadership role" oninput="updateStory()">
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    <button onclick="fillInput('ml-goal', 'a CTO position')" class="text-xs bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded">a CTO position</button>
+                                    <button onclick="fillInput('ml-goal', 'leading a larger team')" class="text-xs bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded">leading a larger team</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: The Preview -->
+                <div class="lg:col-span-7">
+                    <div class="bg-indigo-900 rounded-xl shadow-xl p-8 text-white h-full relative">
+                        <div class="absolute top-4 right-4 opacity-20 text-6xl">💬</div>
+                        <h3 class="text-indigo-200 text-sm font-bold uppercase tracking-wider mb-6">Your Narrative</h3>
+                        
+                        <div class="prose prose-invert text-lg leading-relaxed">
+                            <p>
+                                "Actually, I’m currently on a <span id="out-adj" class="font-bold text-amber-400 border-b border-dashed border-amber-400">_______</span> sabbatical.
+                            </p>
+                            <p>
+                                For the last few years, I was deep in the weeds building <span id="out-stack" class="font-bold text-amber-400 border-b border-dashed border-amber-400">_______</span>. It was intense, but rewarding.
+                            </p>
+                            <p>
+                                Now, I’m taking <span id="out-time" class="font-bold text-amber-400 border-b border-dashed border-amber-400">_______</span> to <span id="out-verb" class="font-bold text-amber-400 border-b border-dashed border-amber-400">_______</span>. I've been focusing on <span id="out-interest" class="font-bold text-amber-400 border-b border-dashed border-amber-400">_______</span>.
+                            </p>
+                            <p>
+                                It’s been great to clear my head so I can be ready for <span id="out-goal" class="font-bold text-amber-400 border-b border-dashed border-amber-400">_______</span>."
+                            </p>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-indigo-700/50">
+                            <h4 class="text-indigo-300 text-sm font-bold mb-2">Teacher's Note:</h4>
+                            <p class="text-indigo-100 text-sm italic">"Notice how this framing puts YOU in control. You aren't 'unemployed'; you are 'preparing for the next big step'."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-400 text-sm">
+            Generated for Mobile Engineering English Curriculum
+        </div>
+    </footer>
+
+    <script>
+        // --- Navigation Logic ---
+        function switchMode(modeId) {
+            // Hide all sections
+            document.getElementById('mode1').classList.add('hidden-section');
+            document.getElementById('mode2').classList.add('hidden-section');
+            document.getElementById('mode3').classList.add('hidden-section');
+            
+            // Show target section
+            document.getElementById(modeId).classList.remove('hidden-section');
+
+            // Update Nav Styles
+            ['mode1', 'mode2', 'mode3'].forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if (id === modeId) {
+                    btn.classList.remove('inactive-nav');
+                    btn.classList.add('active-nav');
+                } else {
+                    btn.classList.remove('active-nav');
+                    btn.classList.add('inactive-nav');
+                }
+            });
+        }
+
+        // --- Mode 1: Chart.js Logic (Diminishing Returns) ---
+        const ctx = document.getElementById('diminishingReturnsChart').getContext('2d');
+        const drChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Base App', 'Core Features', 'Nice-to-Haves', 'Bloat', 'Video BG'],
+                datasets: [{
+                    label: 'User Value / Satisfaction',
+                    data: [20, 50, 80, 85, 75], // Curves up then drops
+                    borderColor: '#2563eb', // Blue 600
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                },
+                {
+                    label: 'Technical Debt / Crash Risk',
+                    data: [5, 10, 20, 40, 85], // Curves up exponentially
+                    borderColor: '#dc2626', // Red 600
+                    borderDash: [5, 5],
+                    tension: 0.2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataIndex === 4) {
+                                    return context.dataset.label + ": CRITICAL LEVEL";
+                                }
+                                return context.dataset.label + ": " + context.raw;
+                            }
+                        }
+                    },
+                    annotation: {
+                        // Conceptual annotation logic would go here if plugin enabled
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Impact Level' },
+                        grid: { color: '#f1f5f9' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // --- Mode 1: Yes But So Logic ---
+        const inputs = ['input-yes', 'input-but', 'input-so'];
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateResponsePreview);
+        });
+
+        function updateResponsePreview() {
+            const y = document.getElementById('input-yes').value.trim();
+            const b = document.getElementById('input-but').value.trim();
+            const s = document.getElementById('input-so').value.trim();
+            
+            const output = document.getElementById('response-output');
+            
+            if (!y && !b && !s) {
+                output.innerHTML = "Start typing above to see your complete response here...";
+                return;
+            }
+
+            output.innerHTML = `
+                <span class="text-green-700 font-semibold">${y}</span> 
+                <span class="text-amber-700 font-semibold mx-1">...${b}</span> 
+                <span class="text-blue-700 font-semibold">...${s}</span>
+            `;
+        }
+
+
+        // --- Mode 2: Gauntlet Logic ---
+        const terms = [
+            "Technical Debt",
+            "Refactoring",
+            "API Latency",
+            "Scalability",
+            "Bugs vs. Features"
+        ];
+        
+        let timerInterval;
+        
+        function drawCard() {
+            const termDisplay = document.getElementById('term-display');
+            // Simple random selection
+            const randomTerm = terms[Math.floor(Math.random() * terms.length)];
+            
+            // Animation effect
+            termDisplay.style.opacity = 0;
+            setTimeout(() => {
+                termDisplay.innerText = randomTerm;
+                termDisplay.style.opacity = 1;
+                startTimer();
+            }, 200);
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            let timeLeft = 30;
+            const display = document.getElementById('timer-display');
+            display.innerText = timeLeft;
+            display.classList.remove('text-red-600');
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                display.innerText = timeLeft;
+                if (timeLeft <= 5) {
+                    display.classList.add('text-red-600');
+                }
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    display.innerText = "GO!";
+                }
+            }, 1000);
+        }
+
+        function toggleHints() {
+            const container = document.getElementById('hints-container');
+            const icon = document.getElementById('hint-toggle-icon');
+            if (container.classList.contains('hidden-section')) {
+                container.classList.remove('hidden-section');
+                container.classList.add('fade-in');
+                icon.innerText = "▲";
+            } else {
+                container.classList.add('hidden-section');
+                icon.innerText = "▼";
+            }
+        }
+
+        // --- Mode 3: Mad Lib Logic ---
+        function fillInput(id, value) {
+            document.getElementById(id).value = value;
+            updateStory();
+        }
+
+        function updateStory() {
+            const fields = ['adj', 'stack', 'time', 'verb', 'interest', 'goal'];
+            
+            fields.forEach(field => {
+                const inputVal = document.getElementById('ml-' + field).value;
+                const outputSpan = document.getElementById('out-' + field);
+                
+                if (inputVal && inputVal.trim() !== "") {
+                    outputSpan.innerText = inputVal;
+                    outputSpan.classList.remove('border-dashed', 'border-amber-400', 'text-amber-400');
+                    outputSpan.classList.add('text-white', 'border-transparent');
+                } else {
+                    outputSpan.innerText = "_______";
+                    outputSpan.classList.add('border-dashed', 'border-amber-400', 'text-amber-400');
+                    outputSpan.classList.remove('text-white', 'border-transparent');
+                }
+            });
+        }
+
+        // Init
+        // Initialize with default values for chart sizing
+        window.addEventListener('resize', () => {
+             drChart.resize();
+        });
+    </script>
+</body>
+</html>
