@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Box, Typography, Paper, Button, Chip, Stack, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Box, Typography, Paper, Button, Chip, Stack, Accordion, AccordionSummary, AccordionDetails, Grid } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LessonHeader from '../../components/LessonHeader';
 import Footer from '../../components/Footer';
@@ -28,8 +28,31 @@ const lessonData = {
         { name: 'The Trade-Off Frame', structure: 'We need to strike a balance between [Benefit] and [Cost].' },
         { name: 'The Conditional Risk', structure: 'Unless we [Mitigation], we run the risk of [Consequence].' },
         { name: 'The Recommendation Frame', structure: 'From an engineering standpoint, it makes more sense to [Action].' },
-        { name: 'The Soft Suggestion', structure: 'It wouldn\'t hurt to [Action].' },
-      ]
+      ],
+      rolePlay: {
+        title: 'The "Christmas Feature" Debate',
+        steps: [
+          { role: 'PM (Teacher)', text: "Yusuke, design sent this 'Snowfall' video background. It looks amazing for Christmas. I want to ship it next week.", hint: "Use the 'Trade-Off Frame' (Strike a balance).", target: "It looks great, but we need to strike a balance between visual appeal and app performance." },
+          { role: 'PM (Teacher)', text: "Performance? It's just a 10-second video. Modern phones can handle that easily.", hint: "Use the 'Conditional Risk Frame' (Unless we...). Mention older Androids.", target: "True for iPhone 15, but unless we optimize for older Androids, we run the risk of high uninstall rates." },
+          { role: 'PM (Teacher)', text: "Okay, we can't lose users. What do you propose?", hint: "Use the 'Recommendation Frame' (Engineering standpoint / Makes sense to...).", target: "From an engineering standpoint, it makes more sense to use a static image for older devices." }
+        ]
+      },
+      drill: {
+        type: 'sentence',
+        title: 'Pattern Builder: Conditional Risk',
+        target: ["Unless we", "refactor the code", "we run the risk of", "creating bugs"],
+        options: [
+          ["If we don't", "Unless we", "Because we"],
+          ["fix the code", "refactor the code", "delete the code"],
+          ["we might", "we run the risk of", "it is dangerous"],
+          ["making bad things", "creating bugs", "losing money"]
+        ]
+      },
+      homework: {
+        title: "The Trade-Off Analysis",
+        task: "Write a formal Slack message to a Product Manager explaining why a specific feature (of your choice) needs to be delayed or modified. You must use the 'Trade-Off Frame' to acknowledge value and the 'Conditional Risk Frame' to explain the danger.",
+        constraint: "Must use the phrase: 'Proceeding with [X] is viable, provided that we [Y].' Length: 50-75 words."
+      }
     },
     {
       id: 'negotiation',
@@ -38,31 +61,74 @@ const lessonData = {
       topic: 'Strategic Negotiation',
       goal: 'Master the "Yes, But, So" framework to push back on unreasonable requests without being negative.',
       vocabulary: [
-        { word: 'Viable alternative', def: 'A different option that can work successfully.', example: 'Since we can\'t use video, a GIF is a viable alternative.' },
-        { word: 'Strategic alignment', def: 'Ensuring a task matches the company\'s big goals.', example: 'This feature lacks strategic alignment with our Q4 goals.' },
-        { word: 'Resource allocation', def: 'Assigning people or time to a task.', example: 'We need to discuss resource allocation for the Android refactor.' },
+        { word: 'Viable alternative', def: 'A different option that can work successfully.', example: 'Since the video background is too heavy, a Lottie animation is a viable alternative.' },
+        { word: 'Strategic alignment', def: 'Ensuring a task matches the company\'s big goals.', example: 'This custom animation lacks strategic alignment with our Q4 goal of improving app speed.' },
+        { word: 'Resource allocation', def: 'Assigning people or time to a task.', example: 'We need to discuss resource allocation; my team is fully booked on the payment integration.' },
       ],
       patterns: [
         { name: 'The Pivot', structure: 'I see your point regarding [X], however [Y]...' },
         { name: 'The Condition', structure: 'Proceeding with [Plan] is viable, provided that we [Condition].' }
-      ]
+      ],
+      rolePlay: {
+        title: 'Defending Against Scope Creep',
+        steps: [
+          { role: 'CEO (Teacher)', text: "Yusuke, I want to add a 'Chat with Support' button to the home screen. Can we squeeze that into this sprint?", hint: "Validate the idea, but pivot to the timeline constraint.", target: "I see the strategic value in adding support chat, however, our current sprint is fully committed to the login refactor." },
+          { role: 'CEO (Teacher)', text: "But it's just a button. How hard can it be?", hint: "Use 'Resource Allocation' to explain the hidden cost.", target: "The UI is simple, but the backend integration requires significant resource allocation that we haven't planned for." },
+          { role: 'CEO (Teacher)', text: "I really need this live by Friday.", hint: "Offer a 'Viable Alternative' or a Condition.", target: "Proceeding by Friday is viable, provided that we pause the login refactor to free up two engineers." }
+        ]
+      },
+      drill: {
+        type: 'tone_builder',
+        title: 'Advanced Tone Shift',
+        scenario: "The CEO asks: 'Can we squeeze the new Analytics Dashboard into this sprint?' (You are fully booked).",
+        framework: "The Condition",
+        blunt: "No, we are too busy to do that.",
+        // The target components the user must assemble
+        target: ["proceeding with the dashboard", "is viable,", "provided that we", "pause the payment integration."],
+        // Distractors mixed in to confuse the user
+        distractors: ["but", "It's impossible", "unless", "I think", "we can't"]
+      },
+      homework: {
+        title: "The Strategic Pushback",
+        task: "Draft three versions of an email declining a request to attend a last-minute meeting. Version 1: Too blunt (Rude). Version 2: Too polite (Weak). Version 3: Strategic (Firm but professional).",
+        constraint: "For Version 3, you must use the phrase 'Resource Allocation' or 'Strategic Alignment' to justify your absence."
+      }
     },
     {
       id: 'clarity',
       title: '3. Layman\'s Terms',
       icon: '💡',
       topic: 'Explaining Complexity',
-      goal: 'Translate complex iOS/Kotlin concepts into simple visual analogies for non-technical stakeholders.',
+      goal: 'Translate complex iOS/Kotlin concepts into simple visual analogies for non-technical stakeholders (C-Suite).',
       vocabulary: [
-        { word: 'Bottleneck', def: 'A point of congestion that slows down a process.', analogy: 'Like a traffic jam where 4 lanes become 1.' },
-        { word: 'Bandwidth', def: 'The capacity to handle data or tasks.', analogy: 'Like the width of a water pipe.' },
-        { word: 'Latency', def: 'The delay before a transfer of data begins.', analogy: 'Like the time between pressing a pedal and the car moving.' },
-        { word: 'Scalability', def: 'The ability to handle growth.', analogy: 'Like building a skyscraper instead of a house.' },
+        { word: 'Bottleneck', def: 'A point of congestion that slows down a process.', example: 'The image processing server has become a bottleneck, causing the entire signup flow to timeout.' },
+        { word: 'Bandwidth', def: 'The capacity to handle data or tasks.', example: 'The QA team simply doesn\'t have the bandwidth to test this manually before launch.' },
+        { word: 'Latency', def: 'The delay before a transfer of data begins.', example: 'High latency in the API is frustrating users; they tap the button and nothing happens for 2 seconds.' },
+        { word: 'Scalability', def: 'The ability to handle growth.', example: 'The current database lacks scalability; if we double our user base, it will crash.' },
       ],
       patterns: [
-        { name: 'The Simile', structure: 'Think of [Technical Term] like [Everyday Object]...' },
-        { name: 'The Simplification', structure: 'Essentially, this allows the app to...' }
-      ]
+        { name: 'The Executive Analogy', structure: 'Think of [Technical Term] like [Business Concept]...' },
+        { name: 'The Bottom Line', structure: 'Essentially, this investment allows us to [Business Value].' }
+      ],
+      rolePlay: {
+        title: 'The Boardroom Pitch: Why Refactor?',
+        steps: [
+          { role: 'CFO (Teacher)', text: "Yusuke, you want to spend 2 months 'refactoring'? Why should we pay you to rewrite code that already works?", hint: "Use the 'Technical Debt vs. Financial Debt' analogy.", target: "Think of the current code like a high-interest credit card. If we don't pay down the principal (refactor) now, the interest (bugs) will slow us down forever." },
+          { role: 'CFO (Teacher)', text: "But will the user see any difference?", hint: "Focus on 'Scalability' and future speed.", target: "Visually, no. But this increases our scalability. It ensures that when we launch the TV campaign, the app won't crash under the load." },
+          { role: 'CFO (Teacher)', text: "Okay, so it's an insurance policy?", hint: "Confirm and pivot to 'Velocity'.", target: "Exactly. It also removes the bottleneck in development, meaning we can ship features 2x faster next quarter." }
+        ]
+      },
+      drill: {
+        type: 'analogy',
+        title: 'Executive Analogy Builder',
+        concept: "Technical Debt",
+        chunks: ["Think of technical debt", "like a mortgage.", "The longer we wait to fix it,", "the more interest we pay", "in the form of slower updates."]
+      },
+      homework: {
+        title: "The Analogy Library",
+        task: "Select three technical terms from your recent work (e.g., API, Latency, Cache). Create one 'Executive Analogy' for each that explains the concept using everyday business terms (like office logistics, traffic, or shipping).",
+        constraint: "Each analogy must start with 'Think of [Term] like...' and end with 'Essentially, this means...'"
+      }
     },
     {
       id: 'interview',
@@ -71,15 +137,40 @@ const lessonData = {
       topic: 'Reframing the Sabbatical',
       goal: 'Present your career break as a period of active growth ("Upskilling") rather than passivity.',
       vocabulary: [
-        { word: 'Upskill', def: 'To learn new skills.', example: 'I used this time to upskill in SwiftUI.' },
-        { word: 'Gain perspective', def: 'To see things from a new angle.', example: 'Traveling helped me gain perspective on global tech trends.' },
-        { word: 'Recharge', def: 'To regain energy.', example: 'I needed to recharge after 5 years of sprint cycles.' },
-        { word: 'Pivot', def: 'To change direction strategically.', example: 'I am looking to pivot into a more leadership-focused role.' },
+        { word: 'Upskill', def: 'To learn new skills.', example: 'I utilized my time off to upskill in SwiftUI and declarative UI patterns.' },
+        { word: 'Gain perspective', def: 'To see things from a new angle.', example: 'Stepping back allowed me to gain perspective on how mobile architecture is evolving globally.' },
+        { word: 'Recharge', def: 'To regain energy.', example: 'After 5 years of intense sprint cycles, I needed to recharge to return with renewed focus.' },
+        { word: 'Pivot', def: 'To change direction strategically.', example: 'I am looking to pivot from pure individual contribution into a technical leadership role.' },
       ],
       patterns: [
         { name: 'The Active Frame', structure: 'I took the opportunity to [Active Verb]...' },
         { name: 'The Bridge', structure: '...which has prepared me to [Future Value]...' }
-      ]
+      ],
+      rolePlay: {
+        title: 'The Behavioral Interview',
+        steps: [
+          { role: 'Interviewer', text: "I see a gap in your resume since last year. What have you been doing?", hint: "Use 'Upskill' and 'Active Frame'. Avoid saying 'Just relaxing'.", target: "I took a planned sabbatical to upskill in modern Android architecture and travel." },
+          { role: 'Interviewer', text: "Oh, nice. But are you ready to jump back into a high-pressure environment?", hint: "Use 'Recharge' and 'Renewed Focus'.", target: "Absolutely. The break allowed me to recharge. I'm actually eager to apply the new perspectives I gained to a team environment." },
+          { role: 'Interviewer', text: "Why our company specifically?", hint: "Connect your new skills to their needs.", target: "I saw you are migrating to Kotlin Multiplatform. That aligns perfectly with the research I conducted during my break." }
+        ]
+      },
+      drill: {
+        type: 'star',
+        title: 'STAR Method Builder',
+        context: "Tell me about a time you handled a crisis.",
+        // Removed explicit prefixes S/T/A/R to challenge the student
+        chunks: [
+          "Our app crashed on Black Friday due to high traffic.", 
+          "I had to identify the root cause immediately.", 
+          "I led a war room and rolled back the deployment within 15 minutes.", 
+          "We restored service fully and saved Q4 revenue targets."
+        ]
+      },
+      homework: {
+        title: "The STAR Storyboard",
+        task: "Prepare one STAR story (Situation, Task, Action, Result) for the interview question: 'Tell me about a time you had to manage a difficult stakeholder.'",
+        constraint: "Record yourself speaking the answer. It must be under 2 minutes. Ensure the 'Action' section is the longest part of your answer."
+      }
     }
   ]
 };
@@ -223,18 +314,158 @@ const WarmUpDrill = () => {
   );
 };
 
-const SentenceBuilder = () => {
+const SequenceBuilder = ({ title, chunks }) => {
+  const [available, setAvailable] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const [feedback, setFeedback] = useState("");
+
+  // Shuffle on mount and when chunks change
+  useEffect(() => {
+    setAvailable([...chunks].sort(() => Math.random() - 0.5));
+    setSelected([]);
+    setFeedback("");
+  }, [chunks]);
+
+  const handleAdd = (chunk) => {
+    const newSelected = [...selected, chunk];
+    setSelected(newSelected);
+    setAvailable(available.filter(c => c !== chunk));
+
+    // Check correctness (simple strict order check against original chunks)
+    const index = newSelected.length - 1;
+    if (chunk !== chunks[index]) {
+      setFeedback("⚠️ Hmmm, that piece doesn't fit the logical flow here. Reset to try again.");
+    } else if (newSelected.length === chunks.length) {
+      setFeedback("🎉 Excellent! That is a structured, executive-level response.");
+    } else {
+      setFeedback("");
+    }
+  };
+
+  const reset = () => {
+    setAvailable([...chunks].sort(() => Math.random() - 0.5));
+    setSelected([]);
+    setFeedback("");
+  };
+
+  return (
+    <Paper 
+      elevation={1}
+      sx={{ 
+        bgcolor: 'background.paper', 
+        p: 3, 
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: 'divider',
+        mb: 3
+      }}
+    >
+      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: 'text.primary' }}>
+        🧩 {title}
+      </Typography>
+      <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
+        Click the chunks in the correct order to build the response.
+      </Typography>
+      
+      {/* Drop Zone */}
+      <Box 
+        sx={{ 
+          minHeight: '60px',
+          p: 2,
+          bgcolor: 'background.default',
+          borderRadius: 1,
+          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)',
+          mb: 2,
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 1,
+          border: '1px solid',
+          borderColor: 'divider'
+        }}
+      >
+        {selected.map((s, i) => (
+          <Chip 
+            key={i}
+            label={s}
+            color="primary"
+            sx={{ 
+              fontWeight: 'medium',
+              border: '1px solid',
+              borderColor: 'primary.main'
+            }}
+          />
+        ))}
+        {selected.length === 0 && (
+          <Typography variant="body2" sx={{ color: 'text.disabled', fontStyle: 'italic' }}>
+            Select chunks below...
+          </Typography>
+        )}
+      </Box>
+
+      {/* Feedback */}
+      {feedback && (
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            mb: 2,
+            fontWeight: 'bold',
+            color: feedback.includes('Excellent') ? 'success.main' : 'warning.main'
+          }}
+        >
+          {feedback}
+        </Typography>
+      )}
+
+      {/* Pool */}
+      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+        {available.map((chunk, i) => (
+          <Button
+            key={i}
+            onClick={() => handleAdd(chunk)}
+            variant="outlined"
+            disabled={feedback.includes('⚠️')}
+            sx={{
+              borderColor: 'divider',
+              color: 'text.primary',
+              '&:hover': {
+                borderColor: 'primary.main',
+                bgcolor: 'background.default'
+              },
+              '&:disabled': {
+                opacity: 0.5
+              }
+            }}
+          >
+            {chunk}
+          </Button>
+        ))}
+      </Stack>
+
+      {selected.length > 0 && (
+        <Button 
+          onClick={reset} 
+          size="small"
+          sx={{ 
+            mt: 2,
+            color: 'text.secondary',
+            textDecoration: 'underline',
+            '&:hover': {
+              textDecoration: 'underline',
+              color: 'primary.main'
+            }
+          }}
+        >
+          Reset Drill
+        </Button>
+      )}
+    </Paper>
+  );
+};
+
+const SentenceBuilder = ({ title, target, options }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [feedback, setFeedback] = useState(null);
   const [shuffleKey, setShuffleKey] = useState(0);
-  
-  const targetSentence = ["Unless we", "refactor the code", "we run the risk of", "creating bugs"];
-  const baseOptions = [
-    ["If we don't", "Unless we", "Because we"],
-    ["fix the code", "refactor the code", "delete the code"],
-    ["we might", "we run the risk of", "it is dangerous"],
-    ["making bad things", "creating bugs", "losing money"]
-  ];
 
   // Shuffle function to randomize array order
   const shuffleArray = (array) => {
@@ -248,26 +479,35 @@ const SentenceBuilder = () => {
 
   // Shuffle options for current step whenever step or shuffleKey changes
   const shuffledOptions = useMemo(() => {
-    if (currentStep < baseOptions.length) {
-      return shuffleArray(baseOptions[currentStep]);
+    if (currentStep < options.length && options[currentStep]) {
+      return shuffleArray(options[currentStep]);
     }
     return [];
-  }, [currentStep, shuffleKey]);
+  }, [currentStep, shuffleKey, options]);
+
+  // Guard clause if no target or options
+  if (!target || !options) return null;
 
   const handleSelect = (option) => {
-    if (option === targetSentence[currentStep]) {
-      if (currentStep < targetSentence.length - 1) {
+    if (option === target[currentStep]) {
+      if (currentStep < target.length - 1) {
         setCurrentStep(currentStep + 1);
         setFeedback("Correct! Next chunk...");
         // Generate new shuffle for next step
         setShuffleKey(prev => prev + 1);
       } else {
-        setFeedback("🎉 Perfect! 'Unless we refactor the code, we run the risk of creating bugs.'");
-        setCurrentStep(targetSentence.length); // Done
+        setFeedback("🎉 Perfect Sequence!");
+        setCurrentStep(target.length); // Done
       }
     } else {
-      setFeedback("Try again. Look for the most professional 'Strategic' phrase.");
+      setFeedback("Try again. Think about the logical flow.");
     }
+  };
+
+  const reset = () => {
+    setCurrentStep(0);
+    setFeedback(null);
+    setShuffleKey(prev => prev + 1); // Reshuffle on reset
   };
 
   return (
@@ -283,7 +523,7 @@ const SentenceBuilder = () => {
       }}
     >
       <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: 'text.primary' }}>
-        🧩 Pattern Builder: Conditional Risk
+        🧩 {title}
       </Typography>
       <Box 
         sx={{ 
@@ -299,7 +539,7 @@ const SentenceBuilder = () => {
           boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)'
         }}
       >
-        {targetSentence.slice(0, currentStep).map((chunk, i) => (
+        {target.slice(0, currentStep).map((chunk, i) => (
           <Chip 
             key={i}
             label={chunk}
@@ -309,14 +549,14 @@ const SentenceBuilder = () => {
             }}
           />
         ))}
-        {currentStep < targetSentence.length && (
+        {currentStep < target.length && (
           <Typography variant="body2" sx={{ color: 'text.disabled', fontStyle: 'italic' }}>
             ...waiting for input...
           </Typography>
         )}
       </Box>
       
-      {currentStep < targetSentence.length ? (
+      {currentStep < target.length ? (
         <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
           {shuffledOptions.map((opt, i) => (
             <Button 
@@ -331,11 +571,7 @@ const SentenceBuilder = () => {
         </Stack>
       ) : (
         <Button 
-          onClick={() => {
-            setCurrentStep(0); 
-            setFeedback(null);
-            setShuffleKey(prev => prev + 1); // Reshuffle on reset
-          }} 
+          onClick={reset} 
           variant="contained"
           color="primary"
         >
@@ -351,15 +587,16 @@ const SentenceBuilder = () => {
   );
 };
 
-const TonePolisher = () => {
+const TonePolisher = ({ scenario, options }) => {
   const [selected, setSelected] = useState(null);
-  const scenario = "Marketing asks for a feature that will crash the app.";
-  
-  const options = [
-    { text: "No, that's a bad idea. It will break everything.", score: 'low', feedback: "Too direct. This sounds defensive." },
-    { text: "We can't do that because the code is messy.", score: 'low', feedback: "Too honest about internal problems. Sounds unprofessional." },
-    { text: "That sounds viable, provided that we allocate time to optimize it first.", score: 'high', feedback: "✨ Perfect! You validated the idea ('viable') but set a firm condition ('provided that')." }
-  ];
+
+  const handleSelect = (index) => {
+    setSelected(index);
+  };
+
+  const reset = () => {
+    setSelected(null);
+  };
 
   return (
     <Paper 
@@ -369,111 +606,589 @@ const TonePolisher = () => {
         p: 3, 
         borderRadius: 2,
         border: '1px solid',
-        borderColor: 'secondary.main',
-        my: 3
+        borderColor: 'divider',
+        boxShadow: 1,
+        mb: 3
       }}
     >
-      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: 'text.primary' }}>
-        🎨 Tone Polisher
-      </Typography>
-      <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-        Scenario: {scenario}
-      </Typography>
+      {/* Header with Icon */}
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+        <Box 
+          sx={{ 
+            p: 1, 
+            bgcolor: 'success.light', 
+            color: 'success.main',
+            borderRadius: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Typography>🎨</Typography>
+        </Box>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+          Tone Polisher
+        </Typography>
+      </Box>
       
+      {/* Scenario Box */}
+      <Paper
+        elevation={0}
+        sx={{
+          bgcolor: 'background.default',
+          p: 2,
+          borderRadius: 1,
+          borderLeft: '4px solid',
+          borderColor: 'primary.main',
+          mb: 3
+        }}
+      >
+        <Typography 
+          variant="overline" 
+          sx={{ 
+            fontWeight: 'bold', 
+            color: 'text.secondary', 
+            fontSize: '0.7rem',
+            letterSpacing: '0.1em',
+            display: 'block',
+            mb: 0.5
+          }}
+        >
+          Scenario
+        </Typography>
+        <Typography variant="body1" sx={{ fontWeight: 'medium', color: 'text.primary', fontSize: '1.125rem' }}>
+          {scenario}
+        </Typography>
+      </Paper>
+      
+      {/* Options */}
       <Stack spacing={1.5}>
-        {options.map((opt, i) => (
-          <Button
-            key={i}
-            onClick={() => setSelected(i)}
-            fullWidth
-            variant="outlined"
-            sx={{
-              textAlign: 'left',
-              justifyContent: 'flex-start',
-              p: 2,
-              borderRadius: 1,
-              borderColor: selected === i 
-                ? opt.score === 'high' ? 'secondary.main' : 'error.main'
-                : 'divider',
-              bgcolor: selected === i 
-                ? opt.score === 'high' ? 'background.default' : 'background.default'
-                : 'background.paper',
-              '&:hover': {
-                borderColor: selected === i 
-                  ? opt.score === 'high' ? 'secondary.main' : 'error.main'
-                  : 'secondary.main',
-                bgcolor: 'background.default'
-              },
-              ...(selected === i && opt.score === 'high' && {
-                boxShadow: 2,
-                borderWidth: '2px'
-              })
-            }}
-          >
-            <Box sx={{ width: '100%' }}>
-              <Typography variant="body1" sx={{ fontWeight: 'medium', color: 'text.primary' }}>
-                {opt.text}
-              </Typography>
-              {selected === i && (
-                <Typography 
-                  variant="body2" 
-                  sx={{ 
-                    mt: 1,
-                    color: opt.score === 'high' ? 'secondary.main' : 'error.main',
-                    fontWeight: opt.score === 'high' ? 'bold' : 'medium'
+        {options.map((opt, i) => {
+          const isSelected = selected === i;
+          const isHigh = opt.score === 'high';
+          
+          // Determine styles based on state
+          let borderColor = 'divider';
+          let bgColor = 'background.paper';
+          let ringColor = 'transparent';
+          
+          if (selected !== null) {
+            if (isSelected) {
+              borderColor = isHigh ? 'success.main' : 'error.main';
+              bgColor = isHigh ? 'success.light' : 'error.light';
+              ringColor = isHigh ? 'success.main' : 'error.main';
+            } else if (isHigh && selected !== null) {
+              // Show correct answer if wrong one was picked
+              borderColor = 'success.main';
+              bgColor = 'success.light';
+            }
+          }
+
+          return (
+            <Button
+              key={i}
+              onClick={() => handleSelect(i)}
+              disabled={selected !== null}
+              fullWidth
+              variant="outlined"
+              sx={{
+                textAlign: 'left',
+                justifyContent: 'flex-start',
+                p: 2,
+                borderRadius: 2,
+                borderWidth: '2px',
+                borderColor: borderColor,
+                bgcolor: bgColor,
+                position: 'relative',
+                boxShadow: ringColor !== 'transparent' ? `0 0 0 1px ${ringColor}` : 'none',
+                '&:hover': {
+                  borderColor: selected === null ? 'primary.main' : borderColor,
+                  bgcolor: selected === null ? 'background.default' : bgColor
+                },
+                '&:disabled': {
+                  borderColor: borderColor,
+                  bgcolor: bgColor,
+                  opacity: 1
+                }
+              }}
+            >
+              <Box sx={{ display: 'flex', gap: 2, width: '100%', alignItems: 'flex-start' }}>
+                {/* Radio Button Circle */}
+                <Box
+                  sx={{
+                    mt: 0.5,
+                    width: 20,
+                    height: 20,
+                    borderRadius: '50%',
+                    border: '2px solid',
+                    borderColor: isSelected 
+                      ? (isHigh ? 'success.main' : 'error.main')
+                      : 'divider',
+                    bgcolor: isSelected 
+                      ? (isHigh ? 'success.main' : 'error.main')
+                      : 'transparent',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    color: 'white',
+                    fontSize: '0.75rem',
+                    fontWeight: 'bold'
                   }}
                 >
-                  {opt.feedback}
-                </Typography>
-              )}
-            </Box>
-          </Button>
-        ))}
+                  {isSelected && (isHigh ? '✓' : '✕')}
+                </Box>
+                
+                {/* Option Content */}
+                <Box sx={{ flex: 1 }}>
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      fontWeight: isSelected ? 'semibold' : 'medium',
+                      color: 'text.primary',
+                      fontSize: '1.125rem'
+                    }}
+                  >
+                    {opt.text}
+                  </Typography>
+                  
+                  {isSelected && (
+                    <Box
+                      sx={{
+                        mt: 1.5,
+                        p: 1.5,
+                        borderRadius: 1,
+                        bgcolor: isHigh ? 'success.light' : 'error.light',
+                        color: isHigh ? 'success.dark' : 'error.dark',
+                        fontWeight: 'medium',
+                        fontSize: '0.875rem'
+                      }}
+                    >
+                      {isHigh ? '✨ ' : '💡 '}{opt.feedback}
+                    </Box>
+                  )}
+                </Box>
+              </Box>
+            </Button>
+          );
+        })}
       </Stack>
+
+      {/* Reset Button */}
+      {selected !== null && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+          <Button
+            onClick={reset}
+            sx={{
+              color: 'text.secondary',
+              '&:hover': {
+                color: 'primary.main',
+                bgcolor: 'transparent'
+              },
+              fontSize: '0.875rem',
+              fontWeight: 'medium',
+              textTransform: 'none'
+            }}
+            startIcon={<Typography>↺</Typography>}
+          >
+            Try Again
+          </Button>
+        </Box>
+      )}
     </Paper>
   );
 };
 
-const RolePlayScenario = () => {
-  const [step, setStep] = useState(0);
-  
-  const script = [
-    {
-      role: 'PM (Teacher)',
-      text: "Yusuke, design sent this 'Snowfall' video background. It looks amazing for Christmas. I want to ship it next week.",
-      hint: "Use the 'Trade-Off Frame' (Strike a balance).",
-      target: "It looks great, but we need to strike a balance between visual appeal and app performance."
-    },
-    {
-      role: 'PM (Teacher)',
-      text: "Performance? It's just a 10-second video. Modern phones can handle that easily.",
-      hint: "Use the 'Conditional Risk Frame' (Unless we...). Mention older Androids.",
-      target: "True for iPhone 15, but unless we optimize for older Androids, we run the risk of high uninstall rates."
-    },
-    {
-      role: 'PM (Teacher)',
-      text: "Okay, we can't lose users. What do you propose?",
-      hint: "Use the 'Recommendation Frame' (Engineering standpoint / Makes sense to...).",
-      target: "From an engineering standpoint, it makes more sense to use a static image for older devices."
-    }
-  ];
+const ToneShiftBuilder = ({ scenario, framework, blunt, target, distractors }) => {
+  const [available, setAvailable] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const [status, setStatus] = useState('building'); // building, error, success
 
+  // Initialize pool on mount
+  useEffect(() => {
+    const allChunks = [...target, ...distractors];
+    // Simple shuffle
+    setAvailable(allChunks.sort(() => Math.random() - 0.5));
+    setSelected([]);
+    setStatus('building');
+  }, [scenario, target, distractors]); // Reset if scenario changes
+
+  const handleAdd = (chunk) => {
+    const newSelected = [...selected, chunk];
+    setSelected(newSelected);
+    setAvailable(available.filter(c => c !== chunk));
+    
+    // Real-time validation
+    const currentIndex = newSelected.length - 1;
+    if (chunk !== target[currentIndex]) {
+      setStatus('error');
+    } else {
+      if (newSelected.length === target.length) {
+        setStatus('success');
+      } else {
+        setStatus('building');
+      }
+    }
+  };
+
+  const handleReset = () => {
+    const allChunks = [...target, ...distractors];
+    setAvailable(allChunks.sort(() => Math.random() - 0.5));
+    setSelected([]);
+    setStatus('building');
+  };
+
+  return (
+    <Paper 
+      elevation={1}
+      sx={{ 
+        bgcolor: 'background.paper', 
+        p: 3, 
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: 'divider',
+        boxShadow: 1,
+        mb: 3
+      }}
+    >
+      {/* Header */}
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+        <Box 
+          sx={{ 
+            p: 1, 
+            bgcolor: 'secondary.light', 
+            color: 'secondary.main',
+            borderRadius: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Typography>🧠</Typography>
+        </Box>
+        <Box>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+            Advanced Tone Shift
+          </Typography>
+          <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 'medium' }}>
+            Deconstruct the thought & reconstruct the strategy.
+          </Typography>
+        </Box>
+      </Box>
+
+      {/* Challenge Box */}
+      <Grid container spacing={2} sx={{ mb: 3 }}>
+        <Grid item xs={12} md={6}>
+          <Paper
+            elevation={0}
+            sx={{
+              bgcolor: 'background.default',
+              p: 2,
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: 'divider'
+            }}
+          >
+            <Typography 
+              variant="overline" 
+              sx={{ 
+                fontWeight: 'bold', 
+                color: 'text.secondary', 
+                fontSize: '0.7rem',
+                letterSpacing: '0.1em',
+                display: 'block',
+                mb: 0.5
+              }}
+            >
+              Scenario
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 'medium', lineHeight: 1.7 }}>
+              {scenario}
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper
+            elevation={0}
+            sx={{
+              bgcolor: 'background.default',
+              p: 2,
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: 'divider'
+            }}
+          >
+            <Typography 
+              variant="overline" 
+              sx={{ 
+                fontWeight: 'bold', 
+                color: 'text.secondary', 
+                fontSize: '0.7rem',
+                letterSpacing: '0.1em',
+                display: 'block',
+                mb: 0.5
+              }}
+            >
+              Target Strategy
+            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Box
+                sx={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  bgcolor: 'secondary.main'
+                }}
+              />
+              <Typography variant="body2" sx={{ color: 'secondary.main', fontWeight: 'bold' }}>
+                {framework}
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
+
+      {/* Transformation Zone */}
+      <Stack spacing={2}>
+        {/* Blunt Input (Locked) */}
+        <Box sx={{ position: 'relative' }}>
+          <Box
+            sx={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: 4,
+              bgcolor: 'error.main',
+              borderRadius: '4px 0 0 4px'
+            }}
+          />
+          <Paper
+            elevation={0}
+            sx={{
+              bgcolor: 'background.default',
+              p: 2,
+              pl: 3,
+              borderRadius: '0 4px 4px 0',
+              border: '1px solid',
+              borderColor: 'error.main',
+              borderLeft: 'none'
+            }}
+          >
+            <Typography 
+              variant="overline" 
+              sx={{ 
+                fontWeight: 'bold', 
+                color: 'error.main', 
+                fontSize: '0.7rem',
+                letterSpacing: '0.1em',
+                display: 'block',
+                mb: 0.5
+              }}
+            >
+              Internal Monologue (Too Blunt)
+            </Typography>
+            <Typography variant="body2" sx={{ fontWeight: 'medium', color: 'text.primary' }}>
+              "{blunt}"
+            </Typography>
+          </Paper>
+          {/* Arrow */}
+          <Box
+            sx={{
+              position: 'absolute',
+              left: 2,
+              bottom: -16,
+              zIndex: 10,
+              color: 'text.disabled',
+              fontSize: '1.5rem'
+            }}
+          >
+            ↓
+          </Box>
+        </Box>
+
+        {/* Polished Output (Drop Zone) */}
+        <Paper
+          elevation={0}
+          sx={{
+            minHeight: '80px',
+            borderRadius: 2,
+            border: '2px dashed',
+            borderColor: status === 'error' 
+              ? 'error.main' 
+              : status === 'success' 
+                ? 'success.main' 
+                : 'primary.main',
+            bgcolor: status === 'error' 
+              ? 'background.default' 
+              : status === 'success' 
+                ? 'background.default' 
+                : 'background.default',
+            p: 2,
+            position: 'relative',
+            transition: 'all 0.3s'
+          }}
+        >
+          <Typography 
+            variant="overline" 
+            sx={{ 
+              fontWeight: 'bold', 
+              color: status === 'error' 
+                ? 'error.main' 
+                : status === 'success' 
+                  ? 'success.main' 
+                  : 'primary.main',
+              fontSize: '0.7rem',
+              letterSpacing: '0.1em',
+              display: 'block',
+              mb: 1
+            }}
+          >
+            Reconstructed Message
+          </Typography>
+          
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+            {selected.map((chunk, i) => (
+              <Chip
+                key={i}
+                label={chunk}
+                sx={{
+                  fontWeight: 'medium',
+                  boxShadow: 1,
+                  border: '1px solid',
+                  borderColor: status === 'error' && i === selected.length - 1
+                    ? 'error.main'
+                    : 'divider',
+                  bgcolor: status === 'error' && i === selected.length - 1
+                    ? 'error.light'
+                    : 'background.paper',
+                  color: status === 'error' && i === selected.length - 1
+                    ? 'error.dark'
+                    : 'text.primary'
+                }}
+              />
+            ))}
+            {selected.length === 0 && (
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontStyle: 'italic', fontSize: '0.875rem' }}>
+                Select fragments below to build the sentence...
+              </Typography>
+            )}
+          </Box>
+
+          {/* Status Message */}
+          <Box sx={{ position: 'absolute', top: 8, right: 8 }}>
+            {status === 'error' && <Typography sx={{ color: 'error.main', fontSize: '1.5rem' }}>⚠️</Typography>}
+            {status === 'success' && <Typography sx={{ color: 'success.main', fontSize: '1.5rem' }}>✅</Typography>}
+          </Box>
+        </Paper>
+      </Stack>
+
+      {/* Interaction Area */}
+      <Box sx={{ mt: 3, pt: 3, borderTop: '1px solid', borderColor: 'divider' }}>
+        {status === 'error' ? (
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" sx={{ color: 'error.main', fontWeight: 'medium', mb: 2 }}>
+              That structure is structurally or strategically weak. Try again.
+            </Typography>
+            <Button 
+              onClick={handleReset} 
+              variant="outlined"
+              sx={{
+                bgcolor: 'background.default',
+                color: 'text.secondary',
+                borderColor: 'divider',
+                '&:hover': {
+                  bgcolor: 'background.paper',
+                  borderColor: 'text.secondary'
+                }
+              }}
+            >
+              ↺ Reset Construction
+            </Button>
+          </Box>
+        ) : status === 'success' ? (
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" sx={{ color: 'success.main', fontWeight: 'bold', mb: 2 }}>
+              ✨ Perfect Execution! You balanced firmness with professionalism.
+            </Typography>
+            <Button 
+              onClick={handleReset}
+              sx={{
+                color: 'text.secondary',
+                fontSize: '0.75rem',
+                textTransform: 'none',
+                textDecoration: 'underline',
+                '&:hover': {
+                  color: 'primary.main',
+                  textDecoration: 'underline',
+                  bgcolor: 'transparent'
+                }
+              }}
+            >
+              Practice Again
+            </Button>
+          </Box>
+        ) : (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center' }}>
+            {available.map((chunk, i) => (
+              <Button
+                key={i}
+                onClick={() => handleAdd(chunk)}
+                variant="outlined"
+                sx={{
+                  bgcolor: 'background.paper',
+                  borderColor: 'divider',
+                  color: 'text.primary',
+                  '&:hover': {
+                    borderColor: 'secondary.main',
+                    boxShadow: 2,
+                    bgcolor: 'background.default'
+                  },
+                  transition: 'all 0.2s',
+                  '&:active': {
+                    transform: 'scale(0.95)'
+                  }
+                }}
+              >
+                {chunk}
+              </Button>
+            ))}
+          </Box>
+        )}
+      </Box>
+    </Paper>
+  );
+};
+
+const RolePlayScenario = ({ data }) => {
+  const [step, setStep] = useState(0);
+  const [accordionExpanded, setAccordionExpanded] = useState(false);
+  
+  // Reset accordion when step changes
+  useEffect(() => {
+    setAccordionExpanded(false);
+  }, [step]);
+  
+  // Guard clause if no role play data
+  if (!data) return null;
+
+  const script = data.steps;
   const currentLine = script[step];
 
   return (
     <Paper 
       elevation={4}
       sx={{ 
-        background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.background.paper} 100%)`,
+        background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.dark || theme.palette.primary.main} 0%, ${theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[800]} 100%)`,
         p: 4, 
         borderRadius: 2,
-        color: 'text.primary',
+        color: 'white',
         my: 4
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-        <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
-          🎭 Role-Play: The "Christmas Feature" Debate
+        <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'white' }}>
+          🎭 Role-Play: {data.title}
         </Typography>
         <Chip 
           label={`Step ${step + 1}/${script.length}`}
@@ -481,13 +1196,14 @@ const RolePlayScenario = () => {
           sx={{ 
             bgcolor: 'primary.main',
             color: 'white',
-            fontWeight: 'normal'
+            fontWeight: 'normal',
+            fontSize: '0.75rem'
           }}
         />
       </Box>
       
       <Stack spacing={3}>
-        {/* PM Message */}
+        {/* PM/Boss Message */}
         <Paper 
           elevation={0}
           sx={{ 
@@ -499,10 +1215,10 @@ const RolePlayScenario = () => {
             backdropFilter: 'blur(10px)'
           }}
         >
-          <Typography variant="overline" sx={{ color: 'secondary.main', fontWeight: 'bold', display: 'block', mb: 1 }}>
+          <Typography variant="overline" sx={{ color: 'secondary.main', fontWeight: 'bold', display: 'block', mb: 1, fontSize: '0.75rem', letterSpacing: '0.1em' }}>
             {currentLine.role}
           </Typography>
-          <Typography variant="body1" sx={{ color: 'text.primary' }}>
+          <Typography variant="body1" sx={{ color: 'white' }}>
             {currentLine.text}
           </Typography>
         </Paper>
@@ -518,14 +1234,18 @@ const RolePlayScenario = () => {
             borderColor: 'primary.main'
           }}
         >
-          <Typography variant="body2" sx={{ fontWeight: 'bold', mb: 1, color: 'text.primary' }}>
+          <Typography variant="body2" sx={{ fontWeight: 'bold', mb: 1, color: 'white' }}>
             🎯 Your Goal:
           </Typography>
-          <Typography variant="body2" sx={{ fontStyle: 'italic', mb: 2, color: 'text.secondary' }}>
+          <Typography variant="body2" sx={{ fontStyle: 'italic', mb: 2, color: 'rgba(255, 255, 255, 0.8)' }}>
             {currentLine.hint}
           </Typography>
           
-          <Accordion sx={{ bgcolor: 'rgba(76, 175, 80, 0.2)', border: '1px solid', borderColor: 'success.main' }}>
+          <Accordion 
+            expanded={accordionExpanded}
+            onChange={(event, isExpanded) => setAccordionExpanded(isExpanded)}
+            sx={{ bgcolor: 'rgba(76, 175, 80, 0.2)', border: '1px solid', borderColor: 'success.main' }}
+          >
             <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'success.main' }} />}>
               <Typography variant="body2" sx={{ color: 'success.main', fontWeight: 'semibold' }}>
                 👀 Reveal Target Response
@@ -542,7 +1262,7 @@ const RolePlayScenario = () => {
                   borderColor: 'success.main'
                 }}
               >
-                <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 'medium' }}>
+                <Typography variant="body2" sx={{ color: 'white', fontWeight: 'medium' }}>
                   "{currentLine.target}"
                 </Typography>
               </Paper>
@@ -551,13 +1271,19 @@ const RolePlayScenario = () => {
         </Paper>
 
         {/* Controls */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', pt: 2, borderTop: '1px solid', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
           {step < script.length - 1 ? (
             <Button 
               onClick={() => setStep(step + 1)}
               variant="contained"
-              color="primary"
-              sx={{ fontWeight: 'bold' }}
+              sx={{ 
+                bgcolor: 'white',
+                color: 'primary.main',
+                fontWeight: 'bold',
+                '&:hover': {
+                  bgcolor: 'rgba(255, 255, 255, 0.9)'
+                }
+              }}
             >
               Next Interaction →
             </Button>
@@ -566,11 +1292,11 @@ const RolePlayScenario = () => {
               onClick={() => setStep(0)}
               variant="outlined"
               sx={{ 
-                borderColor: 'divider',
-                color: 'text.primary',
+                borderColor: 'rgba(255, 255, 255, 0.3)',
+                color: 'white',
                 fontWeight: 'bold',
                 '&:hover': {
-                  borderColor: 'primary.main',
+                  borderColor: 'rgba(255, 255, 255, 0.5)',
                   bgcolor: 'rgba(255, 255, 255, 0.1)'
                 }
               }}
@@ -703,79 +1429,113 @@ const YusukeStrategicCommunication = () => {
                   ))}
                 </Stack>
               </Box>
+
+              {/* STAR Method Explanation for Interview Module */}
+              {activeTab === 'interview' && (
+                <Box 
+                  sx={{ 
+                    bgcolor: 'background.default', 
+                    p: 3, 
+                    borderRadius: 2,
+                    border: '1px solid',
+                    borderColor: 'primary.main',
+                    mt: 3
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
+                    ⭐ The STAR Method
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
+                    Use this framework to structure every behavioral interview answer.
+                  </Typography>
+                  <Box 
+                    sx={{ 
+                      display: 'grid',
+                      gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                      gap: 2
+                    }}
+                  >
+                    <Paper elevation={1} sx={{ p: 2, borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1, color: 'primary.main' }}>
+                        S - Situation
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
+                        Set the scene and give the necessary details of your example.
+                      </Typography>
+                    </Paper>
+                    <Paper elevation={1} sx={{ p: 2, borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1, color: 'primary.main' }}>
+                        T - Task
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
+                        Describe what your responsibility was in that situation.
+                      </Typography>
+                    </Paper>
+                    <Paper 
+                      elevation={2} 
+                      sx={{ 
+                        p: 2, 
+                        borderRadius: 1, 
+                        border: '2px solid', 
+                        borderColor: 'primary.main',
+                        boxShadow: 3
+                      }}
+                    >
+                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1, color: 'primary.main' }}>
+                        A - Action (Key!)
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
+                        Explain exactly what steps you took to address it.
+                      </Typography>
+                    </Paper>
+                    <Paper elevation={1} sx={{ p: 2, borderRadius: 1, border: '1px solid', borderColor: 'divider' }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1, color: 'primary.main' }}>
+                        R - Result
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
+                        Share what outcomes your actions achieved.
+                      </Typography>
+                    </Paper>
+                  </Box>
+                </Box>
+              )}
             </Paper>
 
             {/* Interactive Drills Section */}
-            {activeTab === 'assessment' && (
-              <DrillSection title="Interactive Practice">
-                <WarmUpDrill />
-                <SentenceBuilder />
-                <RolePlayScenario />
-              </DrillSection>
-            )}
+            <DrillSection title="Interactive Practice">
+              {activeTab === 'assessment' && <WarmUpDrill />}
 
-            {activeTab === 'negotiation' && (
-              <DrillSection title="Interactive Practice">
-                <TonePolisher />
-              </DrillSection>
-            )}
-            
-            {activeTab === 'clarity' && (
-              <DrillSection title="Interactive Practice">
-                <Paper 
-                  elevation={1}
-                  sx={{ 
-                    bgcolor: 'background.paper', 
-                    p: 3, 
-                    borderRadius: 2,
-                    border: '1px solid',
-                    borderColor: 'secondary.main'
-                  }}
-                >
-                  <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: 'text.primary' }}>
-                    🧠 Analogy Challenge
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
-                    Try to explain "Technical Debt" to a 5-year-old.
-                  </Typography>
-                  <Paper elevation={1} sx={{ p: 2, borderRadius: 1, bgcolor: 'background.default' }}>
-                    <Typography variant="body2" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
-                      "Imagine you don't clean your room today so you can play. Tomorrow, the mess is bigger. If you never clean it, eventually you can't even walk in your room."
-                    </Typography>
-                  </Paper>
-                </Paper>
-              </DrillSection>
-            )}
+              {/* Conditional Rendering of Drill Types */}
+              {currentModule.drill && currentModule.drill.type === 'sentence' && (
+                <SentenceBuilder 
+                  title={currentModule.drill.title}
+                  target={currentModule.drill.target}
+                  options={currentModule.drill.options}
+                />
+              )}
 
-            {activeTab === 'interview' && (
-              <DrillSection title="Interactive Practice">
-                <Paper 
-                  elevation={1}
-                  sx={{ 
-                    bgcolor: 'background.paper', 
-                    p: 3, 
-                    borderRadius: 2,
-                    border: '1px solid',
-                    borderColor: 'primary.main'
-                  }}
-                >
-                  <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: 'text.primary' }}>
-                    🎤 The "Gap" Question
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 1, color: 'text.secondary', fontWeight: 'medium' }}>
-                    Q: "Why is there a gap in your resume?"
-                  </Typography>
-                  <Stack spacing={1}>
-                    <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
-                      Don't say: "I was just resting."
-                    </Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
-                      Say: "I took a sabbatical to recharge and upskill in modern mobile architecture."
-                    </Typography>
-                  </Stack>
-                </Paper>
-              </DrillSection>
-            )}
+              {currentModule.drill && currentModule.drill.type === 'tone_builder' && (
+                <ToneShiftBuilder 
+                  scenario={currentModule.drill.scenario}
+                  framework={currentModule.drill.framework}
+                  blunt={currentModule.drill.blunt}
+                  target={currentModule.drill.target}
+                  distractors={currentModule.drill.distractors}
+                />
+              )}
+
+              {currentModule.drill && (currentModule.drill.type === 'analogy' || currentModule.drill.type === 'star') && (
+                <SequenceBuilder
+                  title={currentModule.drill.title}
+                  chunks={currentModule.drill.chunks}
+                />
+              )}
+
+              {/* Dynamic Role Play */}
+              {currentModule.rolePlay && (
+                <RolePlayScenario data={currentModule.rolePlay} />
+              )}
+            </DrillSection>
 
           </Box>
 
@@ -803,38 +1563,89 @@ const YusukeStrategicCommunication = () => {
               </Stack>
 
               {/* Homework Box */}
-              <Paper 
-                elevation={3}
-                sx={{ 
-                  bgcolor: 'background.paper', 
-                  p: 3, 
-                  borderRadius: 2,
-                  mt: 4,
-                  border: '2px solid',
-                  borderColor: 'primary.main'
-                }}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: 'text.primary' }}>
-                  📝 Homework Task
-                </Typography>
-                <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
-                  {activeTab === 'assessment' && 'Write a Slack message to a PM explaining why a feature needs to be delayed using the "Trade-Off" frame. Use the pattern: "Proceeding with [X] is viable, provided that we [Y]."'}
-                  {activeTab === 'negotiation' && 'Write 3 versions of a "No" email: One rude, one polite, and one strategic.'}
-                  {activeTab === 'clarity' && 'Pick 3 technical terms from your last project and write a "Layman Analogy" for each.'}
-                  {activeTab === 'interview' && 'Record yourself answering: "Tell me about a time you had to manage a difficult stakeholder."'}
-                </Typography>
-                <Button 
-                  fullWidth 
-                  variant="contained"
-                  color="primary"
+              {currentModule.homework && (
+                <Paper 
+                  elevation={3}
                   sx={{ 
-                    py: 1.5,
-                    fontWeight: 'bold'
+                    bgcolor: 'background.paper', 
+                    p: 3, 
+                    borderRadius: 2,
+                    mt: 4,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    boxShadow: 4
                   }}
                 >
-                  Submit via Email
-                </Button>
-              </Paper>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                    <Typography>📝</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
+                      {currentModule.homework.title}
+                    </Typography>
+                  </Box>
+                  <Stack spacing={2} sx={{ mb: 3 }}>
+                    <Box>
+                      <Typography 
+                        variant="overline" 
+                        sx={{ 
+                          fontWeight: 'bold', 
+                          color: 'text.secondary', 
+                          fontSize: '0.7rem',
+                          letterSpacing: '0.1em',
+                          display: 'block',
+                          mb: 0.5
+                        }}
+                      >
+                        The Task
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
+                        {currentModule.homework.task}
+                      </Typography>
+                    </Box>
+                    <Paper 
+                      elevation={0}
+                      sx={{ 
+                        bgcolor: 'background.default', 
+                        p: 2, 
+                        borderRadius: 1, 
+                        border: '1px solid',
+                        borderColor: 'primary.main'
+                      }}
+                    >
+                      <Typography 
+                        variant="overline" 
+                        sx={{ 
+                          fontWeight: 'bold', 
+                          color: 'primary.main', 
+                          fontSize: '0.7rem',
+                          letterSpacing: '0.1em',
+                          display: 'block',
+                          mb: 0.5
+                        }}
+                      >
+                        Constraint
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: 'primary.main', fontWeight: 'medium' }}>
+                        {currentModule.homework.constraint}
+                      </Typography>
+                    </Paper>
+                  </Stack>
+                  <Button 
+                    fullWidth 
+                    variant="contained"
+                    color="primary"
+                    sx={{ 
+                      py: 1.5,
+                      fontWeight: 'bold',
+                      boxShadow: 2,
+                      '&:hover': {
+                        boxShadow: 4
+                      }
+                    }}
+                  >
+                    Submit via Email →
+                  </Button>
+                </Paper>
+              )}
             </Box>
           </Box>
 
