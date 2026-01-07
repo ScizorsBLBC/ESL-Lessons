@@ -14,6 +14,7 @@ import NewsArticlePage from './pages/lessons/NewsArticlePage';
 import VocabularyPage from './pages/lessons/VocabularyPage';
 import IdiomPage from './pages/lessons/IdiomPage';
 import BainurVocabularyPage from './pages/lessons/BainurVocabularyPage';
+import YusukeStrategicCommunication from './pages/student-lessons/YusukeStrategicCommunication';
 
 // Import the lesson routes (FIX: Capitalized filename)
 import { lessonRoutes } from './LessonRoutes.jsx';
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="vocabulary/:lessonId" element={<VocabularyPage />} />
         <Route path="idioms/:lessonId" element={<IdiomPage />} />
         <Route path="bainur-vocabulary/:lessonId" element={<BainurVocabularyPage />} />
+        <Route path="student-lessons/yusuke/1-7-2026" element={<YusukeStrategicCommunication />} />
 
         {/* Dynamically generate lesson routes */}
         {lessonRoutes.map(route => (

@@ -9,9 +9,18 @@ export const studentLessons = [
     {
         studentName: "Yusuke",
         date: "12-31-2025",
+        type: "html",
         filename: "Yusuke.12.31.2025.html",
         title: "The Mobile Engineer's Communication Toolkit",
         description: "Communication strategies for mobile engineers - Trade-offs, clarity, and networking"
+    },
+    {
+        studentName: "Yusuke",
+        date: "1-7-2026",
+        type: "react",
+        route: "/student-lessons/yusuke/1-7-2026",
+        title: "Strategic Communication for Mobile Engineers",
+        description: "Advanced communication patterns: Trade-offs, negotiation, clarity, and career narrative"
     }
 ];
 
@@ -25,6 +34,16 @@ export const getStudentNames = () => {
 };
 
 /**
+ * Parse date string in M-D-YYYY or MM-DD-YYYY format to Date object
+ * @param {string} dateStr - Date string in M-D-YYYY or MM-DD-YYYY format
+ * @returns {Date} Parsed date object
+ */
+const parseDate = (dateStr) => {
+    const [month, day, year] = dateStr.split('-').map(Number);
+    return new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+};
+
+/**
  * Get all lessons for a specific student, sorted by date (newest first)
  * @param {string} studentName - The name of the student
  * @returns {Array} Array of lesson objects for the student
@@ -34,8 +53,8 @@ export const getLessonsByStudent = (studentName) => {
         .filter(lesson => lesson.studentName === studentName)
         .sort((a, b) => {
             // Sort by date, newest first
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
+            const dateA = parseDate(a.date);
+            const dateB = parseDate(b.date);
             return dateB - dateA;
         });
 };

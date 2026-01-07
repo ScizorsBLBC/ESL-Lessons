@@ -113,16 +113,21 @@ export default function DashboardPage() {
         });
     };
 
-    const createStudentLessonLink = (filename) => {
+    const createStudentLessonLink = (lesson) => {
         const baseUrl = window.location.origin;
-        return new URL(`/student-lessons/${filename}`, baseUrl).href;
+        if (lesson.type === 'react' && lesson.route) {
+            return new URL(lesson.route, baseUrl).href;
+        } else if (lesson.type === 'html' && lesson.filename) {
+            return new URL(`/student-lessons/${lesson.filename}`, baseUrl).href;
+        }
+        return '';
     };
 
     const copyStudentLessonLink = () => {
         if (!selectedLesson) return;
         const lesson = getLessonsByStudent(selectedStudent).find(l => l.date === selectedLesson);
         if (!lesson) return;
-        const link = createStudentLessonLink(lesson.filename);
+        const link = createStudentLessonLink(lesson);
         navigator.clipboard.writeText(link).then(() => {
             setCopySuccess('Link copied to clipboard!');
             setTimeout(() => setCopySuccess(''), 2000);
@@ -264,7 +269,8 @@ export default function DashboardPage() {
                         {selectedStudent && selectedLesson && (() => {
                             const lesson = getLessonsByStudent(selectedStudent).find(l => l.date === selectedLesson);
                             if (!lesson) return null;
-                            const lessonUrl = createStudentLessonLink(lesson.filename);
+                            const lessonUrl = createStudentLessonLink(lesson);
+                            const isHtmlLesson = lesson.type === 'html';
                             
                             return (
                                 <Box sx={{ mt: 2 }}>
@@ -308,18 +314,39 @@ export default function DashboardPage() {
                                                 {copySuccess}
                                             </Typography>
                                         )}
-                                        {/* Lesson Preview in iframe */}
-                                        <Box sx={{ mt: 2, border: '1px solid', borderColor: 'divider', borderRadius: 1, overflow: 'hidden' }}>
-                                            <iframe
-                                                src={lessonUrl}
-                                                title={lesson.title || `Lesson for ${selectedStudent}`}
-                                                style={{
-                                                    width: '100%',
-                                                    height: '600px',
-                                                    border: 'none'
+                                        {/* Lesson Preview - iframe for HTML, info message for React */}
+                                        {isHtmlLesson ? (
+                                            <Box sx={{ mt: 2, border: '1px solid', borderColor: 'divider', borderRadius: 1, overflow: 'hidden' }}>
+                                                <iframe
+                                                    src={lessonUrl}
+                                                    title={lesson.title || `Lesson for ${selectedStudent}`}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '600px',
+                                                        border: 'none'
+                                                    }}
+                                                />
+                                            </Box>
+                                        ) : (
+                                            <Paper 
+                                                elevation={1}
+                                                sx={{ 
+                                                    mt: 2, 
+                                                    p: 3, 
+                                                    bgcolor: 'info.light',
+                                                    border: '1px solid',
+                                                    borderColor: 'info.main',
+                                                    borderRadius: 1
                                                 }}
-                                            />
-                                        </Box>
+                                            >
+                                                <Typography variant="body2" sx={{ color: 'info.dark', mb: 1, fontWeight: 'medium' }}>
+                                                    📚 Interactive React Lesson
+                                                </Typography>
+                                                <Typography variant="body2" sx={{ color: 'info.dark' }}>
+                                                    This is an interactive React-based lesson. Click "Open" above to view it in a new tab.
+                                                </Typography>
+                                            </Paper>
+                                        )}
                                     </Box>
                                 </Box>
                             );
