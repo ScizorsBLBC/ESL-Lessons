@@ -1,0 +1,408 @@
+acceptance criteria. A set of conditions that are met before deliverables are accepted. See also deliverable and requirement.
+acceptance-test-driven development (ATDD). A method of collaboratively creating acceptance test criteria that are used to create acceptance tests before delivery begins.
+accountability. The condition of being answerable for the outcome of a task or project. It is an individual responsibility and is not shared.
+activity. A distinct, scheduled portion of work performed during the course of a project.
+activity list. A documented tabulation of schedule activities that shows the activity description, activity identifier, and a sufficiently detailed scope of work description so project team members understand what work is to be performed.
+actual cost (AC). The realized cost incurred for the work performed on an activity during a specific time period. See also budget at completion (BAC), earned value (EV), estimate at completion (EAC), estimate to complete (ETC), and planned value (PV).
+actual duration. The time, in calendar units, between the actual start date of the schedule activity and either the data date of the project schedule, if the schedule activity is in progress, or the actual finish date if the schedule activity is complete.
+adaptive approach. A development approach in which the requirements are subject to a high level of uncertainty and volatility and are likely to change throughout the project.
+affinity diagram. A diagram that shows large numbers of ideas classified into groups for review and analysis.
+agile. A term used to describe a mindset of values and principles as set forth in the Manifesto for Agile Software Development.
+AI bias mitigation. Techniques used to reduce unfair biases in artificial intelligence (AI) models, ensuring fair outcomes.
+AI system. A machine-based system that, for explicit or implicit objectives, infers, from the input it receives, how to generate outputs such as predictions, content, recommendations, or decisions that can influence physical or virtual environments. Different AI systems vary in their levels of autonomy and adaptiveness after deployment.
+alternative analysis. A method used to evaluate identified options in order to select the options or approaches to use when performing the work of the project.
+analogous estimating. A technique for estimating the duration, cost, or required resources for an activity or project using historical data from a similar activity or project. See also bottom-up estimating, parametric estimating, program evaluation and review technique (PERT), and multipoint estimating.
+apportioned effort. An activity where effort is allotted proportionately across certain discrete efforts and not divisible into discrete efforts. See also discrete effort and level of effort.
+artifact. A document or other item created during a portfolio, program, or project to help manage it and provide information to the project team, stakeholders, and management.
+artificial intelligence (AI). Technology that simulates human intelligence in machines for better decision-making.
+artificial intelligence in portfolio, program, and project management. The integration of AI capabilities with established project management approaches and methodologies to enhance decision-making, streamline operations, and significantly increase efficiency and effectiveness.
+assumption. A factor in the planning process considered to be true, real, or certain, without proof or demonstration.
+assumption log. A project document used to record all assumptions and constraints throughout the project.
+backlog. An ordered list of work to be done, often written as user stories, and prioritized by the business to manage and organize an adaptive or agile project's work. See also product backlog.
+backlog refinement. Progressive elaboration of the content in the backlog, and the prioritization and reprioritization of it to identify the work that can be accomplished in an upcoming iteration.
+backward pass. A critical path method technique for calculating the late start and late finish dates by working backward through the schedule model from the project end date. See also forward pass.
+baseline. The approved version of a work product that can be changed using formal change control procedures and is used as the basis for comparison to actual results. See also cost baseline, performance measurement baseline, schedule baseline, and scope baseline.
+behavior-driven development (BDD). A system design and validation practice that uses test-first principles and plain-language scripts.
+benchmarking. The comparison of actual or planned products, processes, and practices to those of comparable organizations to identify good practices, generate ideas for improvement, and provide a basis for measuring performance.
+benefit. A gain or asset realized by the organization and other stakeholders as the result of outcomes delivered.
+benefits management plan. The documented explanation defining the processes for creating, maximizing, and sustaining the benefits provided by a program or project.
+benefits realization plan. A document outlining the activities necessary for achieving the planned benefits. It identifies a timeline and the tools and resources necessary to ensure the benefits are fully realized over time.
+blocker. See impediment.
+bottom-up estimating. A method of estimating the duration, cost, or required resources by aggregating the estimates of the lower-level components of the work breakdown structure. See also analogous estimating, parametric estimating, program evaluation and review technique (PERT), and multipoint estimating.
+budget. The approved estimate for the portfolio, program, or project, or any work breakdown structure component or schedule activity.
+budget at completion (BAC). The sum of all budgets established for the work to be performed. See also actual cost (AC), earned value (EV), estimate at completion (EAC), estimate to complete (ETC), and planned value (PV).
+burndown chart. A graphical representation of the work remaining versus the time left in a timebox.
+burnup chart. A graphical representation of the work completed toward a milestone.
+business analysis. The set of activities performed to support delivery of solutions that align to business objectives and provide continuous value to the organization.
+business case. A documented economic feasibility study used to establish validity of the benefits to be delivered by a portfolio component, program, or project.
+business need. The impetus for a change in an organization, based on an existing problem or opportunity. The business need provides the rationale for initiating a program or project.
+business objective. A measurable representation of the goals the business is seeking to achieve. Business objectives are specific and should align to the organizational objectives.
+business requirement documents. A listing of all the requirements for a specific project.
+business rule. A constraint about how the organization wants to operate. These constraints are enforced by data and/or processes and are under the jurisdiction of the business. Business rules need to be supported by solution requirements.
+business value. The net quantifiable benefit derived from a business endeavor that may be tangible, intangible, or both.
+capability. The ability to add value or achieve objectives in an organization through a function, process, service, or other proficiency.
+cause. Events or circumstances that currently exist or are certain to exist in the future, which might give rise to risks.
+cause-and-effect diagram. A visual representation that helps trace an effect back to its root cause. A cause-and-effect diagram may also be known as a fishbone or Ishikawa diagram.
+change control. A process whereby modifications to documents, deliverables, or baselines associated with the project are identified, documented, approved, or rejected. See also change control board (CCB) and change control system.
+change control board (CCB). A formally chartered group responsible for reviewing, evaluating, approving, delaying, or rejecting changes to the project, and for recording and communicating such decisions. See also change control and change control system.
+change control system. A set of procedures that describes how modifications to the project deliverables and documentation are managed and controlled. See also change control and change control board (CCB).
+change management plan. A component of the project management plan that establishes the change control board, documents the extent of its authority, and describes how the change control system will be implemented. See also project management plan.
+change request. A formal proposal to modify a document, deliverable, or baseline.
+code of accounts. A numbering system used to uniquely identify each component of the work breakdown structure.
+colocation. An organizational placement strategy where the project team members are physically located close to one another in order to improve communication, working relationships, and productivity.
+communications management plan. A component of the portfolio, program, or project management plan that describes how, when, and by whom information will be administered and disseminated. See also project management plan.
+complexity. A characteristic of a program or project or its environment that is difficult to manage due to human behavior, system behavior, and ambiguity.
+component. A predetermined element of a portfolio, program, or project that is work related to the achievement of the strategic objectives of the portfolio, program, or project.
+configuration management plan. A component of the project management plan that is a collection of procedures used to track project artifacts and monitor and control changes to these artifacts. See also project management plan.
+configuration management system. A collection of procedures used to track project artifacts and monitor and control changes to these artifacts.
+constraint. A limiting factor that affects the execution of a portfolio, program, project, or process.
+contingency. An event or occurrence that could affect the execution of the project, which may be accounted for with a reserve.
+contingency plan. A document that describes actions to take if predetermined trigger conditions occur.
+contingency reserve. Time or money allocated in the schedule or cost baseline for known risks with active response strategies. See also management reserve and project budget.
+continuous delivery. The practice of delivering feature increments immediately to customers, often through the use of small batches of work and automation technology.
+continuous integration. A practice in which each team member's work products are frequently integrated and validated with one another.
+continuum of approaches. Often referred to as hybrid life cycles, a continuum of life cycle approaches mixes components of predictive approaches and elements of iterative/incremental agile approaches. The specific mix of approaches varies per implementation, so there is a variety of attributes a continuum approach may exhibit.
+control account. A management control point where scope, budget, actual cost, and schedule are integrated and compared to earned value for performance measurement.
+corrective action. An intentional activity that realigns the performance of the project work with the project management plan. See also preventive action.
+cost baseline. The approved version of the time-phased project budget, excluding any management reserves, which can be changed only through formal change control procedures and is used as a basis for comparison to actual results. See also baseline, performance measurement baseline, schedule baseline, and scope baseline.
+cost-benefit analysis. A financial analysis method used to determine the benefits provided by a project against its costs.
+cost of quality (CoQ). All costs incurred over the life of the product by investment in preventing nonconformance to requirements, appraisal of the product or service for conformance to requirements, and failure to meet requirements.
+cost performance index (CPI). A measure of the cost efficiency of budgeted resources expressed as the ratio of earned value to actual cost. See also schedule performance index (SPI).
+cost-plus-award-fee contract. A category of contract that involves payments to the seller for all legitimate actual costs incurred for completed work, plus an award fee representing seller profit.
+cost-plus-fixed-fee contract. A type of cost-reimbursable contract where the buyer reimburses the seller for the seller's allowable costs (allowable costs are defined by the contract) plus a fixed amount of profit (fee).
+cost-plus-incentive-fee contract. A type of cost-reimbursable contract where the buyer reimburses the seller for the seller's allowable costs (allowable costs are defined by the contract), and the seller earns its profit if it meets defined performance criteria.
+cost-reimbursable contract. A type of contract involving payment to the seller for the seller's actual costs, plus a fee typically representing the seller's profit.
+cost variance (CV). The amount of budget deficit or surplus at a given point in time, expressed as the difference between the earned value and the actual cost. See also schedule variance (SV).
+crashing. A schedule compression technique used to shorten the schedule duration for the least incremental cost by adding resources. See also fast tracking and schedule compression.
+critical chain method. A schedule method that allows the project team to place buffers on any project schedule path to account for limited resources and project uncertainties.
+critical path. The sequence of activities that represents the longest path through a project, which determines the shortest possible duration. See also critical path activity and critical path method.
+critical path activity. Any activity on the critical path in a project schedule. See also critical path and critical path method.
+critical path method. A method used to estimate the minimum project duration and determine the amount of scheduling flexibility on the logical network paths within the schedule model. See also critical path and critical path activity.
+cross-functional team. A team that includes practitioners with all the skills necessary to deliver valuable product increments.
+cycle time. The total elapsed time from the start of a particular activity or work item to its completion.
+daily coordination meeting. A brief, daily collaboration meeting in which the team reviews progress from the previous day, declares intentions for the current day, and highlights any obstacles encountered or anticipated. Meetings held on a different cadence than daily may be referred to as coordination meetings.
+dashboard. A set of charts and graphs showing progress or performance against important measures of the project.
+data analytics. The process of analyzing data to derive actionable insights for decision-making.
+data date. A point in time when the status of the project is recorded.
+data science. A field focused on extracting knowledge and insights from structured and unstructured data.
+decision tree analysis. A diagramming and calculation technique for evaluating the implications of a chain of multiple options in the presence of uncertainty.
+decomposition. A technique used for dividing and subdividing the project scope and project deliverables into smaller, more manageable parts.
+definition of done (DoD). A checklist of all the criteria required to be met so that a deliverable can be considered ready for customer use.
+definition of ready (DoR). A checklist for a user-centric requirement that has all the information the team needs to be able to begin working on it.
+deliverable. Any unique and verifiable product, result, or capability to perform a service that is required to be produced to complete a process, phase, or project.
+demonstrations (demos). Events in which a team presents completed work to stakeholders to obtain feedback and validate progress.
+dependency. A logical relationship between two or more activities where the timing, sequencing, or completion of one activity is dependent upon another activity.
+design thinking. A nonlinear, iterative process that teams use to understand users, challenge assumptions, redefine problems, and create innovative solutions to prototype and test.
+development approach. A method used to create and evolve the product, service, or result during the project life cycle such as an adaptive, predictive, or hybrid method.
+DevOps. A collection of practices for creating a smooth flow of delivery by improving collaboration between development and operations staff.
+DevSecOps. An extension of DevOps practices that integrates security activities into every stage of the development and operations pipeline.
+disbenefit. The measurable result from an outcome that is perceived as negative by one or more stakeholders. Disbenefits use activities and processes that are similar to those used in benefits management and should be identified, categorized, quantified, and measured in the same manner as benefits.
+discrete effort. An activity that can be planned and measured and that yields a specific output. See also apportioned effort and level of effort.
+duration. The total number of work periods required to complete an activity or work breakdown structure component, expressed in hours, days, or weeks. See also effort.
+early finish (EF) date. In the critical path method, the earliest possible point in time when the uncompleted portions of a schedule activity can finish based on the schedule network logic, the data date, and any schedule constraints. See also early start (ES) date, late finish (LF) date, late start (LS) date, and schedule network analysis.
+early start (ES) date. In the critical path method, the earliest possible point in time when the uncompleted portions of a schedule activity can start based on the schedule network logic, the data date, and any schedule constraints. See also early finish (EF) date, late finish (LF) date, late start (LS) date, and schedule network analysis.
+earned value (EV). The measure of work performed expressed in terms of the budget authorized for that work. See also actual cost (AC), budget at completion (BAC), estimate at completion (EAC), estimate to complete (ETC), and planned value (PV).
+earned value management (EVM). A methodology that combines scope, schedule, cost, and resource measurements to assess project performance and progress.
+effort. The number of labor units required to complete a schedule activity or work breakdown structure component, often expressed in hours, days, or weeks. See also duration.
+elicitation. The activity of drawing out information from stakeholders and other sources for the purpose of further understanding the needs of the business, addressing a problem or opportunity, and determining stakeholder preferences and conditions for the solution that will address those needs.
+emergent risk. A risk that arises that could not have been identified earlier.
+emotional intelligence. The ability to identify, assess, and manage the personal emotions of oneself and other people, as well as the collective emotions of groups of people.
+enterprise agility. The ability of an organization to quickly sense and respond to change across strategy, structures, processes, and people, extending agile principles beyond software and individual teams.
+enterprise environmental factors (EEFs). Conditions, not under the immediate control of the team, that influence, constrain, or direct the portfolio, program, or project.
+enterprise risk management. An approach to managing risk that reflects the organization's culture, capability, and strategy to create and sustain value.
+epic. A large, related body of work intended to hierarchically organize a set of requirements and deliver specific business outcomes.
+estimate at completion (EAC). The expected total cost of completing all work expressed as the sum of the actual cost to date and the estimate to complete. See also actual cost (AC), budget at completion (BAC), earned value (EV), estimate to complete (ETC), and planned value (PV).
+estimate to complete (ETC). The expected cost to finish all the remaining project work. See also actual cost (AC), budget at completion (BAC), earned value (EV), estimate at completion (EAC), and planned value (PV).
+expected monetary value (EMV). The estimated value of an outcome expressed in monetary terms.
+expert systems. An early field of artificial intelligence designed to simulate expert human decision-making by applying inference rules to a predefined knowledge base. While effective in narrow domains, expert systems are hard to scale, struggle with ambiguous data, and require frequent manual updates.
+fast tracking. A schedule compression technique in which activities or phases normally done in sequence are performed in parallel for at least a portion of their duration. See also crashing and schedule compression.
+feasibility analysis. A study that produces a potential recommendation to address business needs. It examines feasibility using one or more of the following variables: operational, technology/system, cost-effectiveness, and timeliness of the potential solution.
+feature. A set of related requirements or functionalities that provides value to an organization.
+feature-driven development (FDD). A lightweight agile software development method driven from the perspective of features valued by clients.
+financial management plan. A component of a program or project management plan that describes how finances will be planned, structured, and controlled. See also project management plan.
+finish-to-finish (FF). A logical relationship in which a successor activity cannot finish until a predecessor activity has finished. See also finish-to-start (FS), start-to-finish (SF), start-to-start (SS), and logical relationship.
+finish-to-start (FS). A logical relationship in which a successor activity cannot start until a predecessor activity has finished. See also finish-to-finish (FF), start-to-finish (SF), start-to-start (SS), and logical relationship.
+firm-fixed-price contract. A type of fixed-price contract where the buyer pays the seller a set amount (as defined by the contract), regardless of the seller's costs.
+fixed duration. A type of activity where the length of time required to complete the activity remains constant regardless of the number of people or resources assigned to the activity.
+fixed formula method. A method of estimating earned value in which a specified percentage of the budget value of a work package is assigned to the start milestone and the remaining percentage is assigned when the work package is complete. See also weighted milestone method.
+fixed-price contract. An agreement that sets the fee that will be paid for a defined scope of work regardless of the cost or effort to deliver it.
+fixed-price-incentive-fee contract. A type of contract where the buyer pays the seller a set amount (as defined by the contract) and the seller can earn an additional amount if the seller meets defined performance criteria.
+fixed-price-with-economic-price-adjustment contract. A fixed-price contract, but with a special provision allowing for predefined final adjustments to the contract price due to changed conditions such as inflation changes or cost increases (or decreases) for specific commodities.
+flow. The measure of how efficiently work moves through a given process or framework.
+forecast. An estimate or prediction of conditions and events in the project's future based on information and knowledge available at the time of the forecast.
+forward pass. A critical path method technique used for calculating the early start and early finish dates by working forward through the schedule model from the project start date or a given point in time. See also backward pass.
+framework. A basic system or structure of ideas or facts that support an approach.
+free float. The amount of time that a schedule activity can be delayed without delaying the early start date of any successor or violating a schedule constraint. See also total float, critical path, near-critical activity, and near-critical path.
+functional organization. An organizational structure in which staff is grouped by areas of specialization and the project manager has limited authority to assign work and apply resources. See also matrix organization and projectized organization.
+Gantt chart. A bar chart of schedule information where activities are listed on the vertical axis, dates are shown on the horizontal axis, and activity durations are shown as horizontal bars placed according to start and finish dates.
+generalizing specialist. A person who combines deep expertise in one area with broad skills and the willingness to learn across multiple domains to support team needs.
+go/no-go decision. The process of determining if an initiative should continue or be stopped. This process usually involves analysis of the current state of the initiative.
+governance. The framework for directing and enabling an organization through its established policies, practices, and other relevant documentation.
+ground rules. Expectations regarding acceptable behavior by project team members.
+human-in-the-loop (HITL). Human oversight of artificial intelligence (AI) processes to ensure alignment with ethical standards. The human-in-the-loop approach relates to AI systems and broadly refers to a system where humans are responsible for outcomes from AI systems. In augmented AI systems, humans should be involved in all aspects of design, development, training, adoption, and operations of AI systems. In autonomous AI systems, humans should be included for responsible development and adoption of the autonomous AI systems.
+human-to-AI. Synergistic relationship where artificial intelligence enhances human decision-making.
+hybrid approach. A combination of elements from both adaptive and predictive approaches that is useful when there is uncertainty or risk around the requirements.
+impact. A measure of the effect of a risk on one or more objectives if it occurs.
+impact mapping. A strategic planning technique that acts as a roadmap for the organization while building new products.
+impediment. An obstacle that prevents the team from achieving its objectives. Also known as a blocker.
+increment. A functional, tested, and accepted deliverable that is a subset of the overall project output.
+incremental approach. An adaptive development approach in which the deliverable is produced successively, adding functionality until the deliverable contains the necessary and sufficient capability to be considered complete.
+information radiator. A visible display that provides information to the rest of the organization, enabling timely knowledge sharing.
+integration. The coordination of all project elements so that the elements work together effectively, ensuring objectives are met within the goals of the project.
+issue. A current condition or situation that may have an impact on one or more objectives.
+issue log. A project artifact where information about issues is recorded and monitored.
+iteration. A short cycle of development during which a product or deliverable is released or further matured. See also sprint and timebox.
+iteration plan. A detailed plan for the current iteration. See also project management plan.
+iteration planning. A meeting to clarify the details of the backlog items, acceptance criteria, and work effort required to meet an upcoming iteration commitment. See also sprint planning.
+iteration review. A meeting held at the end of an iteration to demonstrate the work that was accomplished during the iteration.
+iterative approach. A development approach that focuses on an initial, simplified implementation then progressively elaborates, adding to the feature set until the final deliverable is complete.
+kanban board. A visualization tool that shows work in progress to help identify bottlenecks and overcommitments, thereby allowing the team to optimize the workflow.
+key performance indicator (KPI). Metric defined by an organization's leadership that is used to evaluate an organization's progress toward meeting the targets or end states identified in their objectives or goals, helping to achieve strategic alignment.
+kickoff meeting. A gathering of team members and other key stakeholders at the beginning of a project to formally set expectations, gain a common understanding, and commence work.
+lag. The amount of time whereby a successor activity will be delayed with respect to a predecessor activity. See also lead.
+late finish (LF) date. In the critical path method, the latest possible point in time when the uncompleted portions of a schedule activity can finish based on the schedule network logic, the project completion date, and any schedule constraints. See also early finish (EF) date, early start (ES) date, late start (LS) date, and schedule network analysis.
+late start (LS) date. In the critical path method, the latest possible point in time when the uncompleted portions of a schedule activity can start based on the schedule network logic, the project completion date, and any schedule constraints. See also early finish (EF) date, early start (ES) date, late finish (LF) date, and schedule network analysis.
+lead. The amount of time whereby a successor activity can be advanced with respect to a predecessor activity. See also lag.
+lessons learned. The knowledge gained during a project that shows how project events were addressed or should be addressed in the future for the purpose of improving future performance.
+lessons learned register. A project document or repository used to record knowledge gained during a project, phase, or iteration so that it can be used to improve future performance for the team and the organization.
+level of effort. An activity that does not produce definitive end products and is measured by the passage of time. See also apportioned effort and discrete effort.
+logical relationship. A dependency between two activities or between an activity and a milestone. See also finish-to-finish (FF), finish-to-start (FS), start-to-finish (SF), and start-to-start (SS).
+make-or-buy analysis and decisions. Make-or-buy analysis is the decision-making process of gathering and organizing data about product requirements and analyzing them against available alternatives, including the purchase or internal manufacture of the product. A make-or-buy analysis results in a make-or-buy decision as to whether particular work can be best accomplished by the project team or if it should be purchased from outside sources.
+management reserve. Time or money that management sets aside in addition to the schedule or cost baseline and releases for unforeseen work that is within the scope of the portfolio, program, or project. See also contingency reserve and project budget.
+matrix organization. An organizational structure in which the project manager shares authority with the functional manager temporarily to assign work and apply resources. See also functional organization and projectized organization.
+method. A means for achieving an outcome, output, result, or project deliverable.
+methodology. A system of practices, techniques, procedures, and rules used by those who work in a discipline.
+milestone. A significant point or event in a portfolio, program, or project.
+milestone schedule. A type of schedule that presents milestones with planned dates.
+mind mapping. A technique used to consolidate ideas created through individual brainstorming sessions into a single map to reflect commonality and differences in understanding and to generate new ideas.
+minimum business increment (MBI). The smallest piece of functionality that can be delivered that has value to the business. It helps the organization focus on realizing that value quickly.
+minimum marketable feature (MMF). A product that has just enough features to be marketable and is designed to quickly test the viability of an idea with real users.
+minimum marketable product (MMP). Focused on release. It is the smallest version of a product that has enough features to be offered to the market and deliver value customers will pay for or adopt. The goal is to capture market value quickly.
+minimum viable product (MVP). A concept used to define the scope of the first release of a solution to customers by identifying the fewest number of features or requirements that would deliver value. Focused on learning. It is the smallest version of a product that allows a team to validate assumptions and gain feedback from real users. The goal is to reduce uncertainty about whether the product is valuable or usable.
+model. A visual representation of information, both abstract and specific, that operates under a set of guidelines in order to efficiently arrange and convey a lot of information in an efficient manner.
+modeling. Creating simplified representations of systems, solutions, or deliverables such as prototypes, diagrams, or storyboards.
+Monte Carlo analysis/simulation. A method of identifying the potential impacts of risk and uncertainty using multiple iterations of a computer model to develop a probability distribution of a range of outcomes that could result from a decision or course of action.
+most likely duration. An estimate of the most probable activity duration that takes into account all of the known variables that could affect performance. See also optimistic duration and pessimistic duration.
+multicriteria decision analysis. A technique that utilizes a decision matrix to provide a systematic, analytical approach for establishing criteria, such as risk levels, uncertainty, and valuation, to evaluate and rank many ideas.
+multipoint estimating. A method used to estimate cost or duration by applying an average or weighted average of optimistic, pessimistic, and most likely estimates when there is uncertainty with the individual activity estimates.
+near-critical activity. An activity with a total float that is deemed to be low based on expert judgment. See also critical path, free float, near-critical path, and total float.
+near-critical path. A sequence of activities with low float that, if exhausted, becomes a critical path sequence for the project. See also critical path, free float, near-critical activity, and total float.
+network logic. All activity dependencies in a project schedule network diagram. See also early finish (EF) date, early start (ES) date, late finish (LF) date, late start (LS) date, and network path.
+network path. A sequence of activities connected by logical relationships in a project schedule network diagram. See also early finish (EF) date, early start (ES) date, late finish (LF) date, late start (LS) date, and network logic.
+node. A point at which dependency lines connect on a schedule network diagram. See also precedence diagramming method and project schedule network diagram.
+objective. Something toward which work is to be directed—a strategic position to be attained, a purpose to be achieved, a result to be obtained, a product to be produced, or a service to be performed.
+objectives and key results (OKRs). A goal-setting framework used to define and track objectives and their outcomes. OKRs are typically used in business settings to align individual, team, and organizational goals with measurable results.
+opportunity. A risk that would have a positive effect on one or more portfolio, program, or project objectives.
+optimistic duration. An estimate of the shortest activity duration that takes into account all of the known variables that could affect performance. See also most likely duration and pessimistic duration.
+organizational breakdown structure. A hierarchical representation of the project organization that illustrates the relationship between project activities and the organizational units that will perform those activities. See also resource breakdown structure, risk breakdown structure, and work breakdown structure (WBS).
+organizational change management. A comprehensive, cyclic, and structured approach for transitioning individuals, groups, and organizations from the current state to a future state with intended business benefits.
+organizational process assets (OPAs). Plans, processes, policies, procedures, regulations, and knowledge bases specific to and used by the performing organization.
+organizational project management (OPM). A framework in which portfolio, program, and project management are integrated with organizational enablers in order to achieve strategic objectives.
+organizational project management maturity. The level of an organization's ability to deliver the desired strategic outcomes in a predictable, controllable, and reliable manner.
+outcome. An end result or consequence of a process or project.
+output. A product, result, or service generated by a process. May be an input to a successor process.
+overall risk. The effect of uncertainty on the portfolio, program, or project as a whole.
+parametric estimating. An estimating technique in which an algorithm is used to calculate cost or duration based on historical data and project parameters. See also analogous estimating, bottom-up estimating, program evaluation and review technique (PERT), and multipoint estimating.
+path convergence. A relationship in which a schedule activity has more than one predecessor. See also path divergence, predecessor activity, and successor activity.
+path divergence. A relationship in which a schedule activity has more than one successor. See also path convergence, predecessor activity, and successor activity.
+percent complete. An estimate expressed as a percent of the amount of work that has been completed on an activity or a work breakdown structure component.
+performance measurement baseline. Integrated scope, schedule, and cost baselines used for comparison to manage, measure, and control project execution. See also baseline, cost baseline, schedule baseline, and scope baseline.
+performing organization. An enterprise whose personnel are the most directly involved in doing the work of the program or project.
+personas. An archetype user representing a set of similar end users described with their goals, motivations, and representative personal characteristics.
+PESTLE analysis. A strategic planning tool used to systematically evaluate political, economic, sociocultural, technological, legal, and environmental factors. These factors provide a view of the project's external operating environment and indicate potential opportunities and threats.
+pessimistic duration. An estimate of the longest activity duration that takes into account all of the known variables that could affect performance. See also most likely duration and optimistic duration.
+phase gate. A review at the end of a phase in which a decision is made to continue to the next phase, to continue with modification, or to end a program or project. See also project phase.
+plan-do-check-act (PDCA). An iterative management method used in organizations to facilitate the control and continual improvement of processes and products.
+planned value (PV). The authorized budget assigned to scheduled work. See also actual cost (AC), budget at completion (BAC), earned value (EV), estimate at completion (EAC), and estimate to complete (ETC).
+portfolio. A collection of programs, projects, and operations managed as a group to maximize overall value delivery and achieve strategic objectives, meet mandatory obligations, or generate income streams. See also program and project.
+portfolio balancing. The process of optimizing the mix of portfolio components to further the strategic objectives of the organization.
+portfolio charter. A document issued by a sponsor that authorizes and specifies the portfolio structure and links the portfolio to the organization's strategic objectives. See also program charter and project charter.
+portfolio management. The centralized management of one or more portfolios to achieve strategic objectives. See also program management and project management.
+portfolio management plan. A document that specifies how a portfolio will be organized, monitored, and controlled. See also program management plan and project management plan.
+portfolio manager. The person or group assigned by the performing organization to establish, balance, monitor, and control portfolio components in order to achieve strategic business objectives. See also program manager and project manager.
+precedence diagramming method. A technique used for constructing a schedule model in which activities are represented by nodes and are graphically linked by one or more logical relationships to show the sequence in which the activities are to be performed. See also node and project schedule network diagram.
+predecessor activity. An activity that logically comes before a dependent activity in a schedule. See also successor activity and summary activity.
+predictive approach. A development approach in which the project scope, time, and cost are determined in the early phases of the life cycle.
+preventive action. An intentional activity that ensures the future performance of the project work is aligned with the project management plan. See also corrective action.
+probability and impact matrix. A grid for mapping the probability of occurrence of each risk and its impact on project objectives if that risk occurs. See also risk.
+process. A systematic series of activities directed toward causing an end result such that one or more inputs will be acted upon to create one or more outputs.
+process flow. A business analysis model that visually shows the steps taken in a process by a human user as it interacts with an implementation. A set of steps taken by a system can be shown in a similar model as a system flow.
+procurement management plan. A component of the program or project management plan that describes how a team will acquire goods and services from outside of the performing organization. See also project management plan.
+product. An artifact that is produced, is quantifiable, and can be either an end item in itself or a component item.
+product backlog. An ordered list of user-centric requirements that a team maintains for a product. See also backlog.
+product life cycle. A series of phases that represent the evolution of a product throughout its creation and delivery, from conception through growth, maturity, and to decline/retirement.
+product management. The integration of people, data, processes, and business systems to create, maintain, and evolve a product or service throughout its life cycle.
+product owner. A person responsible for maximizing the value of the product and accountable for the end product.
+product scope. A description of the features, functions, and characteristics of the product, service, or result the project is intended to deliver.
+product team. A cross-functional group of individuals responsible for defining, building, and evolving a product to deliver value to customers and stakeholders. Typically formed for the duration of the product life cycle.
+program. A group of related projects and program activities managed in a coordinated manner to obtain benefits not available from managing them individually. See also portfolio and project.
+program charter. A document issued by a sponsor that authorizes the program management team to use organizational resources to execute the program and links the program to the organization's strategic objectives. See also portfolio charter and project charter.
+program evaluation and review technique (PERT). A technique used to estimate project duration through a weighted average of optimistic, pessimistic, and most likely activity durations when there is uncertainty with the individual activity estimates. See also analogous estimating, bottom-up estimating, parametric estimating, and multipoint estimating.
+program management. The application of knowledge, skills, and principles to a program to achieve the program objectives and to obtain benefits and control not available by managing program components individually. See also portfolio management and project management.
+program management office. A management entity that standardizes the program-related governance processes and facilitates the sharing of resources, methodologies, tools, and techniques to maximize the return on program investments. See also project management office (PMO).
+program management plan. A document that integrates the program's subsidiary plans and establishes the management controls and overall plan for integrating and managing the program's individual components. See also portfolio management plan and project management plan.
+program manager. The person authorized by the performing organization to lead the team or teams responsible for achieving program objectives. See also portfolio manager and project manager.
+progressive elaboration. The iterative process of increasing the level of detail in a project management plan as greater amounts of information and more accurate estimates become available. See also rolling wave planning.
+project. A temporary initiative in a unique context undertaken to create value. See also portfolio and program.
+project budget. The sum of work package cost estimates, contingency reserve, and management reserve. See also contingency reserve and management reserve.
+project calendar. A calendar that identifies working days and shifts that are available for scheduled activities.
+project charter. A document issued by the project initiator or sponsor that formally authorizes the existence of a project and provides the project manager with the authority to apply organizational resources to project activities. See also portfolio charter and program charter.
+project governance. The framework, functions, and processes that guide project management activities in order to meet or exceed target project objectives.
+project life cycle. The series of phases that a project passes through from its start to its completion. See also product life cycle.
+project management. The application of knowledge, skills, tools, and techniques to project activities to meet or exceed the intended value. See also portfolio management and program management.
+project management information system (PMIS). An information system consisting of the tools and techniques used to gather, integrate, and disseminate the outputs of project management processes.
+project management office (PMO). An organizational entity, typically established as a department or team, primarily tasked with centralizing activities related to the management of portfolios, programs, and/or projects. The nature of these activities can vary according to the unique needs of each organization. See also program management office.
+project management plan. The document that describes how the project will be executed, monitored and controlled, and closed. See also portfolio management plan, program management plan, change management plan, communications management plan, configuration management plan, financial management plan, iteration plan, procurement management plan, quality management plan, requirements management plan, release plan, resource management plan, risk management plan, schedule management plan, scope management plan, sourcing strategy plan, stakeholder engagement plan, and test plan.
+project management team. The members of the project team who are directly involved in project management activities.
+project manager. The person assigned by the performing organization to lead the team that is responsible for achieving the project objectives. See also portfolio manager and program manager.
+project organization chart. A document that graphically depicts the project team members and their interrelationships for a specific project.
+project phase. A collection of logically related project activities that culminates in the completion of one or more deliverables. See also phase gate.
+project schedule. An output of a schedule model that presents linked activities with planned dates, durations, milestones, and resources.
+project schedule network diagram. A graphical representation of the logical relationships among the project schedule activities. See also node and precedence diagramming method.
+project scope. The work performed to deliver a product, service, or result with the specified features and functions.
+project scope statement. The description of the project scope, major deliverables, assumptions, and constraints.
+project success. The consensus view across intended beneficiaries, other stakeholders, and project participants that a project was perceived to have delivered value that was worth the effort and expense.
+project team. A set of individuals performing the work of the project to achieve its objectives.
+projectized organization. An organizational structure in which the project manager has full authority to assign work and apply resources. See also functional organization and matrix organization.
+psychological safety. A shared belief within a team that members will be accepted, can speak up, take risks, and express ideas or concerns without fear of negative consequences.
+qualitative risk analysis. The consideration of a range of characteristics such as probability of occurrence, degree of impact on the objectives, manageability, timing of possible impacts, relationships with other risks, and common causes or effects.
+quality audit. A structured, independent process to determine if project activities comply with organizational and project policies, processes, and procedures.
+quality management plan. A component of the program or project management plan that describes how an organization's policies, procedures, and guidelines will be implemented to achieve the quality objectives. See also project management plan.
+quantitative risk analysis. A process that uses numerical methods to estimate risk effects. It can be applied to individual risks to quantify probability, impact, and severity, and can also model the combined effect of identified risks on overall objectives to inform reserves and responses.
+RACI (responsible, accountable, consulted, informed) matrix. A type of responsibility assignment matrix that uses responsible, accountable, consulted, and informed statuses to define the involvement of stakeholders in project activities.
+readiness assessment. An assessment that occurs as the organization approaches solution deployment. It helps the organization understand the extent to which the organization is prepared for the transition and evaluates the organization's readiness to integrate and sustain the solution.
+regression analysis. An analytical method where a series of input variables are examined in relation to their corresponding output results in order to develop a mathematical or statistical relationship.
+relative estimating. A method for creating estimates that are derived from performing a comparison against a similar body of work, taking effort, complexity, and uncertainty into consideration.
+release. One or more components of one or more products, which are intended to be put into production at the same time.
+release plan. The plan that sets expectations for the dates, features, and/or outcomes expected to be delivered over the course of multiple iterations. See also project management plan.
+release planning. The process of identifying a high-level plan for releasing or transitioning a product, deliverable, or increment of value.
+requirement. A condition or capability that is necessary to be present in a product, service, or result to satisfy a business need.
+requirements management plan. A component of the program or project management plan that describes how requirements will be analyzed, documented, and managed. See also project management plan.
+requirements traceability matrix. A grid that links product requirements from their origin to the deliverables that satisfy them.
+reserve. A provision in the project management plan to mitigate cost and/or schedule risks, often used with a modifier (e.g., management reserve, contingency reserve) to provide further detail on what types of risk are meant to be mitigated.
+reserve analysis. A method used to evaluate the amount of risk on the project and the amount of schedule and budget reserve to determine whether the reserve is sufficient for the remaining risk.
+residual risk. The risk that remains after risk responses have been implemented. See also secondary risk.
+resource breakdown structure. A hierarchical representation of resources by category and type. See also organizational breakdown structure, risk breakdown structure, and work breakdown structure (WBS).
+resource calendar. A calendar that identifies the working days and shifts during which each specific resource is available.
+resource leveling. A resource optimization technique in which adjustments are made to the project schedule to optimize the allocation of resources and which may affect the critical path. See also resource smoothing and resource optimization technique.
+resource management plan. A component of the project management plan that describes how project resources are acquired, allocated, monitored, and controlled. See also project management plan.
+resource optimization technique. A technique in which activity start and finish dates are adjusted to balance demand for resources with the available supply. See also resource leveling and resource smoothing.
+resource smoothing. A resource optimization technique in which free and total float are used without affecting the critical path. See also resource leveling and resource optimization technique.
+response strategy. A high-level approach to address an individual risk or overall risk, broken down into a set of risk actions.
+responsibility. An assignment that can be delegated within a portfolio, program, or project management plan such that the assigned resource incurs a duty to perform the requirements of the assignment.
+responsibility assignment matrix. A grid that shows the project resources assigned to each work package.
+result. An output from performing project management processes and activities. See also deliverable.
+retrospective. A regularly occurring workshop in which participants explore their work and results in order to improve both the process and product.
+review. A meeting held at the end of an iteration to demonstrate the work that was accomplished during the iteration. See also sprint review.
+rework. Action taken to bring a defective or nonconforming component into compliance with requirements or specifications.
+risk. An uncertain event or condition that, if it occurs, has a positive or negative effect on one or more portfolio, program, or project objectives. See also issue, opportunity, and threat.
+risk acceptance. A risk response strategy that involves acknowledging the risk and taking no action unless it occurs. Acceptance of the risk's implication(s) usually means using schedule and/or cost reserves and accepting scope and/or quality reduction(s). See also risk avoidance, risk enhancement, risk exploiting, risk mitigation, risk sharing, and risk transference.
+risk action. A detailed task that implements, in whole or in part, a response strategy in order to address an individual risk or overall risk.
+risk action owner. The person(s) responsible for carrying out the approved risk actions when responding to a given risk. Also known as a response owner.
+risk analysis. The activities related to defining the characteristics of a risk and the degree to which it can impact objectives.
+risk appetite. The degree of uncertainty an organization or individual is willing to accept in anticipation of a reward. See also risk threshold.
+risk assessment. The process of identifying, analyzing, and determining the probability of occurrence of a risk and its impacts if it does occur.
+risk attitude. A disposition toward uncertainty, adopted explicitly or implicitly by individuals and groups, driven by perception, and evidenced by observable behavior.
+risk avoidance. A risk response strategy that involves eliminating the threat or protecting the portfolio, program, or project from its impact. See also risk acceptance, risk enhancement, risk exploiting, risk mitigation, risk sharing, and risk transference.
+risk breakdown structure. A hierarchical representation of potential sources of risk. See also organizational breakdown structure, resource breakdown structure, and work breakdown structure (WBS).
+risk category. A group of potential causes of risk.
+risk enhancement. A risk response strategy that involves increasing the probability of occurrence or impact of an opportunity. See also risk acceptance, risk avoidance, risk exploiting, risk mitigation, risk sharing, and risk transference.
+risk escalation. A risk response strategy that involves transferring the ownership of the risk to a relevant party in the organization because the risk is outside of scope or the team does not have sufficient authority to address it.
+risk exploiting. A risk response strategy whereby the project team acts to ensure that an opportunity occurs. See also risk acceptance, risk avoidance, risk enhancement, risk mitigation, risk sharing, and risk transference.
+risk exposure. An aggregate measure of the potential impact of all risks at any given point in time in a portfolio, program, or project.
+risk identification. The process of locating and profiling the characteristics of risks related to work objectives.
+risk management. Activities used to identify, analyze, respond to, and monitor risks at the enterprise, portfolio, program, or project level.
+risk management framework. A structure that organizes the process and activities of managing risks in an iterative fashion.
+risk management life cycle. A structured approach for undertaking a comprehensive view of risk throughout the enterprise, portfolio, program, and project domains.
+risk management plan. A component of the portfolio, program, or project management plan that describes how risk management activities will be structured and performed. See also project management plan.
+risk mitigation. A risk response strategy that involves decreasing the probability of occurrence or impact of a threat. See also risk acceptance, risk avoidance, risk enhancement, risk exploiting, risk sharing, and risk transference.
+risk owner. The person responsible for monitoring the risk and for selecting and implementing an appropriate risk response strategy.
+risk register. A repository in which outputs of risk management processes are recorded.
+risk response. An action, planned or implemented, to address particular threats and opportunities.
+risk sharing. A risk response strategy that involves allocating ownership of an opportunity to a third party that is best able to capture the opportunity or absorb the impact of the threat. See also risk acceptance, risk avoidance, risk enhancement, risk exploiting, risk mitigation, and risk transference.
+risk threshold. The measure of acceptable variation around an objective that reflects the risk appetite of the organization and stakeholders. See also risk appetite.
+risk tolerance. [deprecated] The degree of uncertainty that an organization or individual is willing to withstand. See also risk appetite and risk threshold.
+risk transference. A risk response strategy that involves shifting the impact of a threat to a third party, together with ownership of the response. See also risk acceptance, risk avoidance, risk enhancement, risk exploiting, risk mitigation, and risk sharing.
+roadmap. A high-level timeline that depicts such things as milestones, significant events, reviews, and decision points.
+rolling wave planning. An iterative planning technique in which the work to be accomplished in the near term is planned in detail, while the work in the future is planned at a higher level. See also progressive elaboration.
+root cause analysis. An analytical method used to determine the basic underlying reason that causes a variance, defect, or risk.
+rough order of magnitude (ROM) estimate. An initial estimate of the cost of a project or parts of a project, with a rough accuracy range. This estimate provides stakeholders and decision-makers with a general idea of the project cost's order of magnitude. The ROM estimate is refined over time as more information becomes available during the project, following the concept of progressive elaboration.
+rule-based systems. Early artificial intelligence systems that used hand-coded rules to make decisions based on logical conditions.
+schedule baseline. The approved version of a schedule model that can be changed using formal change control procedures and is used as the basis for comparison to actual results. See also baseline, cost baseline, performance measurement baseline, and scope baseline.
+schedule compression. A technique used to shorten the schedule duration without reducing the project scope. See also crashing and fast tracking.
+schedule forecasts. Estimates or predictions of conditions and events in the project's future based on information and knowledge available at the time the schedule is calculated.
+schedule management plan. A component of the program or project management plan that establishes the criteria and the activities for developing, monitoring, and controlling the schedule. See also project management plan.
+schedule model. A representation of the plan for executing the project's activities, including durations, dependencies, and other planning information, used to produce a project schedule along with other scheduling artifacts. See also schedule model analysis.
+schedule model analysis. A process used to investigate or analyze the output of the schedule model in order to optimize the schedule. See also schedule model.
+schedule network analysis. A technique used to identify early and late start dates, as well as early and late finish dates, for the uncompleted portions of project activities. See also early finish (EF) date, early start (ES) date, late finish (LF) date, and late start (LS) date.
+schedule performance index (SPI). A measure of schedule efficiency expressed as the ratio of earned value to planned value. See also cost performance index (CPI).
+schedule variance (SV). A measure of schedule performance expressed as the difference between the earned value and the planned value. See also cost variance (CV).
+scope baseline. The approved version of formal scope documents that can be changed using formal change control procedures and is used as the basis for comparison to actual results. See also baseline, cost baseline, performance measurement baseline, and schedule baseline.
+scope creep. The uncontrolled expansion to product or project scope without adjustments to time, cost, and resources.
+scope management plan. A component of the program or project management plan that describes how the scope will be defined, developed, monitored, controlled, and validated. See also project management plan.
+S-curve analysis. A technique used to indicate performance trends by using a graph that displays cumulative costs over a specific time period.
+secondary risk. A risk that arises as a direct result of implementing a risk response. See also residual risk.
+self-organizing team. A cross-functional team in which people fluidly assume leadership as needed to achieve the team's objectives.
+servant leadership. The practice of leading the team by focusing on understanding and addressing the needs and development of team members in order to enable the highest possible team performance.
+single-point estimating. An estimating method that involves using data to calculate a single value that reflects a best guess estimate.
+sourcing strategy plan. A component of the project management plan that describes which elements of the project will be insourced, outsourced, or both.
+spike. A timeboxed user story or task that is created in order to research a question or resolve a problem.
+sponsor. An individual or a group that provides resources and support for the portfolio, program, or project, and is accountable for enabling success. See also stakeholder.
+sprint. A timeboxed interval within a project during which a usable and potentially releasable increment of a product is created. See also iteration and timebox.
+sprint review. A collaborative review session where the team demonstrates the work that was completed during the sprint to stakeholders and solicits their feedback. See also review.
+stakeholder. An individual, group, or organization that may affect, be affected by, or perceive itself to be affected by a decision, activity, or outcome of a portfolio, program, or project. See also sponsor.
+stakeholder engagement. Activities conducted to identify and analyze stakeholder needs and manage expectations and communications to foster stakeholder support.
+stakeholder engagement assessment matrix. A matrix that compares current and desired stakeholder engagement levels.
+stakeholder engagement plan. A component of the program or project management plan that identifies the strategies and actions required to promote productive involvement of stakeholders in program or project decision-making and execution. See also project management plan.
+stakeholder register. A project document that contains information about project stakeholders including an assessment and classification of project stakeholders.
+start-to-finish (SF). A logical relationship in which a successor activity cannot finish until a predecessor activity has started. See also finish-to-finish (FF), finish-to-start (FS), start-to-start (SS), and logical relationship.
+start-to-start (SS). A logical relationship in which a successor activity cannot start until a predecessor activity has started. See also finish-to-finish (FF), finish-to-start (FS), start-to-finish (SF), and logical relationship.
+statement of work (SOW). A narrative description of products, services, or results to be delivered by the project.
+steering committee. An advisory body of senior stakeholders who provide direction and support for the portfolio, program, or project team and make decisions outside of the team's authority.
+story map. A visual model of all the features and functionality desired for a given product, created to give the team a holistic view of what they are building and why.
+story mapping. A visual practice for organizing work into a useful model to help understand the sets of high-value features to be created over time, identify omissions in the backlog, and effectively plan releases that deliver value to users.
+story point. A unit used to estimate the relative level of effort needed to implement a user story.
+successor activity. A dependent activity that logically comes after another activity in a schedule. See also predecessor activity and summary activity.
+summary activity. A group of related schedule activities aggregated and displayed as a single activity. See also predecessor activity and successor activity.
+sustainability. The practice of delivering outcomes at a pace and in a manner that can be maintained over time, balancing productivity with respect for people, materials, and the environment. This effort includes supporting team well-being and minimizing negative environmental impacts so that work remains viable for future generations.
+SWOT (strengths, weaknesses, opportunities, threats) analysis. Analysis of strengths, weaknesses, opportunities, and threats of an organization, project, or option.
+tailoring. The deliberate adaptation of approach, governance, and processes to make them more suitable for the given environment and the work at hand.
+task. A specific activity or work that needs to be completed in order to achieve a project goal.
+technical debt. The deferred cost of work not done at an earlier point in the product life cycle.
+test-driven development (TDD). A technique where tests are defined before work is begun, so that work in progress is validated continuously, enabling work with a zero-defect mindset.
+test plan. A document describing deliverables that will be tested, tests that will be conducted, and the processes that will be used in testing. See also project management plan.
+threat. A risk that would have a negative effect on one or more portfolio, program, or project objectives. See also issue, opportunity, and risk.
+throughput. The number of items passing through a process.
+time and materials (T&M) contract. A type of contract that is a hybrid contractual arrangement containing aspects of both cost-reimbursable and fixed-price contracts.
+timebox. A short, fixed period of time in which work is to be completed. See also iteration and sprint.
+to-complete performance index (TCPI). A measure of the cost performance that should be achieved with the remaining resources in order to meet a specified management goal, expressed as the ratio of the cost to finish the outstanding work to the remaining budget. See also actual cost (AC), budget at completion (BAC), earned value (EV), and estimate at completion (EAC).
+total cost of ownership. A financial estimate intended to help buyers and owners to determine the direct and indirect costs of a product or service.
+total float. The amount of time that a schedule activity can be delayed or extended from its early start date without delaying the project finish date or violating a schedule constraint. See also free float, critical path, near-critical activity, and near-critical path.
+traceability. The ability to track information across the product life cycle by establishing linkages among objects.
+trend analysis. An analytical method that uses mathematical models to forecast future outcomes based on historical results.
+trigger condition. An event or situation that indicates that a risk is about to occur.
+use case. An artifact for describing and exploring how a user interacts with a system to achieve a specific goal.
+user experience (UX). The process of focusing on improving the usability and accessibility to be found in the interaction between the user and the product.
+user story. A brief description of an outcome for a specific user, which is a promise for a conversation to clarify details.
+validation. The assurance that a product, service, or result meets the needs of the customer and other identified stakeholders. See also verification.
+value. The excess of financial and nonfinancial benefits over investment that is gained from achieving the goals of a portfolio, program, or project.
+value breakdown structure. A value breakdown structure is a work breakdown structure (WBS) with value estimates assigned to each element.
+value delivery office. A project delivery support structure that focuses on coaching teams, building agile skills and capabilities throughout the organization, and mentoring sponsors and product owners to be more effective in those roles.
+value delivery system. A collection of strategic business activities aimed at building, sustaining, and/or advancing an organization.
+value proposition. The value of a product or service that an organization communicates to its customers.
+value stream. An organizational construct that focuses on the flow of value to customers through the delivery of specific products or services.
+value stream map. A display of the critical steps in a process and the time taken in each step used to identify waste.
+variance. A quantifiable deviation, departure, or divergence away from a known baseline or expected value.
+variance analysis. A technique for determining the cause and degree of difference between the baseline and actual performance. See also cost variance (CV), schedule variance (SV), and variance at completion (VAC).
+variance at completion (VAC). A projection of the amount of budget deficit or surplus, expressed as the difference between the budget at completion and the estimate at completion. See also budget at completion (BAC), cost variance (CV), estimate at completion (EAC), and variance analysis.
+velocity. A measure of a team's productivity rate at which the deliverables are produced, validated, and accepted within a predefined interval.
+verification. The evaluation of whether or not a product, service, or result complies with a regulation, requirement, specification, or imposed condition. See also validation.
+waste. Activities that consume resources and/or time without adding value.
+WBS dictionary. A document that provides detailed deliverable, activity, scheduling, cost, and resource information about each component in the work breakdown structure. See also work breakdown structure (WBS).
+weighted milestone method. A method of estimating earned value in which the budget value of a work package is divided into measurable segments, each ending with a milestone that is assigned a weighted budget value. See also fixed formula method.
+what-if analysis. The process of evaluating scenarios in order to predict their effect on project objectives.
+workaround. An immediate and temporary response to a realized risk for which a prior response has not been planned or was not effective. See also risk mitigation.
+work breakdown structure (WBS). A hierarchical decomposition of the total scope of work to be carried out by the project team to accomplish the project objectives and create the required deliverables. See also organizational breakdown structure, resource breakdown structure, risk breakdown structure, and WBS dictionary.
+work in process (WIP). The project tasks or activities that are in progress but have not yet been completed.
+work package. The work defined at the lowest level of the work breakdown structure for which cost, effort, duration, and resources are estimated and managed.
+working agreements. Explicit, shared guidelines created by a team that describe how members will collaborate, communicate, and make decisions together. Working agreements support accountability, alignment, and effective interactions within the team.

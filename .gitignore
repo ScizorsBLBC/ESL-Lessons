@@ -28,6 +28,10 @@ dist-ssr
 .env.local
 .env.*.local
 
+# AI sentence generation cache (regenerate with npm run generate:olena-ai)
+scripts/olena-ai-sentences.json
+src/data/olenaData_updated.js
+
 ## Netlify local state
 .netlify
 

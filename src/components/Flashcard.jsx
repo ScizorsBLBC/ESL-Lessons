@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
 import { Paper, Box, Typography } from '@mui/material';
 
-// Helper function to detect if content contains HTML tags
 const isHtmlContent = (content) => {
   if (typeof content !== 'string') return false;
   return /<[^>]*>/.test(content);
 };
 
-const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onFlip }) => {
-  // Use external control if provided, otherwise use internal state
+const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onFlip, size = 'default' }) => {
   const [internalFlipped, setInternalFlipped] = useState(false);
 
-  // When using external control, always use the showBack prop
-  // When not using external control, reset to front when content changes
   React.useEffect(() => {
-    if (onFlip) {
-      // When using external control, we don't need to do anything special
-      // The showBack prop will control the state
-    } else {
-      // When using internal control, reset to front when content changes
+    if (!onFlip) {
       setInternalFlipped(false);
     }
   }, [frontContent, onFlip, showBack]);
@@ -26,13 +18,20 @@ const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onF
   const isFlipped = onFlip ? showBack : internalFlipped;
   const handleFlip = onFlip ? onFlip : () => setInternalFlipped(!internalFlipped);
 
+  const isLarge = size === 'large';
+  const cardHeight = isLarge ? 320 : 240;
+  const cardMaxWidth = isLarge ? 480 : 360;
+
   return (
     <Box
       sx={{
         perspective: '1000px',
-        width: '300px',
-        height: '200px',
+        width: '100%',
+        maxWidth: cardMaxWidth,
+        minWidth: 280,
+        height: cardHeight,
         cursor: 'pointer',
+        mx: 'auto',
       }}
       onClick={handleFlip}
     >
@@ -48,7 +47,7 @@ const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onF
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          p: 3,
+          p: { xs: 2, sm: 3 },
           borderRadius: 3,
           '&:hover': {
             transform: isFlipped ? 'rotateY(180deg) scale(1.02)' : 'rotateY(0deg) scale(1.02)',
@@ -56,20 +55,19 @@ const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onF
           },
         }}
       >
-        {/* Front of card - only show when not flipped */}
         {!isFlipped && (
           <Box
             sx={{
               position: 'absolute',
-              width: '100%',
-              height: '100%',
+              inset: 0,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               zIndex: 2,
+              px: 2,
             }}
           >
-            <Box sx={{ width: '100%', textAlign: 'center', maxWidth: '280px' }}>
+            <Box sx={{ width: '100%', textAlign: 'center' }}>
               {React.isValidElement(frontContent) ? (
                 frontContent
               ) : isHtmlContent(frontContent) ? (
@@ -87,30 +85,33 @@ const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onF
           </Box>
         )}
 
-        {/* Back of card - only show when flipped */}
         {isFlipped && (
           <Box
             sx={{
               position: 'absolute',
-              width: '100%',
-              height: '100%',
+              inset: 0,
               display: 'flex',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               justifyContent: 'center',
               transform: 'rotateY(-180deg)',
               zIndex: 2,
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              px: 2,
+              py: 2,
             }}
           >
-            <Box sx={{ width: '100%', textAlign: 'center', maxWidth: '280px' }}>
+            <Box sx={{ width: '100%', textAlign: 'left' }}>
               {React.isValidElement(backContent) ? (
                 backContent
               ) : isHtmlContent(backContent) ? (
                 <Typography
                   variant="body1"
                   sx={{
-                    textAlign: 'center',
+                    textAlign: 'left',
                     whiteSpace: 'pre-line',
-                    lineHeight: 1.6
+                    lineHeight: 1.55,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
                   }}
                   dangerouslySetInnerHTML={{ __html: backContent }}
                 />
@@ -118,9 +119,10 @@ const Flashcard = React.memo(({ frontContent, backContent, showBack = false, onF
                 <Typography
                   variant="body1"
                   sx={{
-                    textAlign: 'center',
+                    textAlign: 'left',
                     whiteSpace: 'pre-line',
-                    lineHeight: 1.6
+                    lineHeight: 1.55,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
                   }}
                 >
                   {backContent}

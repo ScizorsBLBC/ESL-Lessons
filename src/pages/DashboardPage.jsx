@@ -4,6 +4,7 @@ import { Box, Typography, Paper, Link, Select, MenuItem, TextField, Button, Stac
 import { vocabularyData } from '../data/vocabularyData.js';
 import { idiomData } from '../data/idiomData.js';
 import { entrepreneurVocabularyData } from '../data/bainurData.js';
+import { olenaVocabularyData } from '../data/olenaData.js';
 import { getStudentNames, getLessonsByStudent } from '../data/studentLessonsData.js';
 import { lessonRoutes } from '../LessonRoutes.jsx';
 import LessonTabs from '../components/LessonTabs';
@@ -82,19 +83,23 @@ export default function DashboardPage() {
     const [activeTab, setActiveTab] = useState(0);
     const [selectedVocabLesson, setSelectedVocabLesson] = useState(1);
     const [selectedIdiomLesson, setSelectedIdiomLesson] = useState(1);
+    const [selectedOlenaLesson, setSelectedOlenaLesson] = useState(1);
     const [selectedBainurLesson, setSelectedBainurLesson] = useState(1);
+    const [selectedStudentLessonType, setSelectedStudentLessonType] = useState('student');
     const [selectedStudent, setSelectedStudent] = useState('');
     const [selectedLesson, setSelectedLesson] = useState('');
     const [copySuccess, setCopySuccess] = useState('');
 
-    const sections = ["Lesson Navigation", "Curated News", "Article Manager", "Vocabulary", "Idioms", "Bainur's Vocab", "Student Lessons"];
+    const sections = ["Lesson Navigation", "Curated News", "Article Manager", "Vocabulary", "Idioms", "Student Lessons"];
 
 
     // --- Event Handlers ---
     const handleTabChange = (event, newValue) => setActiveTab(newValue);
     const handleVocabSelectChange = (event) => setSelectedVocabLesson(event.target.value);
     const handleIdiomSelectChange = (event) => setSelectedIdiomLesson(event.target.value);
+    const handleOlenaSelectChange = (event) => setSelectedOlenaLesson(event.target.value);
     const handleBainurSelectChange = (event) => setSelectedBainurLesson(event.target.value);
+    const handleStudentLessonTypeChange = (event) => setSelectedStudentLessonType(event.target.value);
     const handleStudentSelectChange = (event) => {
         const student = event.target.value;
         setSelectedStudent(student);
@@ -200,29 +205,85 @@ export default function DashboardPage() {
             )}
 
             {activeTab === 5 && (
-                <Section title="Bainur's Vocabulary Lesson Link Generator" instructions="Select a lesson to generate a direct shareable link for your student.">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
-                        <Select value={selectedBainurLesson} onChange={handleBainurSelectChange}>
-                            {entrepreneurVocabularyData.lessons.map((lesson) => (
-                                <MenuItem key={lesson.lesson} value={lesson.lesson}>
-                                    Lesson {lesson.lesson}: {lesson.title}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                            <TextField fullWidth readOnly value={createShareLink('bainur-vocabulary', selectedBainurLesson)} variant="outlined" size="small" />
-                            <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
-                                <Button variant="text" onClick={() => copyToClipboard('bainur-vocabulary', selectedBainurLesson)} startIcon={<ContentCopyIcon />}>Copy</Button>
-                            </GlassButtonWrapper>
-                        </Box>
-                        {copySuccess && <Typography color="secondary.main" sx={{ textAlign: 'center' }}>{copySuccess}</Typography>}
-                    </Box>
-                </Section>
-            )}
-
-            {activeTab === 6 && (
                 <Section title="Student Lessons" instructions="Select a student and lesson date to access custom lesson files.">
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 2 }}>
+                        <Box>
+                            <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>Select Lesson Type</Typography>
+                            <Select
+                                value={selectedStudentLessonType}
+                                onChange={handleStudentLessonTypeChange}
+                                fullWidth
+                            >
+                                <MenuItem value="student">Student Custom Lessons</MenuItem>
+                                <MenuItem value="olena">Olena&apos;s Vocabulary</MenuItem>
+                                <MenuItem value="bainur">Bainur&apos;s Vocabulary</MenuItem>
+                            </Select>
+                        </Box>
+
+                        {selectedStudentLessonType === 'olena' && (
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                                <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>Select Lesson (Date / Lesson #)</Typography>
+                                <Select value={selectedOlenaLesson} onChange={handleOlenaSelectChange}>
+                                    {olenaVocabularyData.lessons.map((lesson) => (
+                                        <MenuItem key={lesson.lesson} value={lesson.lesson}>
+                                            Lesson {lesson.lesson}: {lesson.title}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <TextField fullWidth readOnly value={createShareLink('olena-vocabulary', selectedOlenaLesson)} variant="outlined" size="small" />
+                                    <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
+                                        <Button variant="text" onClick={() => copyToClipboard('olena-vocabulary', selectedOlenaLesson)} startIcon={<ContentCopyIcon />}>Copy</Button>
+                                    </GlassButtonWrapper>
+                                    <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
+                                        <Button
+                                            variant="text"
+                                            href={createShareLink('olena-vocabulary', selectedOlenaLesson)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            startIcon={<OpenInNewIcon />}
+                                        >
+                                            Open
+                                        </Button>
+                                    </GlassButtonWrapper>
+                                </Box>
+                                {copySuccess && <Typography color="secondary.main" sx={{ textAlign: 'center' }}>{copySuccess}</Typography>}
+                            </Box>
+                        )}
+
+                        {selectedStudentLessonType === 'bainur' && (
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                                <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>Select Lesson (Date / Lesson #)</Typography>
+                                <Select value={selectedBainurLesson} onChange={handleBainurSelectChange}>
+                                    {entrepreneurVocabularyData.lessons.map((lesson) => (
+                                        <MenuItem key={lesson.lesson} value={lesson.lesson}>
+                                            Lesson {lesson.lesson}: {lesson.title}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <TextField fullWidth readOnly value={createShareLink('bainur-vocabulary', selectedBainurLesson)} variant="outlined" size="small" />
+                                    <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
+                                        <Button variant="text" onClick={() => copyToClipboard('bainur-vocabulary', selectedBainurLesson)} startIcon={<ContentCopyIcon />}>Copy</Button>
+                                    </GlassButtonWrapper>
+                                    <GlassButtonWrapper sx={{ py: 0.5, px: 1, borderRadius: '8px' }}>
+                                        <Button
+                                            variant="text"
+                                            href={createShareLink('bainur-vocabulary', selectedBainurLesson)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            startIcon={<OpenInNewIcon />}
+                                        >
+                                            Open
+                                        </Button>
+                                    </GlassButtonWrapper>
+                                </Box>
+                                {copySuccess && <Typography color="secondary.main" sx={{ textAlign: 'center' }}>{copySuccess}</Typography>}
+                            </Box>
+                        )}
+
+                        {selectedStudentLessonType === 'student' && (
+                            <>
                         {/* Student Selector */}
                         <Box>
                             <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>Select Student</Typography>
@@ -246,7 +307,7 @@ export default function DashboardPage() {
                         {/* Lesson Selector - Only show if student is selected */}
                         {selectedStudent && (
                             <Box>
-                                <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>Select Lesson Date</Typography>
+                                <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>Select Lesson (Date / Lesson #)</Typography>
                                 <Select 
                                     value={selectedLesson} 
                                     onChange={handleLessonSelectChange}
@@ -256,9 +317,9 @@ export default function DashboardPage() {
                                     <MenuItem value="" disabled>
                                         <em>Choose a lesson...</em>
                                     </MenuItem>
-                                    {getLessonsByStudent(selectedStudent).map((lesson) => (
+                                    {getLessonsByStudent(selectedStudent).map((lesson, index) => (
                                         <MenuItem key={lesson.date} value={lesson.date}>
-                                            {lesson.date} {lesson.title ? `- ${lesson.title}` : ''}
+                                            {lesson.date} / Lesson {index + 1} {lesson.title ? `- ${lesson.title}` : ''}
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -362,6 +423,8 @@ export default function DashboardPage() {
                             <Typography variant="body2" sx={{ textAlign: 'center', color: 'text.secondary', py: 4 }}>
                                 Select a lesson date to view the lesson
                             </Typography>
+                        )}
+                            </>
                         )}
                     </Box>
                 </Section>
