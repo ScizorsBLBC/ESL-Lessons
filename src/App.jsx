@@ -14,6 +14,7 @@ import NewsArticlePage from './pages/lessons/NewsArticlePage';
 import VocabularyPage from './pages/lessons/VocabularyPage';
 import IdiomPage from './pages/lessons/IdiomPage';
 import BainurVocabularyPage from './pages/lessons/BainurVocabularyPage';
+import OlenaVocabularyPage from './pages/lessons/OlenaVocabularyPage';
 import YusukeStrategicCommunication from './pages/student-lessons/YusukeStrategicCommunication';
 
 // Import the lesson routes (FIX: Capitalized filename)
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="news/:slug/:level" element={<NewsArticlePage />} />
         <Route path="vocabulary/:lessonId" element={<VocabularyPage />} />
         <Route path="idioms/:lessonId" element={<IdiomPage />} />
+        <Route path="olena-vocabulary/:lessonId" element={<OlenaVocabularyPage />} />
         <Route path="bainur-vocabulary/:lessonId" element={<BainurVocabularyPage />} />
         <Route path="student-lessons/yusuke/1-7-2026" element={<YusukeStrategicCommunication />} />
 

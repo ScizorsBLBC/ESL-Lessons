@@ -7,12 +7,15 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:olena-ai": "node scripts/generate-olena-sentences-gemini.mjs",
+    "generate:olena": "node scripts/generate-olena-sentences-gemini.mjs && node scripts/generate-olena-data.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@gawryco/reactquiz-engine": "^0.1.1",
+    "@google/generative-ai": "^0.24.1",
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "^7.3.2",
     "axios": "^1.12.2",
